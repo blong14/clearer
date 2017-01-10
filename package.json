@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Project Zebra",
   "repository": {
-    "url": "git@github.com:joshmobley/zebra.git",
+    "url": "https://github.com/joshmobley/zebra.git",
     "type": "git"
   },
   "author": "Project Zebra",
