@@ -14,7 +14,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
 import { IdeaComponent } from './idea/idea.component';
 
-//import { PhaseOneComponent } from './idea/phase-1/phase-1.component';
+// need to finish phase'd approach to idea list
+import { PhaseOneComponent } from './idea/phase-1/phase-1.component';
 
 @NgModule({
     declarations: [
