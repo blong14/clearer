@@ -1,0 +1,63 @@
+<header-component></header-component>
+
+<main id="idea" *ngIf="idea">
+
+    <phase-one></phase-one>
+
+    <div class="idea-sandbox">
+
+        <div class="idea-banner">
+            <h2>
+                <small>Phase 1:</small>
+                Generate Ideas
+            </h2>
+            <span class="next-phase">
+                Phase 2:<br/>
+                Begins in 8:02:21
+            </span>
+        </div>
+
+        <div *ngIf="idea.currentPhase == 1">
+            <h3>Add your idea:</h3>
+            <form>
+               <fieldset>
+                    <textarea></textarea>
+                    <div class="form-utilities">
+                        <button class="primary-cta btn btn-primary">Add Idea</button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+
+        <p *ngIf="idea.currentPhase == 1.1" class="alert alert-info">
+            Use your votes to choose which ideas you believe the team should explore.<br/>
+            You've used 0 of 4 total votes.
+        </p>
+
+        <div class="list">
+            <h3>Current Ideas:</h3>
+            <div *ngFor="let currentIdea of idea.ideas">
+                <p>{{ currentIdea.text }}</p>
+                <a *ngIf="idea.currentPhase == 1.1" class="btn btn-secondary">{{ currentIdea.votes }}</a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="idea-sidebar">
+
+        <h1>{{ idea.title }}</h1>
+
+        <h3>Description:</h3>
+        <p>{{ idea.description }}</p>
+
+        <h3>Goals:</h3>
+        <ul>
+            <li *ngFor="let goal of idea.goals">{{ goal.name }}</li>
+        </ul>
+
+    </div>
+
+</main>
+
+<footer-component></footer-component>

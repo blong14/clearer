@@ -1,0 +1,17 @@
+main{
+    background: #eee;
+    zoom: 1;
+    padding: 2em;
+}
+
+main:after{
+    content: '';
+    height: 0;
+    clear: both;
+    display: block;
+    visibility: hidden;
+}
+
+.btn{
+    cursor: pointer;
+}

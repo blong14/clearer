@@ -1,0 +1,30 @@
+{
+    "id": "1001",
+    "title" : "This is my idea title",
+    "description" : "This is the description",
+    "goals" : [
+        {
+            "name" : "To kick major ass"
+        },{
+            "name" : "To get super rich"
+        },{
+            "name" : "To fund H&A and a private aircraft"
+        }
+    ],
+    "owner" : "1002",
+    "team" : "1001",    
+    "currentPhase" : "1",
+    "ideas" : [{
+            "text": "Active Lorem ipsum dolor.",
+            "status": "active",
+            "owner": "Josh"
+        },{
+            "text": "Active Lorem ipsum dolor.",
+            "status": "active",
+            "owner": "Marie"
+        },{
+            "text": "Active Lorem ipsum dolor.",
+            "status": "active",
+            "owner": "Josh"
+        }]
+}
