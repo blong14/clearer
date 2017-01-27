@@ -4,7 +4,9 @@ import { DataService } from '../data.service';
 @Component({
     selector: 'dashboard-component',
     templateUrl: 'dashboard.component.html',
+    providers:[ DataService ]
 })
+
 export class DashboardComponent {
 
     ideas: any;

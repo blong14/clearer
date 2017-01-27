@@ -1,6 +1,6 @@
 [{
             "id": "1001",
-            "title" : "This is my idea title",
+            "title" : "Beginning phase 1",
             "description" : "This is the description",
             "goals" : [{
                 "0" : {
@@ -17,7 +17,24 @@
             
 },{
             "id": "1002",
-            "title" : "This is another idea title",
+            "title" : "Ending Phase 1",
+            "description" : "This is the description",
+            "goals" : {
+                "0" : {
+                    "name" : "To kick major ass"
+                },
+                "1" : {
+                    "name" : "To get super rich"
+                },
+                "2" : {
+                    "name" : "To fund H&A and a private aircraft"
+                }
+            },
+            "owner" : "1002",
+            "team" : "1001"
+    },{
+            "id": "1003",
+            "title" : "Beginning Phase 2",
             "description" : "This is the description",
             "goals" : {
                 "0" : {

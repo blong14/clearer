@@ -1,0 +1,33 @@
+<div class="content">
+    <div class="header">
+        <h1>Phase 1: Generate Ideas</h1>
+    </div>
+</div>
+
+<div class="content">
+    <h3>Add an idea:</h3>
+    <form class="ui form">
+        <textarea></textarea>
+        <a class="ui primary button right floated">Add Idea</a>
+    </form>
+</div>
+
+<div class="content">
+    <div class="header">
+        <h2>Current Ideas:</h2>
+    </div>
+    <div class="ui relaxed divided list">
+        <div class="item" *ngFor="let currentIdea of idea.ideas; let i = index">
+            <p class="header left floated ">{{ currentIdea.text }}</p>
+                <button 
+                    *ngIf="idea.currentPhase == 1.1" 
+                    class="ui labeled icon button basic right floated"
+                    (click)="toggleState(i)"
+                    [class.positive]="isSelected(i)"
+                >
+                    <i class="plus icon"></i>
+                    {{ currentIdea.votes }}
+                </button>
+        </div>
+    </div>
+</div>

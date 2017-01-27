@@ -1,0 +1,34 @@
+<div class="content">
+    <div class="header">
+        <h1>Phase 1: Generate Ideas</h1>
+    </div>
+</div>
+
+<div class="content">
+    <p class="ui compact message">
+        Use your votes to choose which ideas you believe the team should explore.
+    </p>
+    <br/>
+    <p class="ui compact message" [class.info]="totalVotes != 0" [class.error]="totalVotes == 0">
+        You have {{ totalVotes }} votes left.
+    </p>
+</div>
+
+<div class="content">
+    <div class="header">
+        <h2>Current Ideas:</h2>
+    </div>
+    <div class="ui relaxed divided list">
+        <div class="item" *ngFor="let currentIdea of idea.ideas; let i = index">
+            <p class="header left floated ">{{ currentIdea.text }}</p>
+                <button
+                    class="ui labeled icon button basic right floated"
+                    (click)="toggleState(i)"
+                    [class.positive]="isSelected(i)"
+                >
+                    <i class="plus icon"></i>
+                    {{ currentIdea.votes }}
+                </button>
+        </div>
+    </div>
+</div>

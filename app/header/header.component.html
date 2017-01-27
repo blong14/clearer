@@ -1,11 +1,7 @@
-<header class="bg-inverse text-white container-fluid">
-    <div class="row">
-        <div class="text-white col-6 col-md-8 col-lg-10 col-xl-10">
-            <a routerLink="/" class="logo">Zebra</a>
+<header id="app-header">
+        <a routerLink="/" class="ui button black">Zebra</a>
+        <div class="header-buttons">
+            <a *ngIf="!user" routerLink="login" class="ui primary button">Login</a>
+            <a *ngIf="user" (click)="logout()" class="ui button">Logout</a>
         </div>
-        <div class="col-6 col-md-4 col-lg-2 col-xl-2">
-            <a *ngIf="!user" routerLink="login" class="btn btn-primary col-12">Login</a>
-            <a *ngIf="user" (click)="logout()" class="btn btn-secondary col-12 text-muted">Logout</a>
-        </div>
-    </div>
 </header>

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
+import { ActivatedRoute } from '@angular/router';
 
 import { Idea } from './models/idea.interface';
 import { Observable } from 'rxjs/Observable';
@@ -9,7 +10,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class DataService {
 
-    constructor( public http : Http ) { }
+    constructor( private http : Http, private route: ActivatedRoute ) { }
 
     getData(): Observable<Idea[]>{
         return this.http.get('../_data/ideas.json').map(
@@ -29,6 +30,14 @@ export class DataService {
                 return response;
             },
             error=> error
+        );
+    }
+
+    returnData( paramName: string ){
+        
+        return this.http.get('/_data/' + paramName + '.json').map(
+            res=> res,
+            err=> err
         );
     }
 

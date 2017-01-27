@@ -1,15 +1,14 @@
 <header-component></header-component>
-
 <main id="login">
-    <div class="col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-4 offset-lg-4 py-2">
-    <div class="card">
-      <div class="card-block">
+    <div class="ui centered card">
 
-        <h3>Zebra</h3>
-        <h5 class="card-title">Login</h5>
+      <div class="content">
+        <h1 class="header">Login</h1>
+      </div>
 
-        <form>
-          <fieldset>
+      <div class="content">
+
+        <form class="ui form">
             
             <span *ngIf="error">{{ error }}</span>
             
@@ -30,20 +29,16 @@
             />
             
             <div class="btn-wrapper">
-                <input type="submit" value="Sign In" (click)="login()" class="btn btn-primary" />
+                <input type="submit" value="Sign In" (click)="login()" class="ui button primary" />
             </div>
             
-          </fieldset>
         </form>
 
         <div class="sign-up">
             <p>Need an account?</p>
-            <a class="btn btn-secondary">Sign Up</a>
+            <a class="ui button">Sign Up</a>
         </div>
-
-      </div>
     </div>
   </div>
 </main>
-
 <footer-component></footer-component>

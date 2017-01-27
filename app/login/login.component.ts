@@ -26,7 +26,6 @@ export class LoginComponent{
         }
     }
 
-
     login(): void {
         this.authService.login( this.username, this.password ).subscribe(
             res=>{ 
@@ -40,5 +39,4 @@ export class LoginComponent{
             err=>{ console.log(err); }
         );
     }
-
 }

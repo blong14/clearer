@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 
-
 @Component({
     selector: 'header-component',
     templateUrl: 'header.component.html',
-    styleUrls: ['header.component.scss']
+    styleUrls: ['header.component.scss'],
+    providers: [ AuthService ]
 })
+
 export class HeaderComponent {
     user: any;
 
@@ -24,10 +25,5 @@ export class HeaderComponent {
         this.setUser();
         this.router.navigate(['login']);
     }
-    
-
-
-
-
 
 }

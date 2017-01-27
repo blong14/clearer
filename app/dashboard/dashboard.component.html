@@ -1,24 +1,14 @@
 <header-component></header-component>
-
 <main>
-
-<section id="dashboard" class="container-fluid">
-    <div class="row">
-        <div *ngFor="let idea of ideas" class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
-          <div class="card">
-            <div class="card-block">
-              <h5 class="card-title">{{ idea.title }}</h5>
-              <p class="card-text">{{ idea.description }}</p>
-              <a routerLink="/idea/{{ idea.id }}" class="card-link">Expand &rarr;</a>
-            </div>
-          </div>
+  <section id="dashboard">
+    <div class="ui cards">
+      <card-component *ngFor="let idea of ideas" [idea]="idea" class="card"></card-component>
+      <div class="card">
+        <div class="content">
+          <a href="#" class="ui button grey">Add a New Idea</a>
         </div>
+      </div>
     </div>
-    <div class="row justify-content-center p-2">
-          <a href="#" class="btn btn-primary">Add a New Idea</a>
-    </div>
-</section>
-
+  </section>
 </main>
-
 <footer-component></footer-component>

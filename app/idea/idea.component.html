@@ -1,64 +1,50 @@
 <header-component></header-component>
-
 <main id="idea" *ngIf="idea">
 
-    <!-- finish phase'd tier architecture for idea list -->
-    <phase-one></phase-one>
+    <div class="ui cards grid">
 
-    <div class="idea-sandbox">
+        <!-- finish phase'd tier architecture for idea list -->
+        <phase-1-0 
+            *ngIf="idea.currentPhase == 1" 
+            [idea]="idea"
+            class="card eleven wide column"
+        ></phase-1-0>
+        <phase-1-1 
+            *ngIf="idea.currentPhase == 1.1" 
+            [idea]="idea"
+            class="card eleven wide column"
+        ></phase-1-1>
+        <phase-2-0
+            *ngIf="idea.currentPhase == 2"
+            [idea]="idea"
+            class="card eleven wide column"
+        ></phase-2-0>
 
-        <div class="idea-banner">
-            <h2>
-                <small>Phase 1:</small>
-                Generate Ideas
-            </h2>
-            <span class="next-phase">
-                Phase 2:<br/>
-                Begins in 8:02:21
-            </span>
-        </div>
-
-        <div *ngIf="idea.currentPhase == 1">
-            <h3>Add your idea:</h3>
-            <form>
-               <fieldset>
-                    <textarea></textarea>
-                    <div class="form-utilities">
-                        <button class="primary-cta btn btn-primary">Add Idea</button>
-                    </div>
-                </fieldset>
-            </form>
-        </div>
-
-        <p *ngIf="idea.currentPhase == 1.1" class="alert alert-info">
-            Use your votes to choose which ideas you believe the team should explore.<br/>
-            You've used 0 of 4 total votes.
-        </p>
-
-        <div class="list">
-            <h3>Current Ideas:</h3>
-            <div *ngFor="let currentIdea of idea.ideas">
-                <p>{{ currentIdea.text }}</p>
-                <a *ngIf="idea.currentPhase == 1.1" class="btn btn-secondary">{{ currentIdea.votes }}</a>
+        <div class="card four wide column">
+            
+            <div class="content">
+                <h1 class="header">{{ idea.title }}</h1>
             </div>
+
+            <div class="content">
+
+                <h3>Description:</h3>
+                <p>{{ idea.description }}</p>
+
+            </div>
+
+            <div class="content">
+
+                <h3>Goals:</h3>
+                <ul>
+                    <li *ngFor="let goal of idea.goals">{{ goal.name }}</li>
+                </ul>
+
+            </div>
+
         </div>
-
-    </div>
-
-    <div class="idea-sidebar">
-
-        <h1>{{ idea.title }}</h1>
-
-        <h3>Description:</h3>
-        <p>{{ idea.description }}</p>
-
-        <h3>Goals:</h3>
-        <ul>
-            <li *ngFor="let goal of idea.goals">{{ goal.name }}</li>
-        </ul>
 
     </div>
 
 </main>
-
 <footer-component></footer-component>
