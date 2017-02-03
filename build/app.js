@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "c8b4805f4c62d8b8c150"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "8d5a43e5e62d7e13ba4b"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotMainModule = true; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -706,7 +706,7 @@
 /******/ 	__webpack_require__.h = function() { return hotCurrentHash; };
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return hotCreateRequire(10)(__webpack_require__.s = 10);
+/******/ 	return hotCreateRequire(11)(__webpack_require__.s = 11);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -724,6 +724,7 @@ module.exports = ""
 "use strict";
 
 var core_1 = __webpack_require__(0);
+//import { AngularFire, FirebaseListObservable } from 'angularfire2';
 var AppComponent = (function () {
     function AppComponent() {
     }
@@ -733,7 +734,7 @@ AppComponent = __decorate([
     core_1.Component({
         selector: 'app-root',
         styles: [__webpack_require__("./app/app.component.scss")],
-        template: "\n        <router-outlet></router-outlet>\n    "
+        template: "\n        <router-outlet></router-outlet>\n        <div *ngFor=\"let item of items | async\">\n            {{ item.$value }}\n        </div>\n    "
     }),
     __metadata("design:paramtypes", [])
 ], AppComponent);
@@ -747,23 +748,30 @@ exports.AppComponent = AppComponent;
 
 "use strict";
 
+// core modules
 var core_1 = __webpack_require__(0);
-var platform_browser_1 = __webpack_require__(9);
+var platform_browser_1 = __webpack_require__(10);
 var router_1 = __webpack_require__(2);
-var http_1 = __webpack_require__(3);
-var forms_1 = __webpack_require__(7);
-var data_service_1 = __webpack_require__("./app/data.service.ts");
+var http_1 = __webpack_require__(4);
+var forms_1 = __webpack_require__(8);
+//import { AngularFireModule } from 'angularfire2';
+// services
 var auth_service_1 = __webpack_require__("./app/auth.service.ts");
+// feature modules
+var dashboard_module_1 = __webpack_require__("./app/dashboard/dashboard.module.ts");
+var idea_module_1 = __webpack_require__("./app/idea/idea.module.ts");
+var header_module_1 = __webpack_require__("./app/header/header.module.ts");
+var footer_module_1 = __webpack_require__("./app/footer/footer.module.ts");
+// components
 var app_component_1 = __webpack_require__("./app/app.component.ts");
-var header_component_1 = __webpack_require__("./app/header/header.component.ts");
-var footer_component_1 = __webpack_require__("./app/footer/footer.component.ts");
-var dashboard_component_1 = __webpack_require__("./app/dashboard/dashboard.component.ts");
 var login_component_1 = __webpack_require__("./app/login/login.component.ts");
-var idea_component_1 = __webpack_require__("./app/idea/idea.component.ts");
-// need to finish phase'd approach to idea list
-var phase_1_0_component_1 = __webpack_require__("./app/idea/phase-1/phase-1-0.component.ts");
-var phase_1_1_component_1 = __webpack_require__("./app/idea/phase-1/phase-1-1.component.ts");
-var phase_2_0_component_1 = __webpack_require__("./app/idea/phase-2/phase-2-0.component.ts");
+exports.firebaseConfig = {
+    apiKey: "AIzaSyBR83ITEPOl_AfBm6LNrJdnOzV8In4EA4k",
+    authDomain: "project-zebra.firebaseapp.com",
+    databaseURL: "https://project-zebra.firebaseio.com",
+    storageBucket: "firebase-project-zebra.appspot.com",
+    messagingSenderId: "1086262072363"
+};
 var AppModule = (function () {
     function AppModule() {
     }
@@ -773,29 +781,23 @@ AppModule = __decorate([
     core_1.NgModule({
         declarations: [
             app_component_1.AppComponent,
-            header_component_1.HeaderComponent,
-            footer_component_1.FooterComponent,
-            dashboard_component_1.DashboardComponent,
-            login_component_1.LoginComponent,
-            idea_component_1.IdeaComponent,
-            phase_1_0_component_1.Phase_1_0_Component,
-            phase_1_1_component_1.Phase_1_1_Component,
-            phase_2_0_component_1.Phase_2_0_Component
+            login_component_1.LoginComponent
         ],
         imports: [
             platform_browser_1.BrowserModule,
             http_1.HttpModule,
             forms_1.FormsModule,
+            //AngularFireModule.initializeApp(firebaseConfig),
+            dashboard_module_1.DashboardModule,
+            idea_module_1.IdeaModule,
+            header_module_1.HeaderModule,
+            footer_module_1.FooterModule,
             router_1.RouterModule.forRoot([
                 { path: 'login', component: login_component_1.LoginComponent },
-                { path: 'idea/:id', component: idea_component_1.IdeaComponent },
-                { path: '', component: dashboard_component_1.DashboardComponent },
             ])
         ],
-        providers: [
-            auth_service_1.AuthService,
-            data_service_1.DataService,
-        ],
+        exports: [],
+        providers: [auth_service_1.AuthService],
         bootstrap: [app_component_1.AppComponent]
     }),
     __metadata("design:paramtypes", [])
@@ -811,8 +813,8 @@ exports.AppModule = AppModule;
 "use strict";
 
 var core_1 = __webpack_require__(0);
-var http_1 = __webpack_require__(3);
-__webpack_require__(4);
+var http_1 = __webpack_require__(4);
+__webpack_require__(5);
 var AuthService = (function () {
     function AuthService(http) {
         this.http = http;
@@ -846,10 +848,45 @@ exports.AuthService = AuthService;
 
 /***/ },
 
+/***/ "./app/dashboard/card/card.component.html":
+/***/ function(module, exports) {
+
+module.exports = "<div class=\"content\">\n  <h3 class=\"header\">{{ idea.title }}</h3>\n  <p class=\"description\">{{ idea.description }}</p>\n  <a routerLink=\"/idea/{{ idea.id }}\" class=\"ui primary button\">Expand</a>\n</div>"
+
+/***/ },
+
+/***/ "./app/dashboard/card/card.component.ts":
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var core_1 = __webpack_require__(0);
+var core_2 = __webpack_require__(0);
+var CardComponent = (function () {
+    function CardComponent() {
+    }
+    return CardComponent;
+}());
+__decorate([
+    core_2.Input(),
+    __metadata("design:type", Object)
+], CardComponent.prototype, "idea", void 0);
+CardComponent = __decorate([
+    core_1.Component({
+        selector: 'card-component',
+        template: __webpack_require__("./app/dashboard/card/card.component.html"),
+    }),
+    __metadata("design:paramtypes", [])
+], CardComponent);
+exports.CardComponent = CardComponent;
+
+
+/***/ },
+
 /***/ "./app/dashboard/dashboard.component.html":
 /***/ function(module, exports) {
 
-module.exports = "<header-component></header-component>\n\n<main>\n\n<section id=\"dashboard\">\n\n  <div class=\"ui cards\">\n    <div *ngFor=\"let idea of ideas\" class=\"card\">\n      <div class=\"content\">\n        <h3 class=\"header\">{{ idea.title }}</h3>\n        <p class=\"description\">{{ idea.description }}</p>\n        <a routerLink=\"/idea/{{ idea.id }}\" class=\"ui primary button\">Expand</a>\n      </div>\n    </div>\n    <div class=\"card\">\n      <div class=\"content\">\n        <a href=\"#\" class=\"ui button grey\">Add a New Idea</a>\n      </div>\n    </div>\n  </div>\n</section>\n\n</main>\n\n<footer-component></footer-component>"
+module.exports = "<header-component></header-component>\n<main>\n  <section id=\"dashboard\">\n    <div class=\"ui cards\">\n      <card-component *ngFor=\"let idea of ideas\" [idea]=\"idea\" class=\"card\"></card-component>\n      <div class=\"card\">\n        <div class=\"content\">\n          <a href=\"#\" class=\"ui button grey\">Add a New Idea</a>\n        </div>\n      </div>\n    </div>\n  </section>\n</main>\n<footer-component></footer-component>"
 
 /***/ },
 
@@ -878,10 +915,55 @@ DashboardComponent = __decorate([
     core_1.Component({
         selector: 'dashboard-component',
         template: __webpack_require__("./app/dashboard/dashboard.component.html"),
+        providers: [data_service_1.DataService]
     }),
     __metadata("design:paramtypes", [data_service_1.DataService])
 ], DashboardComponent);
 exports.DashboardComponent = DashboardComponent;
+
+
+/***/ },
+
+/***/ "./app/dashboard/dashboard.module.ts":
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+// core modules
+var core_1 = __webpack_require__(0);
+var common_1 = __webpack_require__(3);
+var router_1 = __webpack_require__(2);
+var header_module_1 = __webpack_require__("./app/header/header.module.ts");
+var footer_module_1 = __webpack_require__("./app/footer/footer.module.ts");
+// components
+var dashboard_component_1 = __webpack_require__("./app/dashboard/dashboard.component.ts");
+var card_component_1 = __webpack_require__("./app/dashboard/card/card.component.ts");
+var DashboardModule = (function () {
+    function DashboardModule() {
+    }
+    return DashboardModule;
+}());
+DashboardModule = __decorate([
+    core_1.NgModule({
+        declarations: [
+            dashboard_component_1.DashboardComponent,
+            card_component_1.CardComponent,
+        ],
+        imports: [
+            common_1.CommonModule,
+            header_module_1.HeaderModule,
+            footer_module_1.FooterModule,
+            router_1.RouterModule.forChild([
+                { path: '', component: dashboard_component_1.DashboardComponent }
+            ])
+        ],
+        exports: [
+            dashboard_component_1.DashboardComponent
+        ]
+    }),
+    __metadata("design:paramtypes", [])
+], DashboardModule);
+exports.DashboardModule = DashboardModule;
 
 
 /***/ },
@@ -892,9 +974,9 @@ exports.DashboardComponent = DashboardComponent;
 "use strict";
 
 var core_1 = __webpack_require__(0);
-var http_1 = __webpack_require__(3);
+var http_1 = __webpack_require__(4);
 var router_1 = __webpack_require__(2);
-__webpack_require__(4);
+__webpack_require__(5);
 var DataService = (function () {
     function DataService(http, route) {
         this.http = http;
@@ -965,6 +1047,30 @@ exports.FooterComponent = FooterComponent;
 
 /***/ },
 
+/***/ "./app/footer/footer.module.ts":
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var core_1 = __webpack_require__(0);
+var footer_component_1 = __webpack_require__("./app/footer/footer.component.ts");
+var FooterModule = (function () {
+    function FooterModule() {
+    }
+    return FooterModule;
+}());
+FooterModule = __decorate([
+    core_1.NgModule({
+        declarations: [footer_component_1.FooterComponent],
+        exports: [footer_component_1.FooterComponent]
+    }),
+    __metadata("design:paramtypes", [])
+], FooterModule);
+exports.FooterModule = FooterModule;
+
+
+/***/ },
+
 /***/ "./app/header/header.component.html":
 /***/ function(module, exports) {
 
@@ -1007,7 +1113,8 @@ HeaderComponent = __decorate([
     core_1.Component({
         selector: 'header-component',
         template: __webpack_require__("./app/header/header.component.html"),
-        styles: [__webpack_require__("./app/header/header.component.scss")]
+        styles: [__webpack_require__("./app/header/header.component.scss")],
+        providers: [auth_service_1.AuthService]
     }),
     __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router])
 ], HeaderComponent);
@@ -1016,10 +1123,45 @@ exports.HeaderComponent = HeaderComponent;
 
 /***/ },
 
+/***/ "./app/header/header.module.ts":
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var core_1 = __webpack_require__(0);
+var common_1 = __webpack_require__(3);
+var router_1 = __webpack_require__(2);
+var header_component_1 = __webpack_require__("./app/header/header.component.ts");
+var HeaderModule = (function () {
+    function HeaderModule() {
+    }
+    return HeaderModule;
+}());
+HeaderModule = __decorate([
+    core_1.NgModule({
+        declarations: [
+            header_component_1.HeaderComponent
+        ],
+        imports: [
+            common_1.CommonModule,
+            router_1.RouterModule
+        ],
+        exports: [
+            header_component_1.HeaderComponent
+        ],
+        providers: [],
+    }),
+    __metadata("design:paramtypes", [])
+], HeaderModule);
+exports.HeaderModule = HeaderModule;
+
+
+/***/ },
+
 /***/ "./app/idea/idea.component.html":
 /***/ function(module, exports) {
 
-module.exports = "<header-component></header-component>\n\n<main id=\"idea\" *ngIf=\"idea\">\n\n    <div class=\"ui cards grid\">\n\n        <!-- finish phase'd tier architecture for idea list -->\n        <phase-1-0 \n            *ngIf=\"idea.currentPhase == 1\" \n            [idea]=\"idea\"\n            class=\"card eleven wide column\"\n        ></phase-1-0>\n        <phase-1-1 \n            *ngIf=\"idea.currentPhase == 1.1\" \n            [idea]=\"idea\"\n            class=\"card eleven wide column\"\n        ></phase-1-1>\n        <phase-2-0\n            *ngIf=\"idea.currentPhase == 2\"\n            [idea]=\"idea\"\n            class=\"card eleven wide column\"\n        ></phase-2-0>\n\n        <div class=\"card four wide column\">\n            \n            <div class=\"content\">\n                <h1 class=\"header\">{{ idea.title }}</h1>\n            </div>\n\n            <div class=\"content\">\n\n                <h3>Description:</h3>\n                <p>{{ idea.description }}</p>\n\n            </div>\n\n            <div class=\"content\">\n\n                <h3>Goals:</h3>\n                <ul>\n                    <li *ngFor=\"let goal of idea.goals\">{{ goal.name }}</li>\n                </ul>\n\n            </div>\n\n        </div>\n\n    </div>\n\n</main>\n\n<footer-component></footer-component>"
+module.exports = "<header-component></header-component>\n<main id=\"idea\" *ngIf=\"idea\">\n\n    <div class=\"ui cards grid\">\n\n        <!-- finish phase'd tier architecture for idea list -->\n        <phase-1-0 \n            *ngIf=\"idea.currentPhase == 1\" \n            [idea]=\"idea\"\n            class=\"card eleven wide column\"\n        ></phase-1-0>\n        <phase-1-1 \n            *ngIf=\"idea.currentPhase == 1.1\" \n            [idea]=\"idea\"\n            class=\"card eleven wide column\"\n        ></phase-1-1>\n        <phase-2-0\n            *ngIf=\"idea.currentPhase == 2\"\n            [idea]=\"idea\"\n            class=\"card eleven wide column\"\n        ></phase-2-0>\n\n        <div class=\"card four wide column\">\n            \n            <div class=\"content\">\n                <h1 class=\"header\">{{ idea.title }}</h1>\n            </div>\n\n            <div class=\"content\">\n\n                <h3>Description:</h3>\n                <p>{{ idea.description }}</p>\n\n            </div>\n\n            <div class=\"content\">\n\n                <h3>Goals:</h3>\n                <ul>\n                    <li *ngFor=\"let goal of idea.goals\">{{ goal.name }}</li>\n                </ul>\n\n            </div>\n\n        </div>\n\n    </div>\n\n</main>\n<footer-component></footer-component>"
 
 /***/ },
 
@@ -1058,11 +1200,58 @@ IdeaComponent = __decorate([
     core_1.Component({
         selector: 'idea-component',
         template: __webpack_require__("./app/idea/idea.component.html"),
-        styles: [__webpack_require__("./app/idea/idea.component.scss")]
+        styles: [__webpack_require__("./app/idea/idea.component.scss")],
+        providers: [data_service_1.DataService]
     }),
     __metadata("design:paramtypes", [data_service_1.DataService, router_1.ActivatedRoute])
 ], IdeaComponent);
 exports.IdeaComponent = IdeaComponent;
+
+
+/***/ },
+
+/***/ "./app/idea/idea.module.ts":
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+// core modules
+var core_1 = __webpack_require__(0);
+var common_1 = __webpack_require__(3);
+var router_1 = __webpack_require__(2);
+var header_module_1 = __webpack_require__("./app/header/header.module.ts");
+var footer_module_1 = __webpack_require__("./app/footer/footer.module.ts");
+// components
+var idea_component_1 = __webpack_require__("./app/idea/idea.component.ts");
+var phase_1_0_component_1 = __webpack_require__("./app/idea/phase-1/phase-1-0.component.ts");
+var phase_1_1_component_1 = __webpack_require__("./app/idea/phase-1/phase-1-1.component.ts");
+var phase_2_0_component_1 = __webpack_require__("./app/idea/phase-2/phase-2-0.component.ts");
+var IdeaModule = (function () {
+    function IdeaModule() {
+    }
+    return IdeaModule;
+}());
+IdeaModule = __decorate([
+    core_1.NgModule({
+        declarations: [
+            idea_component_1.IdeaComponent,
+            phase_1_0_component_1.Phase_1_0_Component,
+            phase_1_1_component_1.Phase_1_1_Component,
+            phase_2_0_component_1.Phase_2_0_Component,
+        ],
+        imports: [
+            common_1.CommonModule,
+            header_module_1.HeaderModule,
+            footer_module_1.FooterModule,
+            router_1.RouterModule.forChild([
+                { path: 'idea/:id', component: idea_component_1.IdeaComponent }
+            ])
+        ],
+        exports: []
+    }),
+    __metadata("design:paramtypes", [])
+], IdeaModule);
+exports.IdeaModule = IdeaModule;
 
 
 /***/ },
@@ -1209,7 +1398,7 @@ exports.Phase_2_0_Component = Phase_2_0_Component;
 /***/ "./app/login/login.component.html":
 /***/ function(module, exports) {
 
-module.exports = "<header-component></header-component>\n\n<main id=\"login\">\n    <div class=\"ui centered card\">\n\n      <div class=\"content\">\n        <h1 class=\"header\">Login</h1>\n      </div>\n\n      <div class=\"content\">\n\n        <form class=\"ui form\">\n            \n            <span *ngIf=\"error\">{{ error }}</span>\n            \n            <label for=\"username\">Username</label>\n            <input \n                type=\"text\"\n                name=\"username\"\n                class=\"col-12 mb-1\" \n                [(ngModel)]=\"username\" \n            />\n            \n            <label for=\"password\">Password</label>\n            <input\n                type=\"text\" \n                name=\"password\"\n                class=\"col-12 mb-1\" \n                [(ngModel)]=\"password\" \n            />\n            \n            <div class=\"btn-wrapper\">\n                <input type=\"submit\" value=\"Sign In\" (click)=\"login()\" class=\"ui button primary\" />\n            </div>\n            \n        </form>\n\n        <div class=\"sign-up\">\n            <p>Need an account?</p>\n            <a class=\"ui button\">Sign Up</a>\n        </div>\n    </div>\n  </div>\n</main>\n\n<footer-component></footer-component>"
+module.exports = "<header-component></header-component>\n<main id=\"login\">\n    <div class=\"ui centered card\">\n\n      <div class=\"content\">\n        <h1 class=\"header\">Login</h1>\n      </div>\n\n      <div class=\"content\">\n\n        <form class=\"ui form\">\n            \n            <span *ngIf=\"error\">{{ error }}</span>\n            \n            <label for=\"username\">Username</label>\n            <input \n                type=\"text\"\n                name=\"username\"\n                class=\"col-12 mb-1\" \n                [(ngModel)]=\"username\" \n            />\n            \n            <label for=\"password\">Password</label>\n            <input\n                type=\"text\" \n                name=\"password\"\n                class=\"col-12 mb-1\" \n                [(ngModel)]=\"password\" \n            />\n            \n            <div class=\"btn-wrapper\">\n                <input type=\"submit\" value=\"Sign In\" (click)=\"login()\" class=\"ui button primary\" />\n            </div>\n            \n        </form>\n\n        <div class=\"sign-up\">\n            <p>Need an account?</p>\n            <a class=\"ui button\">Sign Up</a>\n        </div>\n    </div>\n  </div>\n</main>\n<footer-component></footer-component>"
 
 /***/ },
 
@@ -1271,7 +1460,7 @@ exports.LoginComponent = LoginComponent;
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_app_module__ = __webpack_require__("./app/app.module.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_app_module___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__app_app_module__);
 
@@ -2281,9 +2470,16 @@ module.exports = __vendor;
 /***/ 10:
 /***/ function(module, exports, __webpack_require__) {
 
+module.exports = (__webpack_require__(1))("./node_modules/@angular/platform-browser/index.js");
+
+/***/ },
+
+/***/ 11:
+/***/ function(module, exports, __webpack_require__) {
+
 __webpack_require__("./node_modules/reflect-metadata/Reflect.js");
-__webpack_require__(5);
 __webpack_require__(6);
+__webpack_require__(7);
 module.exports = __webpack_require__("./main.ts");
 
 
@@ -2299,49 +2495,49 @@ module.exports = (__webpack_require__(1))("./node_modules/@angular/router/index.
 /***/ 3:
 /***/ function(module, exports, __webpack_require__) {
 
-module.exports = (__webpack_require__(1))("./node_modules/@angular/http/index.js");
+module.exports = (__webpack_require__(1))("./node_modules/@angular/common/index.js");
 
 /***/ },
 
 /***/ 4:
 /***/ function(module, exports, __webpack_require__) {
 
-module.exports = (__webpack_require__(1))("./node_modules/rxjs/add/operator/map.js");
+module.exports = (__webpack_require__(1))("./node_modules/@angular/http/index.js");
 
 /***/ },
 
 /***/ 5:
 /***/ function(module, exports, __webpack_require__) {
 
-module.exports = (__webpack_require__(1))("./node_modules/ts-helpers/index.js");
+module.exports = (__webpack_require__(1))("./node_modules/rxjs/add/operator/map.js");
 
 /***/ },
 
 /***/ 6:
 /***/ function(module, exports, __webpack_require__) {
 
-module.exports = (__webpack_require__(1))("./node_modules/zone.js/dist/zone.js");
+module.exports = (__webpack_require__(1))("./node_modules/ts-helpers/index.js");
 
 /***/ },
 
 /***/ 7:
 /***/ function(module, exports, __webpack_require__) {
 
-module.exports = (__webpack_require__(1))("./node_modules/@angular/forms/index.js");
+module.exports = (__webpack_require__(1))("./node_modules/zone.js/dist/zone.js");
 
 /***/ },
 
 /***/ 8:
 /***/ function(module, exports, __webpack_require__) {
 
-module.exports = (__webpack_require__(1))("./node_modules/@angular/platform-browser-dynamic/index.js");
+module.exports = (__webpack_require__(1))("./node_modules/@angular/forms/index.js");
 
 /***/ },
 
 /***/ 9:
 /***/ function(module, exports, __webpack_require__) {
 
-module.exports = (__webpack_require__(1))("./node_modules/@angular/platform-browser/index.js");
+module.exports = (__webpack_require__(1))("./node_modules/@angular/platform-browser-dynamic/index.js");
 
 /***/ }
 

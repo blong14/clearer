@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
+import { AngularFireModule } from 'angularfire2';
 
 // services
 import { AuthService } from './auth.service';
@@ -18,6 +19,14 @@ import { FooterModule } from './footer/footer.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 
+export const firebaseConfig = {
+    apiKey: "AIzaSyBR83ITEPOl_AfBm6LNrJdnOzV8In4EA4k",
+    authDomain: "project-zebra.firebaseapp.com",
+    databaseURL: "https://project-zebra.firebaseio.com",
+    storageBucket: "firebase-project-zebra.appspot.com",
+    messagingSenderId: "1086262072363"
+}
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -27,6 +36,7 @@ import { LoginComponent } from './login/login.component';
         BrowserModule,
         HttpModule,
         FormsModule,
+        AngularFireModule.initializeApp(firebaseConfig),
         DashboardModule,
         IdeaModule,
         HeaderModule,

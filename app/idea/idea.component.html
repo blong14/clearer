@@ -7,6 +7,7 @@
         <phase-1-0 
             *ngIf="idea.currentPhase == 1" 
             [idea]="idea"
+            (text)="idea"
             class="card eleven wide column"
         ></phase-1-0>
         <phase-1-1 
