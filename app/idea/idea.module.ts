@@ -11,6 +11,7 @@ import { IdeaComponent } from './idea.component';
 import { Phase_1_0_Component } from './phase-1/phase-1-0.component';
 import { Phase_1_1_Component } from './phase-1/phase-1-1.component';
 import { Phase_2_0_Component } from './phase-2/phase-2-0.component';
+import { Phase_3_0_Component } from './phase-3/phase-3-0.component';
 
 @NgModule({
     declarations: [
@@ -18,6 +19,7 @@ import { Phase_2_0_Component } from './phase-2/phase-2-0.component';
         Phase_1_0_Component,
         Phase_1_1_Component,
         Phase_2_0_Component,
+        Phase_3_0_Component,
     ],
     imports: [
         CommonModule,
