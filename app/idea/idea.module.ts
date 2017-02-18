@@ -2,6 +2,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 import { HeaderModule } from '../header/header.module';
 import { FooterModule } from '../footer/footer.module';
@@ -23,6 +24,7 @@ import { Phase_2_0_Component } from './phase-2/phase-2-0.component';
         CommonModule,
         HeaderModule,
         FooterModule,
+        FormsModule,
         RouterModule.forChild([
             { path: 'idea/:id', component: IdeaComponent }
         ])

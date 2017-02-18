@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
-import { AngularFireModule } from 'angularfire2';
+import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 
 // services
 import { AuthService } from './auth.service';
@@ -27,6 +27,11 @@ export const firebaseConfig = {
     messagingSenderId: "1086262072363"
 }
 
+const myFirebaseAuthConfig = {
+  provider: AuthProviders.Password,
+  method: AuthMethods.Password
+};
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -36,7 +41,7 @@ export const firebaseConfig = {
         BrowserModule,
         HttpModule,
         FormsModule,
-        AngularFireModule.initializeApp(firebaseConfig),
+        AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig),
         DashboardModule,
         IdeaModule,
         HeaderModule,

@@ -37,6 +37,12 @@ export class DataService {
 
     }
 
+    saveIdea( id: string, newIdea: Idea, path?: string): void{
+         let updates = {};
+         updates[ path ] = newIdea;
+         this.af.database.object('/ideas/' + id + '/').update(updates);
+    }
+
    /* getIdea( id: string ): Observable<Idea>{
         console.log( 'called:' + id );
         return this.http.get('../_data/ideas/' + id + '.json').map(

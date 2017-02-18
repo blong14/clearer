@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { User } from '../models/user.interface';
 import { Router } from '@angular/router';
+import { AngularFire, AngularFireAuth } from 'angularfire2';
 
 @Component({
     selector: 'login-component',
@@ -10,26 +11,32 @@ import { Router } from '@angular/router';
 })
 
 export class LoginComponent{
-    username: string;
+    email: string;
     password: string;
-    user: User;
+    user;
     error: any;
 
-    constructor( private authService: AuthService, private router: Router ){
+    constructor( private af: AngularFire, private authService: AuthService, private router: Router ){
         this.setUser();
     }
 
     setUser(){
-        this.user = JSON.parse(localStorage.getItem('currentUser'));
-        if( this.user ){
-            this.router.navigate(['']);
-        }
+        this.af.auth.subscribe(
+            auth => {
+                this.user = auth;
+                console.log( this.user );
+                if( this.user != null ){
+                    localStorage.setItem('currentUser', JSON.stringify( auth ) );
+                    this.router.navigate([''])
+                }
+            }
+        );
     }
 
     login(): void {
-        this.authService.login( this.username, this.password ).subscribe(
+        this.authService.login( this.email, this.password ).then(
             res=>{ 
-                if(res.name){
+                if(res){
                     this.setUser();
                 }else{
                     this.error = res;

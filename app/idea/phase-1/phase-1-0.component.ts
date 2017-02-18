@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Idea } from '../../models/idea.interface';
+import { MD5 } from '../../../lib/md5';
 
 @Component({
     selector: 'phase-1-0',
@@ -8,14 +9,82 @@ import { Idea } from '../../models/idea.interface';
 export class Phase_1_0_Component{ 
 
     @Input() idea: Idea;
-    @Output() text: EventEmitter<any>;
+    @Output() addIdea: EventEmitter<any> = new EventEmitter();
+
+    newIdea: string;
 
     constructor(){
-        console.log( this.idea );
     }
 
-    addIdea(){
-        this.text.emit();
+    invertList( list ){
+        if( list ){
+            return list.slice().reverse();
+
+        }
+    }
+
+    onAddIdea(){
+        let user = JSON.parse(localStorage.getItem('currentUser'));
+        let ideaData = {
+                'text': this.newIdea, 
+                'timestamp': new Date().getTime(),
+                'owner': { 
+                    'uid': user.auth.uid, 
+                    'email': user.auth.email,
+                    'name': user.auth.displayName 
+                }
+            };
+
+
+        if( this.idea['ideas'] ){
+            this.idea['ideas'].push(ideaData);
+        }else{
+            this.idea['ideas'] = {};
+            this.idea['ideas'][0] = ideaData;
+        }
+        this.addIdea.emit(this.idea['ideas']);
+        this.newIdea = '';
+    }
+
+    onRemoveIdea(ev){
+        let reverseIndex = this.idea['ideas'].length - 1 - ev.i;
+        this.idea['ideas'].splice(reverseIndex, 1);
+        this.addIdea.emit(this.idea['ideas']);
+    }
+
+    getGravitar( email ){
+        return 'https://www.gravatar.com/avatar/' + MD5(email);
+    }
+
+    formatTime( time ){
+        let now: any = new Date().getTime();
+        let seconds = Math.floor(( now - time) / 1000);
+        let interval = Math.floor(seconds / 31536000);
+
+        if (interval > 1) {
+            return interval + " years ago.";
+        }
+        interval = Math.floor(seconds / 2592000);
+        if (interval > 1) {
+            return interval + " months ago.";
+        }
+        interval = Math.floor(seconds / 86400);
+        if (interval >= 1) {
+           //return interval + " days ago.";
+            return time.UTCString();
+        }
+        interval = Math.floor(seconds / 3600);
+        if (interval > 1) {
+            return interval + " hours ago.";
+        }
+        interval = Math.floor(seconds / 60);
+        if (interval == 1 ){
+            return interval + " minute ago.";
+        }
+        if (interval > 1) {
+            return interval + " minutes ago.";
+        }
+        return "Just now."
     }
 
 }

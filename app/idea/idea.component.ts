@@ -12,11 +12,13 @@ import { ActivatedRoute } from '@angular/router';
 export class IdeaComponent{
 
     idea: Idea;
+    routePath: string;
 
     constructor( private dataService: DataService, private route: ActivatedRoute ){
         
         // pass ID from route into getData();
-        this.getData(this.route.snapshot.params['id']);
+        this.routePath = this.route.snapshot.params['id'];
+        this.getData(this.routePath);
 
     }
 
@@ -26,9 +28,17 @@ export class IdeaComponent{
         this.dataService.getIdea( ideaId ).subscribe(
             res => { 
                 this.idea = res;
-            }
+                console.log( res );
+            },
+            err => console.log( err )
         );
 
+    }
+
+    handleAddIdea( event ){
+        console.log( event );
+        console.log( 'wowza!' );
+        this.dataService.saveIdea( this.routePath, event, 'ideas' );
     }
 
    

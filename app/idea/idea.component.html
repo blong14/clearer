@@ -9,6 +9,7 @@
             [idea]="idea"
             (text)="idea"
             class="card eleven wide column"
+            (addIdea)="handleAddIdea($event)"
         ></phase-1-0>
         <phase-1-1 
             *ngIf="idea.currentPhase == 1.1" 
