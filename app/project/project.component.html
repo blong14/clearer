@@ -1,0 +1,35 @@
+<header-component></header-component>
+<main id="project" *ngIf="project">
+
+    <div class="ui cards grid">
+
+        <!-- finish phase'd tier architecture for project list -->
+        <generate-component
+            *ngIf="project" 
+            [project]="project"
+            (text)="project"
+            (addproject)="handleAddproject($event)"
+        ></generate-component>
+       <!-- <phase-1-1 
+            *ngIf="project.currentPhase == 1.1" 
+            [project]="project"
+            class="card eleven wide column"
+        ></phase-1-1>
+        <phase-2-0
+            *ngIf="project.currentPhase == 2"
+            [project]="project"
+            class="card eleven wide column"
+        ></phase-2-0>-->
+
+        <info-pane-component
+            [goals]="project.goals">
+
+            <h1 class="header">{{ project.name }}</h1>
+            <p class="description">{{ project.description }}</p>
+
+        </info-pane-component>
+
+    </div>
+
+</main>
+<footer-component></footer-component>

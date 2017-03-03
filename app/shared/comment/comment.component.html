@@ -1,12 +1,42 @@
 <div class="item">
-    <img *ngIf="avitar" [src]="avitar" class="left floated ui circular image" />
-    <p class="ui text">
+
+    <div 
+        class="ui button labeled icon basic mini right floated" 
+        *ngIf="edit" 
+        (click)="onDelete()">
+        <i class="trash icon"></i>
+        Delete
+    </div>
+
+    <div 
+        class="ui button labeled icon basic mini right floated" 
+        *ngIf="edit" 
+        (click)="onEdit()">
+        <i class="pencil icon"></i>
+        Edit
+    </div>
+
+    <div 
+        class="ui button labeled icon basic mini right floated" 
+        *ngIf="votes != undefined" 
+        >
+        <i class="plus icon"></i>
+        {{ votes }}
+    </div>
+
+    <img 
+        class="left floated ui circular image"
+        *ngIf="avitar" 
+        [src]="avitar"  />
+
+    <p 
+        class="ui text"
+        *ngIf="author">
         {{ author.name ? author.name : author.email }} - {{ timestamp }}
     </p>
     <div class="content">
-        <ng-content select=".content"></ng-content>
-    </div>
-    <div class="content">
-        <ng-content select=".actions"></ng-content>
+        <div class="header">
+            <ng-content select=".content"></ng-content>
+        </div>
     </div>
 </div>

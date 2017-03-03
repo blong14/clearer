@@ -9,16 +9,16 @@ import { DataService } from '../data.service';
 
 export class DashboardComponent {
 
-    ideas: any;
+    projects: any;
 
     constructor( private dataService : DataService ){
-        this.getIdeas();
+        this.getProjects();
     }
 
-    getIdeas(){
+    getProjects(){
         return this.dataService.getData().subscribe(
             res=> {
-                this.ideas = res;
+                this.projects = res;
                 console.log( res );
             },
             err=> console.log( err )

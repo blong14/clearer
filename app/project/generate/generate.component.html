@@ -1,0 +1,39 @@
+<div class="content">
+    <div class="header">
+        <h1>Phase 1: Generate Ideas</h1>
+    </div>
+</div>
+<div class="content">
+    <h3>Add an idea:</h3>
+    <text-input
+        (save)="onSave($event)"
+        >
+    </text-input>
+</div>
+
+<div class="content">
+    <div class="header">
+        <h2>Current Ideas:</h2>
+    </div>
+    <div class="ui relaxed divided list">
+        <comment-component 
+            *ngFor="let currentIdea of invertList( project.ideas ); let i = index"
+            [index]="i"
+            [avitar]="getGravitar( currentIdea.owner.email )"
+            [author]="currentIdea.owner"
+            [timestamp]="formatTime(currentIdea.timestamp)"
+            [edit]="true"
+            (deleteEvent)="deleteHandler($event)"
+            (editEvent)="editHandler($event)"
+            >
+            <div class="content">{{ currentIdea.text }}</div>
+        </comment-component>
+    </div>
+    <modal 
+        *ngIf="showModal" 
+        [visibility]="showModal" 
+        (closeEvent)="modalCloseHandler($event)">
+        <header>Edit Comment</header>
+        <content>{{ modelContent }}</content>
+    </modal>
+</div>

@@ -6,16 +6,16 @@
 
     <div class="ui cards">
 
-      <card-component *ngFor="let idea of ideas">
-        <div class="header">{{ idea.title }}</div>
-        <div class="content">{{ idea.description }}</div>
-        <div class="link" [routerLink]="['/idea/' + idea.id]">View Project</div>
+      <card-component *ngFor="let project of projects">
+        <div class="header">{{ project.name }}</div>
+        <div class="content">{{ project.description }}</div>
+        <div class="link" [routerLink]="['project/' + project.id]">View Project</div>
       </card-component>
 
       <card-component>
-        <div class="header">Add an Idea</div>
+        <div class="header">Add a Project</div>
         <div class="content">Start a new project</div>
-        <div class="link">Create Project</div>
+        <div class="link" [routerLink]="['/project/create']">Create Project</div>
       </card-component>
 
     </div>

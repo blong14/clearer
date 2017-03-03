@@ -8,11 +8,6 @@ export class CardComponent {
 
     @Input() link: string;
 
-    @HostBinding('class.card') isCard: boolean;
-
-    ngOnInit(){
-        console.log( this.link );
-        this.isCard = true;
-    }
+    @HostBinding('class') isCard = 'card';
 
 }

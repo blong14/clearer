@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { ActivatedRoute } from '@angular/router';
 
-import { Idea } from './models/idea.interface';
+import { Project } from './models/project.interface';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
@@ -17,12 +17,12 @@ export class DataService {
 
     }
 
-    getData(): FirebaseListObservable<Idea[]>{
+    getData(): FirebaseListObservable<Project[]>{
 
 
 
-        return this.af.database.list('/ideas');
-        /*return this.http.get('../_data/ideas.json').map(
+        return this.af.database.list('/projects');
+        /*return this.http.get('../_data/projects.json').map(
             res=> {
                 let response = res.json();
                 return ressponse;
@@ -31,21 +31,23 @@ export class DataService {
         );*/
     }
 
-    getIdea( id: string ): FirebaseObjectObservable<Idea>{
+    getProject( id: string ): FirebaseObjectObservable<Project>{
 
-        return this.af.database.object('/ideas/' + id);
+        return this.af.database.object('/projects/' + id);
 
     }
 
-    saveIdea( id: string, newIdea: Idea, path?: string): void{
+    saveProject( id: string, newproject: Project, path?: string): Promise<void> {
          let updates = {};
-         updates[ path ] = newIdea;
-         this.af.database.object('/ideas/' + id + '/').update(updates);
+         let success: boolean;
+         if(path){ updates[ path ] = newproject; }
+         else{ updates = newproject; }
+         return this.af.database.object('/projects/' + id ).update( updates );
     }
 
-   /* getIdea( id: string ): Observable<Idea>{
+   /* getproject( id: string ): Observable<project>{
         console.log( 'called:' + id );
-        return this.http.get('../_data/ideas/' + id + '.json').map(
+        return this.http.get('../_data/projects/' + id + '.json').map(
             res=>{
                 let response = res.json();
                 return response;

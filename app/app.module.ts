@@ -12,8 +12,9 @@ import { AuthService } from './auth.service';
 import { SharedModule } from './shared/shared.module';
 
 // feature modules
+import { CreateModule } from './create/create.module';
 import { DashboardModule } from './dashboard/dashboard.module';
-import { IdeaModule } from './idea/idea.module';
+import { ProjectModule } from './project/project.module';
 
 // components
 import { AppComponent } from './app.component';
@@ -43,8 +44,9 @@ const myFirebaseAuthConfig = {
         FormsModule,
         SharedModule,
         AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig),
+        CreateModule,
         DashboardModule,
-        IdeaModule,
+        ProjectModule,
         RouterModule.forRoot([
             { path: 'login', component: LoginComponent },
         ])

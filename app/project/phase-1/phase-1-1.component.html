@@ -19,16 +19,12 @@
         <h2>Current Ideas:</h2>
     </div>
     <div class="ui relaxed divided list">
-        <div class="item" *ngFor="let currentIdea of idea.ideas; let i = index">
-            <p class="header left floated ">{{ currentIdea.text }}</p>
-                <button
-                    class="ui labeled icon button basic right floated"
-                    (click)="toggleState(i)"
-                    [class.positive]="isSelected(i)"
-                >
-                    <i class="plus icon"></i>
-                    {{ currentIdea.votes }}
-                </button>
-        </div>
+        
+        <comment-component 
+            *ngFor="let currentIdea of idea.ideas; let i = index"
+            [votes]="currentIdea.votes"
+            >
+            <div class="content">{{ currentIdea.text }}</div>
+        </comment-component>
     </div>
 </div>

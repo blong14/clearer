@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
 import { DataService } from '../data.service';
-import { Idea } from '../models/idea.interface';
+import { Project } from '../models/project.interface';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-    selector: 'idea-component',
-    templateUrl: 'idea.component.html',
-    styleUrls: ['idea.component.scss'],
+    selector: 'project-component',
+    templateUrl: 'project.component.html',
+    styleUrls: ['project.component.scss'],
     providers: [ DataService ]
 })
-export class IdeaComponent{
+export class ProjectComponent{
 
-    idea: Idea;
+    project: Project;
     routePath: string;
 
     constructor( private dataService: DataService, private route: ActivatedRoute ){
@@ -22,20 +22,21 @@ export class IdeaComponent{
 
     }
 
-    // get Idea data from service
-    getData( ideaId: string ){
+    // get project data from service
+    getData( projectId: string ){
 
-        this.dataService.getIdea( ideaId ).subscribe(
+        this.dataService.getProject( projectId ).subscribe(
             res => { 
-                this.idea = res;
+                this.project = res;
+                console.log( this.project );
             },
             err => console.log( err )
         );
 
     }
 
-    handleAddIdea( event ){
-        this.dataService.saveIdea( this.routePath, event, 'ideas' );
+    handleAddProject( event ){
+        this.dataService.saveProject( this.routePath, event, 'projects' );
     }
 
    

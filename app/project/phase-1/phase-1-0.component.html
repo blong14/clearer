@@ -1,0 +1,32 @@
+<div class="content">
+    <div class="header">
+        <h1>Phase 1: Generate Ideas</h1>
+    </div>
+</div>
+<div class="content">
+    <h3>Add an idea:</h3>
+    <text-input
+        >
+    </text-input>
+</div>
+
+<div class="content">
+    <div class="header">
+        <h2>Current Ideas:</h2>
+    </div>
+    <div class="ui relaxed divided list">
+        <comment-component 
+            *ngFor="let currentIdea of invertList( idea.ideas ); let i = index"
+            [avitar]="getGravitar( currentIdea.owner.email )"
+            [author]="currentIdea.owner"
+            [timestamp]="formatTime(currentIdea.timestamp)"
+            [edit]="true"
+            >
+            <div class="content">{{ currentIdea.text }}</div>
+        </comment-component>
+    </div>
+    <modal *ngIf="showModal" [visibility]="showModal">
+        <header>This is the header</header>
+        <content>{{ modalContent }}</content>
+    </modal>
+</div>

@@ -1,0 +1,31 @@
+<header-component></header-component>
+
+<main>
+    <div class="ui form container">
+        <div class="ui dividing header">Project Basics</div>
+        <div class="field">
+            <label>Project Name</label>
+            <input type="text" placeholder="Project Name" [(ngModel)]="project.name" />
+        </div>
+        <div class="field">
+            <label>Description</label>
+            <textarea rows="4" [(ngModel)]="project.description" ></textarea>
+        </div>
+        <div class="ui dividing header">Project Goals</div>
+        <div class="field">
+            <label>Goal 1</label>
+            <input type="text" placeholder="Goal" [(ngModel)]="project.goals[0]"  />
+        </div>
+        <div class="field">
+            <label>Goal 2</label>
+            <input type="text" placeholder="Goal" [(ngModel)]="project.goals[1]"  />
+        </div>
+        <div class="field">
+            <label>Goal 3</label>
+            <input type="text" placeholder="Goal" [(ngModel)]="project.goals[2]" />
+        </div>
+        <div class="ui button basic blue" tabindex="0" (click)="onSave()">Create Project</div>
+    </div>
+</main>
+
+<footer-component></footer-component>
