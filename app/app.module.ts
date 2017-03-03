@@ -35,7 +35,7 @@ const myFirebaseAuthConfig = {
 @NgModule({
     declarations: [
         AppComponent,
-        LoginComponent
+        LoginComponent,
     ],
     imports: [
         BrowserModule,

@@ -17,14 +17,12 @@ export class LoginComponent{
     error: any;
 
     constructor( private af: AngularFire, private authService: AuthService, private router: Router ){
-        this.setUser();
     }
 
     setUser(){
         this.af.auth.subscribe(
             auth => {
                 this.user = auth;
-                console.log( this.user );
                 if( this.user != null ){
                     localStorage.setItem('currentUser', JSON.stringify( auth ) );
                     this.router.navigate([''])
@@ -45,5 +43,11 @@ export class LoginComponent{
             },
             err=>{ console.log(err); }
         );
+    }
+
+    ngOnInit(){
+
+        this.setUser();
+        this.af.auth.subscribe( auth=> auth );
     }
 }

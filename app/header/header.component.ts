@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 
@@ -13,7 +13,7 @@ export class HeaderComponent {
     user: any;
 
     constructor( private authService: AuthService, private router: Router ){
-        this.setUser();
+
     }
 
     setUser(){
@@ -26,4 +26,9 @@ export class HeaderComponent {
         this.router.navigate(['login']);
     }
 
+    ngOnInit(){
+        this.setUser();
+    }
+
 }
+

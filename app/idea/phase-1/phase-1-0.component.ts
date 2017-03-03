@@ -1,6 +1,8 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { ModalComponent } from '../../shared/modal/modal.component';
 import { Idea } from '../../models/idea.interface';
 import { MD5 } from '../../../lib/md5';
+
 
 @Component({
     selector: 'phase-1-0',
@@ -12,9 +14,8 @@ export class Phase_1_0_Component{
     @Output() addIdea: EventEmitter<any> = new EventEmitter();
 
     newIdea: string;
-
-    constructor(){
-    }
+    modalContent: string;
+    showModal: Boolean = false;
 
     invertList( list ){
         if( list ){
@@ -52,6 +53,12 @@ export class Phase_1_0_Component{
         this.addIdea.emit(this.idea['ideas']);
     }
 
+    onEditIdea( idea ){
+        console.log( idea );
+        this.modalContent = idea.content;
+        this.showModal = true;
+    }
+
     getGravitar( email ){
         return 'https://www.gravatar.com/avatar/' + MD5(email);
     }
@@ -70,8 +77,8 @@ export class Phase_1_0_Component{
         }
         interval = Math.floor(seconds / 86400);
         if (interval >= 1) {
-           //return interval + " days ago.";
-            return time.UTCString();
+           return interval + " days ago.";
+           // return time.UTCString();
         }
         interval = Math.floor(seconds / 3600);
         if (interval > 1) {
@@ -86,5 +93,6 @@ export class Phase_1_0_Component{
         }
         return "Just now."
     }
+    
 
 }

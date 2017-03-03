@@ -28,7 +28,6 @@ export class IdeaComponent{
         this.dataService.getIdea( ideaId ).subscribe(
             res => { 
                 this.idea = res;
-                console.log( res );
             },
             err => console.log( err )
         );
@@ -36,8 +35,6 @@ export class IdeaComponent{
     }
 
     handleAddIdea( event ){
-        console.log( event );
-        console.log( 'wowza!' );
         this.dataService.saveIdea( this.routePath, event, 'ideas' );
     }
 

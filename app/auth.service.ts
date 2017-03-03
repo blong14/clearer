@@ -16,27 +16,11 @@ export class AuthService {
     let auth = this.af.auth.login({ email: em, password: pw });
     localStorage.setItem('currentUser', JSON.stringify( auth ) );
     return auth;
-
-    /*return this.http.get('/_data/users/' + userid + '.json')
-      .map(
-        response => { 
-          let res: User = response.json();
-          if( res['password'] == password ){
-            localStorage.setItem('currentUser', JSON.stringify(res));
-            return res;
-          }else{
-            return "Incorrect password";
-          }
-        },
-        error =>{
-          return "Incorrect username";
-        }
-      )*/
   }
 
   logout(){
-        //localStorage.removeItem('currentUser');
-        this.af.auth.logout
+        localStorage.removeItem('currentUser');
+        this.af.auth.logout();
   }
 
 }

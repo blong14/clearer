@@ -16,8 +16,8 @@
     <div class="header">
         <h2>Current Ideas:</h2>
     </div>
-    <div class="ui relaxed divided list">
-        <div class="item" *ngFor="let currentIdea of invertList( idea.ideas ); let i = index">
+    <div class="ui relaxed divided list" >
+        <div class="item" *ngFor="let currentIdea of invertList( idea.ideas ); let i = index" >
             <img *ngIf="currentIdea.owner.email" [src]="getGravitar( currentIdea.owner.email )" class="left floated ui circular image" />
             <p class="ui text">{{ currentIdea.owner.name ? currentIdea.owner.name : currentIdea.owner.email }} - {{ formatTime( currentIdea.timestamp ) }}</p>
             <h3 class="left floated ">{{ currentIdea.text }}</h3>
@@ -29,11 +29,16 @@
                     Delete
                 </button>
                 <button 
-                    class="ui labeled icon button disabled basic right floated"
+                    class="ui labeled icon button basic right floated"
+                    (click)="onEditIdea({ idea: currentIdea })"
                 >
                     <i class="pencil icon"></i>
                     Edit
                 </button>
         </div>
     </div>
+    <modal *ngIf="showModal" [visibility]="showModal">
+        <header>This is the header</header>
+        <content>{{ modalContent }}</content>
+    </modal>
 </div>
