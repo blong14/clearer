@@ -9,11 +9,11 @@ import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 // services
 import { AuthService } from './auth.service';
 
+import { SharedModule } from './shared/shared.module';
+
 // feature modules
 import { DashboardModule } from './dashboard/dashboard.module';
 import { IdeaModule } from './idea/idea.module';
-import { HeaderModule } from './header/header.module';
-import { FooterModule } from './footer/footer.module';
 
 // components
 import { AppComponent } from './app.component';
@@ -41,11 +41,10 @@ const myFirebaseAuthConfig = {
         BrowserModule,
         HttpModule,
         FormsModule,
+        SharedModule,
         AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig),
         DashboardModule,
         IdeaModule,
-        HeaderModule,
-        FooterModule,
         RouterModule.forRoot([
             { path: 'login', component: LoginComponent },
         ])

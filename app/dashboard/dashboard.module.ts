@@ -1,31 +1,28 @@
 // core modules
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
-import { HeaderModule } from '../header/header.module';
-import { FooterModule } from '../footer/footer.module';
+import { SharedModule } from '../shared/shared.module';
 
 // components
 import { DashboardComponent } from './dashboard.component';
-import { CardComponent } from './card/card.component';
 
 @NgModule({
     declarations:[
         DashboardComponent,
-        CardComponent,
     ],
     imports:[
         CommonModule,
-        HeaderModule,
-        FooterModule,
+        SharedModule,
         RouterModule.forChild([
             { path: '', component: DashboardComponent }
         ])
     ],
     exports:[
-        DashboardComponent
-    ]
+        DashboardComponent,
+    ],
+    schemas:[ CUSTOM_ELEMENTS_SCHEMA ]
 })
 
 export class DashboardModule {}

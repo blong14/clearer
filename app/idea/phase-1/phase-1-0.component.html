@@ -17,6 +17,20 @@
         <h2>Current Ideas:</h2>
     </div>
     <div class="ui relaxed divided list" >
+        <comment-component 
+            *ngFor="let currentIdea of invertList( idea.ideas ); let i = index"
+            [avitar]="getGravitar( currentIdea.owner.email )"
+            [author]="currentIdea.owner"
+            [timestamp]="formatTime(currentIdea.timestamp)"
+            >
+            <div class="content">{{ currentIdea.text }}</div>
+            <div class="actions">
+                <div class="edit" (click)="onEditIdea({ idea:currentIdea })">Edit</div>
+                <div class="delete" (click)="onRemoveIdea({ i: i, idea: currentIdea })">Delete</div>
+            </div>
+        </comment-component>
+
+        
         <div class="item" *ngFor="let currentIdea of invertList( idea.ideas ); let i = index" >
             <img *ngIf="currentIdea.owner.email" [src]="getGravitar( currentIdea.owner.email )" class="left floated ui circular image" />
             <p class="ui text">{{ currentIdea.owner.name ? currentIdea.owner.name : currentIdea.owner.email }} - {{ formatTime( currentIdea.timestamp ) }}</p>

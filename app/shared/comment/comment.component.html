@@ -1,0 +1,12 @@
+<div class="item">
+    <img *ngIf="avitar" [src]="avitar" class="left floated ui circular image" />
+    <p class="ui text">
+        {{ author.name ? author.name : author.email }} - {{ timestamp }}
+    </p>
+    <div class="content">
+        <ng-content select=".content"></ng-content>
+    </div>
+    <div class="content">
+        <ng-content select=".actions"></ng-content>
+    </div>
+</div>

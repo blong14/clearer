@@ -1,13 +1,23 @@
 <header-component></header-component>
+
 <main>
+
   <section id="dashboard">
+
     <div class="ui cards">
-      <card-component *ngFor="let idea of ideas" [idea]="idea" class="card"></card-component>
-      <div class="card">
-        <div class="content">
-          <a href="#" class="ui button grey">Add a New Idea</a>
-        </div>
-      </div>
+
+      <card-component *ngFor="let idea of ideas">
+        <div class="header">{{ idea.title }}</div>
+        <div class="content">{{ idea.description }}</div>
+        <div class="link" [routerLink]="['/idea/' + idea.id]">View Project</div>
+      </card-component>
+
+      <card-component>
+        <div class="header">Add an Idea</div>
+        <div class="content">Start a new project</div>
+        <div class="link">Create Project</div>
+      </card-component>
+
     </div>
   </section>
 </main>
