@@ -8,15 +8,15 @@ import { SharedModule } from '../shared/shared.module';
 
 // components
 import { GenerateComponent } from './generate/generate.component';
-import { Phase_1_1_Component } from './phase-1/phase-1-1.component';
-import { Phase_2_0_Component } from './phase-2/phase-2-0.component';
+//import { Phase_1_1_Component } from './phase-1/phase-1-1.component';
+//import { Phase_2_0_Component } from './phase-2/phase-2-0.component';
 import { ProjectComponent } from './project.component';
 
 @NgModule({
     declarations: [
         GenerateComponent,
-        Phase_1_1_Component,
-        Phase_2_0_Component,
+        //Phase_1_1_Component,
+        //Phase_2_0_Component,
         ProjectComponent,
     ],
     imports: [

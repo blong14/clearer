@@ -21,12 +21,15 @@ export class LoginComponent{
 
     setUser(){
         this.af.auth.subscribe(
-            auth => {
+            (auth) => {
                 this.user = auth;
                 if( this.user != null ){
                     localStorage.setItem('currentUser', JSON.stringify( auth ) );
                     this.router.navigate([''])
                 }
+            },
+            (err) => {
+                console.log( err );
             }
         );
     }
@@ -48,6 +51,5 @@ export class LoginComponent{
     ngOnInit(){
 
         this.setUser();
-        this.af.auth.subscribe( auth=> auth );
     }
 }

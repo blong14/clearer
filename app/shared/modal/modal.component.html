@@ -1,13 +1,15 @@
 <div class="ui page dimmer" [class.active]="isVisible" [@visibilityChanged]="visibility"></div>
-<div class="ui modal" [class.active]="isVisible" [@visibilityChanged]="visibility" (@visibilityChanged.done)="onAnimationFinish($event)">
+<div class="ui modal" [class.active]="isVisible" [@visibilityChanged]="visibility" (@visibilityChanged.done)="onCloseEvent($event)">
     <div class="header">
         <ng-content select="header"></ng-content>
     </div>
     <div class="content">
         <ng-content select="content"></ng-content>
-    </div>
-    <div class="actions">
-        <button class="negative button ui" (click)="toggleVis()">Cancel</button>
-        <button class="positive button ui" (click)="toggleVis()">Save</button>
+        <text-input
+            *ngIf="editable"
+            [text]="editContent"
+            (save)="saveHandler($event)">
+        </text-input>
+
     </div>
 </div>

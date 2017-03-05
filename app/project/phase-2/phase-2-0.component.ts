@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+/*import { Component, Input } from '@angular/core';
 import { Idea } from '../../models/idea.interface';
 
 @Component({
@@ -31,4 +31,4 @@ export class Phase_2_0_Component{
 
     }
 
-}
+}*/

@@ -19,7 +19,6 @@ export class DashboardComponent {
         return this.dataService.getData().subscribe(
             res=> {
                 this.projects = res;
-                console.log( res );
             },
             err=> console.log( err )
         );

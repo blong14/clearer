@@ -9,8 +9,7 @@ export class TextInputComponent{
 
     @Input() onConfirm: void;
     @Output() save: EventEmitter<string> = new EventEmitter();
-
-    text: string;
+    @Input() text: string;
 
     onSave(){
         this.save.emit(this.text);

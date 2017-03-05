@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Idea } from '../../models/idea.interface';
+import { Project } from '../../models/project.interface';
 
 @Component({
     selector: 'phase-1-1',
@@ -7,7 +7,7 @@ import { Idea } from '../../models/idea.interface';
 })
 export class Phase_1_1_Component{ 
 
-    @Input() idea: Idea;
+    @Input() project: Project;
 
     totalVotes: number = 2;
     votes: Object[] = [];

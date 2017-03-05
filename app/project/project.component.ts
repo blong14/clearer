@@ -28,7 +28,6 @@ export class ProjectComponent{
         this.dataService.getProject( projectId ).subscribe(
             res => { 
                 this.project = res;
-                console.log( this.project );
             },
             err => console.log( err )
         );

@@ -1,8 +1,18 @@
-import { Component, Input, Output, EventEmitter, OnChanges, trigger, state, style, transition, animate } from '@angular/core';
+import { 
+    Component, 
+    Input, 
+    Output, 
+    EventEmitter, 
+    trigger, 
+    state, 
+    style, 
+    transition, 
+    animate } from '@angular/core';
 
 @Component({
-    selector: 'modal',
+    selector: 'modal-component',
     templateUrl: 'modal.component.html',
+    styleUrls: ['modal.component.scss'],
     animations: [
         trigger( 'visibilityChanged', [
             state('true', style({ opacity: 1})),
@@ -12,26 +22,28 @@ import { Component, Input, Output, EventEmitter, OnChanges, trigger, state, styl
     ]
 
 })
-export class ModalComponent implements OnChanges {
+export class ModalComponent {
 
-    @Input() visibility: Boolean;
-    @Output() animationFinish = new EventEmitter();
+    @Input() editable: boolean;
+    @Input() visibility: boolean;
+    @Input() editContent: string;
+    @Output() closeEvent = new EventEmitter();
+    @Output() saveEvent = new EventEmitter();
 
-    isVisible: Boolean;
+    isVisible: boolean;
 
     toggleVis(){
         this.visibility = !this.visibility;
-        console.log( this.visibility );
     }
 
-    onAnimationFinish(event){
-        console.log(event);
+    onCloseEvent( animation ){
         this.isVisible = !this.isVisible;
-        this.animationFinish.emit(event);
+        this.closeEvent.emit(animation.toState);
     }
 
-    ngOnChanges(){
-        console.log( this.visibility );
+    saveHandler(event){
+        this.saveEvent.emit( event );
+        this.toggleVis();
     }
 
 }

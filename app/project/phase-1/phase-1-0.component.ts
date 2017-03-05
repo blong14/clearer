@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { ModalComponent } from '../../shared/modal/modal.component';
-import { Idea } from '../../models/idea.interface';
+import { Project } from '../../models/project.interface';
 import { MD5 } from '../../../lib/md5';
 
 
@@ -10,7 +10,7 @@ import { MD5 } from '../../../lib/md5';
 })
 export class Phase_1_0_Component{ 
 
-    @Input() idea: Idea;
+    @Input() project: Project;
     @Output() addIdea: EventEmitter<any> = new EventEmitter();
 
     newIdea: string;
@@ -37,20 +37,20 @@ export class Phase_1_0_Component{
             };
 
 
-        if( this.idea['ideas'] ){
-            this.idea['ideas'].push(ideaData);
+        if( this.project['ideas'] ){
+            this.project['ideas'].push(ideaData);
         }else{
-            this.idea['ideas'] = {};
-            this.idea['ideas'][0] = ideaData;
+            this.project['ideas'] = {};
+            this.project['ideas'][0] = ideaData;
         }
-        this.addIdea.emit(this.idea['ideas']);
+        this.addIdea.emit(this.project['ideas']);
         this.newIdea = '';
     }
 
     onRemoveIdea(ev){
-        let reverseIndex = this.idea['ideas'].length - 1 - ev.i;
-        this.idea['ideas'].splice(reverseIndex, 1);
-        this.addIdea.emit(this.idea['ideas']);
+        let reverseIndex = this.project['ideas'].length - 1 - ev.i;
+        this.project['ideas'].splice(reverseIndex, 1);
+        this.addIdea.emit(this.project['ideas']);
     }
 
     onEditIdea( idea ){

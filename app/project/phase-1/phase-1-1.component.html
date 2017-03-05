@@ -21,10 +21,10 @@
     <div class="ui relaxed divided list">
         
         <comment-component 
-            *ngFor="let currentIdea of idea.ideas; let i = index"
-            [votes]="currentIdea.votes"
+            *ngFor="let currentProject of project.ideas; let i = index"
+            [votes]="currentProject.votes"
             >
-            <div class="content">{{ currentIdea.text }}</div>
+            <div class="content">{{ currentProject.text }}</div>
         </comment-component>
     </div>
 </div>

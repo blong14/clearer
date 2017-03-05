@@ -16,13 +16,13 @@
     </div>
     <div class="ui relaxed divided list">
         <comment-component 
-            *ngFor="let currentIdea of invertList( idea.ideas ); let i = index"
-            [avitar]="getGravitar( currentIdea.owner.email )"
-            [author]="currentIdea.owner"
-            [timestamp]="formatTime(currentIdea.timestamp)"
+            *ngFor="let currentProject of invertList( project.ideas ); let i = index"
+            [avitar]="getGravitar( currentProject.owner.email )"
+            [author]="currentProject.owner"
+            [timestamp]="formatTime(currentProject.timestamp)"
             [edit]="true"
             >
-            <div class="content">{{ currentIdea.text }}</div>
+            <div class="content">{{ currentProject.text }}</div>
         </comment-component>
     </div>
     <modal *ngIf="showModal" [visibility]="showModal">

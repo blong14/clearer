@@ -18,12 +18,13 @@ export class HeaderComponent {
 
     setUser(){
         this.user = localStorage.getItem('currentUser');
+        if( this.user == null ){
+            this.router.navigate(['/login']);
+        }
     }
 
     logout(){
         this.authService.logout();
-        this.setUser();
-        this.router.navigate(['login']);
     }
 
     ngOnInit(){

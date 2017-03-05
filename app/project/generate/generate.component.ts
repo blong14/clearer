@@ -10,8 +10,9 @@ import { DataService } from '../../data.service';
 export class GenerateComponent {
 
     @Input() project: Project;
-    modelContent: string;
-    showModal: boolean;
+    modalContent: string;
+    showModal: boolean ;
+    editIndex: number;
 
     @HostBinding('class') classes = "card eleven wide column";
 
@@ -23,6 +24,7 @@ export class GenerateComponent {
         let user = JSON.parse(localStorage.getItem('currentUser'));
         let ideaData = {
             text: event,
+            timestamp: new Date().getTime(),
             owner: {
                 'uid': user.auth.uid,
                 'email': user.auth.email,
@@ -37,6 +39,12 @@ export class GenerateComponent {
         this.dataService.saveProject( this.project.id, this.project['ideas'], 'ideas')
     }
 
+    checkPermissions( owner ){
+        let user = JSON.parse(localStorage.getItem('currentUser'));
+        if( owner.uid == user.auth.uid ){ return true; }
+        else{ return false; }
+    }
+
     // deleteHandler removes an event based on an index value - event from comment-component
     deleteHandler( event: number ){
         let reverseIndex = this.project['ideas'].length - 1 - event;
@@ -46,10 +54,22 @@ export class GenerateComponent {
 
     // editHandler fires off edit event based on index value - event from comment-component
     editHandler( event: number ){
-        console.log( event );
-        this.modelContent = this.project['ideas'][event].text;
+        let reverseIndex = this.project['ideas'].length - 1 - event;
+        this.modalContent = this.project['ideas'][reverseIndex].text;
+        this.editIndex = reverseIndex;
         this.showModal = true;
     }   
+
+    modalCloseHandler( event ){
+        if( event == false ){
+            this.showModal = false;
+        }
+    }
+
+    modalSaveHandler( event ){
+        this.project['ideas'][this.editIndex].text = event;
+        this.dataService.saveProject( this.project.id, this.project['ideas'], 'ideas');
+    }
 
     // formatTime takes a timestamp and transforms it into a "x days ago" format
     formatTime( time ){

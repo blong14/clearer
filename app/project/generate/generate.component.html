@@ -22,18 +22,20 @@
             [avitar]="getGravitar( currentIdea.owner.email )"
             [author]="currentIdea.owner"
             [timestamp]="formatTime(currentIdea.timestamp)"
-            [edit]="true"
+            [edit]="checkPermissions( currentIdea.owner )"
             (deleteEvent)="deleteHandler($event)"
             (editEvent)="editHandler($event)"
             >
             <div class="content">{{ currentIdea.text }}</div>
         </comment-component>
     </div>
-    <modal 
+    <modal-component 
         *ngIf="showModal" 
         [visibility]="showModal" 
-        (closeEvent)="modalCloseHandler($event)">
+        (closeEvent)="modalCloseHandler($event)"
+        (saveEvent)="modalSaveHandler($event)"
+        [editable]="true"
+        [editContent]="modalContent">
         <header>Edit Comment</header>
-        <content>{{ modelContent }}</content>
-    </modal>
+    </modal-component>
 </div>
