@@ -37,6 +37,10 @@ export class DataService {
 
     }
 
+    deleteProject( id: string ){
+        return this.af.database.object('/projects/' + id).remove();
+    }
+
     saveProject( id: string, newproject: Project, path?: string): Promise<void> {
          let updates = {};
          let success: boolean;

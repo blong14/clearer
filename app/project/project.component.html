@@ -22,7 +22,9 @@
         ></phase-2-0>-->
 
         <info-pane-component
-            [goals]="project.goals">
+            [goals]="project.goals"
+            [owner]="project.owner"
+            (settingsEvent)="handlerSettings($event)">
 
             <h1 class="header">{{ project.name }}</h1>
             <p class="description">{{ project.description }}</p>

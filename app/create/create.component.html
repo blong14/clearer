@@ -11,20 +11,30 @@
             <label>Description</label>
             <textarea rows="4" [(ngModel)]="project.description" ></textarea>
         </div>
-        <div class="ui dividing header">Project Goals</div>
-        <div class="field">
-            <label>Goal 1</label>
-            <input type="text" placeholder="Goal" [(ngModel)]="project.goals[0]"  />
+        <div class="grouped fields" *ngIf="project.goals">
+            <div class="ui dividing header">Project Goals</div>
+            <div class="field">
+                <label>Goal 1</label>
+                <input type="text" placeholder="Goal" [(ngModel)]="project.goals[0]"  />
+            </div>
+            <div class="field">
+                <label>Goal 2</label>
+                <input type="text" placeholder="Goal" [(ngModel)]="project.goals[1]"  />
+            </div>
+            <div class="field">
+                <label>Goal 3</label>
+                <input type="text" placeholder="Goal" [(ngModel)]="project.goals[2]" />
+            </div>
         </div>
-        <div class="field">
-            <label>Goal 2</label>
-            <input type="text" placeholder="Goal" [(ngModel)]="project.goals[1]"  />
+        <div class="ui button basic blue" tabindex="0" (click)="eventSave()" *ngIf="!project.id">
+            Create Project
         </div>
-        <div class="field">
-            <label>Goal 3</label>
-            <input type="text" placeholder="Goal" [(ngModel)]="project.goals[2]" />
+        <div class="ui button basic blue" tabindex="0" (click)="eventUpdate()" *ngIf="project.id">
+            Update Project
         </div>
-        <div class="ui button basic blue" tabindex="0" (click)="onSave()">Create Project</div>
+        <div class="ui button basic red" tabindex="1" (click)="eventDelete()" *ngIf="project.id">
+            Delete Project
+        </div>
     </div>
 </main>
 

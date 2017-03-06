@@ -3,6 +3,9 @@ export interface Project{
     name: string,
     description: string,
     goals: Object,
-    owner: string,
+    owner: {
+        email: string,
+        uid: string
+    },
     team: string,
 }

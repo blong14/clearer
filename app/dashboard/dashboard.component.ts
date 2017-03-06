@@ -11,17 +11,19 @@ export class DashboardComponent {
 
     projects: any;
 
-    constructor( private dataService : DataService ){
-        this.getProjects();
-    }
+    constructor( private dataService : DataService ){ }
 
-    getProjects(){
+    fetchProjects(){
         return this.dataService.getData().subscribe(
             res=> {
                 this.projects = res;
             },
             err=> console.log( err )
         );
+    }
+
+    ngOnInit(){
+        this.fetchProjects();
     }
 
 }

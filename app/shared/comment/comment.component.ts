@@ -24,6 +24,6 @@ export class CommentComponent {
         this.deleteEvent.emit(this.index);
     }
 
-    @HostBinding('class') isComment = "item";
+    @HostBinding('class') isComment = "event";
     
 }

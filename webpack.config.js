@@ -46,7 +46,7 @@ module.exports = {
     chunkFilename: '[name].chunk.js',
     filename: '[name].js',
     path: path.resolve(cwd, 'build'),
-    publicPath: 'build/',
+    publicPath: '/build/',
     sourceMapFilename: '[name].map'
   },
   module: {

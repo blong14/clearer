@@ -15,6 +15,7 @@ import { CreateComponent } from './create.component';
         CommonModule,
         FormsModule,
         RouterModule.forChild([
+            { path: 'project/edit/:id', component: CreateComponent },
             { path: 'project/create', component: CreateComponent }
         ]),
         SharedModule,

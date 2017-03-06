@@ -15,7 +15,7 @@
     <div class="header">
         <h2>Current Ideas:</h2>
     </div>
-    <div class="ui relaxed divided list">
+    <div class="ui feed">
         <comment-component 
             *ngFor="let currentIdea of invertList( project.ideas ); let i = index"
             [index]="i"

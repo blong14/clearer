@@ -1,42 +1,36 @@
-<div class="item">
 
-    <div 
-        class="ui button labeled icon basic mini right floated" 
-        *ngIf="edit" 
-        (click)="onDelete()">
-        <i class="trash icon"></i>
-        Delete
-    </div>
 
-    <div 
-        class="ui button labeled icon basic mini right floated" 
-        *ngIf="edit" 
-        (click)="onEdit()">
-        <i class="pencil icon"></i>
-        Edit
-    </div>
-
-    <div 
+ <!--   <div 
         class="ui button labeled icon basic mini right floated" 
         *ngIf="votes != undefined" 
         >
         <i class="plus icon"></i>
         {{ votes }}
+    </div>-->
+
+    <div class="label" *ngIf="avitar">
+        <img 
+        class="ui circular mini image floated left"
+        [src]="avitar"  />
     </div>
 
-    <img 
-        class="ui circular mini image floated left"
-        *ngIf="avitar" 
-        [src]="avitar"  />
-
-    <p 
-        class="ui text"
-        *ngIf="author">
-        {{ author.name ? author.name : author.email }} - {{ timestamp }}
-    </p>
     <div class="content">
-        <div class="header">
+            <div class="date">{{ author.name ? author.name : author.email }} - {{ timestamp }}</div>
+        <div class="summary">
             <ng-content select=".content"></ng-content>
         </div>
+
+      <div class="meta">
+        <a class="edit"
+        (click)="onEdit()"
+        *ngIf="edit">
+          <i class="pencil icon"></i> Edit
+        </a>
+
+        <a class="delete"
+        *ngIf="edit"
+        (click)="onDelete()">
+          <i class="trash icon"></i> Delete
+        </a>
+      </div>
     </div>
-</div>

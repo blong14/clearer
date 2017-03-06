@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { DataService } from '../data.service';
 import { Project } from '../models/project.interface';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'project-component',
@@ -14,7 +14,7 @@ export class ProjectComponent{
     project: Project;
     routePath: string;
 
-    constructor( private dataService: DataService, private route: ActivatedRoute ){
+    constructor( private dataService: DataService, private route: ActivatedRoute, private router: Router){
         
         // pass ID from route into getData();
         this.routePath = this.route.snapshot.params['id'];
@@ -36,6 +36,11 @@ export class ProjectComponent{
 
     handleAddProject( event ){
         this.dataService.saveProject( this.routePath, event, 'projects' );
+    }
+
+    handlerSettings( event ){
+        console.log( event );
+        this.router.navigate(['project/edit/' + this.project.id])
     }
 
    
