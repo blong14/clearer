@@ -15,7 +15,7 @@
 </div>
 
 <div class="extra content">
-    <button class="ui labeled icon button basic mini primary">
+    <button class="ui labeled icon button basic mini primary" *ngIf="checkUser()" (click)="onNextPhase()">
         <i class="right arrow icon"></i>
         Go to Next Phase
     </button>

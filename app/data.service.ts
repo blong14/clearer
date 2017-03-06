@@ -41,11 +41,11 @@ export class DataService {
         return this.af.database.object('/projects/' + id).remove();
     }
 
-    saveProject( id: string, newproject: Project, path?: string): Promise<void> {
+    saveProject( id: string, dataToSave: any, path?: string): Promise<void> {
          let updates = {};
          let success: boolean;
-         if(path){ updates[ path ] = newproject; }
-         else{ updates = newproject; }
+         if(path){ updates[ path ] = dataToSave; }
+         else{ updates = dataToSave; }
          return this.af.database.object('/projects/' + id ).update( updates );
     }
 

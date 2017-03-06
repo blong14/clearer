@@ -9,11 +9,16 @@ export class InfoPaneComponent {
 
     @Input() goals: Object;
     @Input() owner: Object;
+    @Output() nextPhaseEvent: EventEmitter<boolean> = new EventEmitter();
     @Output() settingsEvent: EventEmitter<boolean> = new EventEmitter();
     @HostBinding('class') allClasses = 'card four wide column';
 
     onSettings(){
         this.settingsEvent.emit(true);
+    }
+
+    onNextPhase(){
+        this.nextPhaseEvent.emit(true);
     }
 
     checkUser(){

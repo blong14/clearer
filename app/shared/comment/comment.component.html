@@ -8,21 +8,21 @@
         {{ votes }}
     </div>-->
 
-    <div class="label" *ngIf="avitar">
+    <div class="label" *ngIf="author">
         <img 
         class="ui circular mini image floated left"
-        [src]="avitar"  />
+        [src]="fetchGravitar( author.email )"  />
     </div>
 
     <div class="content">
-        <div class="date">{{ author.name ? author.name : author.email }} - {{ timestamp }} 
+        <div class="date">{{ author.name ? author.name : author.email }} - {{ formatTime( timestamp ) }} 
             <span *ngIf="votes && votes.count != 0"><i class="star icon orange"></i>{{ votes.count }} Favorites</span>
         </div>
         <div class="summary">
             <ng-content select=".content"></ng-content>
         </div>
 
-      <div class="meta">
+      <div class="meta" *ngIf="active != false">
 
 
 
@@ -42,12 +42,12 @@
 
         <a class="edit"
         (click)="onEdit()"
-        *ngIf="edit">
+        *ngIf="checkPermissions(author)">
           <i class="pencil icon"></i> Edit
         </a>
 
         <a class="delete"
-        *ngIf="edit"
+        *ngIf="checkPermissions(author)"
         (click)="onDelete()">
           <i class="trash icon"></i> Delete
         </a>

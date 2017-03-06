@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "1bf6246a60e1cff5e90c"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "1a5e87fed6bccbd058b0"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotMainModule = true; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -883,7 +883,8 @@ var CreateComponent = (function () {
                 email: '',
                 uid: ''
             },
-            team: ''
+            team: '',
+            state: 1
         };
     }
     // methods
@@ -1091,14 +1092,14 @@ var DataService = (function () {
     DataService.prototype.deleteProject = function (id) {
         return this.af.database.object('/projects/' + id).remove();
     };
-    DataService.prototype.saveProject = function (id, newproject, path) {
+    DataService.prototype.saveProject = function (id, dataToSave, path) {
         var updates = {};
         var success;
         if (path) {
-            updates[path] = newproject;
+            updates[path] = dataToSave;
         }
         else {
-            updates = newproject;
+            updates = dataToSave;
         }
         return this.af.database.object('/projects/' + id).update(updates);
     };
@@ -1206,7 +1207,7 @@ exports.LoginComponent = LoginComponent;
 /***/ "./app/project/generate/generate.component.html":
 /***/ function(module, exports) {
 
-module.exports = "<div class=\"content\">\n    <div class=\"header\">\n        <h1>Phase 1: Generate Ideas</h1>\n    </div>\n</div>\n<div class=\"content\">\n    <h3>Add an idea:</h3>\n    <text-input\n        (save)=\"onSave($event)\"\n        >\n    </text-input>\n</div>\n\n<div class=\"content\">\n    <div class=\"header\">\n        <h2>Current Ideas:</h2>\n    </div>\n    <div class=\"ui feed\">\n        <comment-component \n            *ngFor=\"let currentIdea of invertList( project.ideas ); let i = index\"\n            [index]=\"i\"\n            [avitar]=\"getGravitar( currentIdea.owner.email )\"\n            [author]=\"currentIdea.owner\"\n            [timestamp]=\"formatTime(currentIdea.timestamp)\"\n            [edit]=\"checkPermissions( currentIdea.owner )\"\n            [votes]=\"currentIdea.votes\"\n            (deleteEvent)=\"deleteHandler($event)\"\n            (editEvent)=\"editHandler($event)\"\n            (voteEvent)=\"voteHandler($event)\"\n            \n            >\n            <div class=\"content\">{{ currentIdea.text }}</div>\n        </comment-component>\n    </div>\n    <modal-component \n        *ngIf=\"showModal\" \n        [visibility]=\"showModal\" \n        (closeEvent)=\"modalCloseHandler($event)\"\n        (saveEvent)=\"modalSaveHandler($event)\"\n        [editable]=\"true\"\n        [editContent]=\"modalContent\">\n        <header>Edit Comment</header>\n    </modal-component>\n</div>"
+module.exports = "<div class=\"content\">\n    <div class=\"ui ordered four steps\">\n        <div class=\"active step\">\n            <div class=\"content\">\n                <div class=\"title\">Generate</div>\n                <div class=\"content\">Propose ideas with reckless abandon</div>\n            </div>\n        </div>\n        <div class=\"disabled step\">\n            <div class=\"content\">\n                <div class=\"title\">Explore</div>\n            </div>\n        </div>\n        <div class=\"disabled step\">\n            <div class=\"content\">\n                <div class=\"title\">Consider</div>\n            </div>\n        </div>\n        <div class=\"disabled step\">\n            <div class=\"content\">\n                <div class=\"title\">Decide</div>\n            </div>\n        </div>\n\n    </div>\n</div>\n<div class=\"content\">\n    <div class=\"ui icon message blue\">\n        <i class=\"talk outline icon\"></i>\n            Create as many ideas as you can.\n    </div>\n    <div class=\"ui header\">Add an Idea</div>\n    <text-input\n        (save)=\"onSave($event)\"\n        >\n    </text-input>\n</div>\n\n<div class=\"content\">\n    <div class=\"ui header\">Possible Ideas\n    </div>\n    <div class=\"ui feed\">\n        <comment-component \n            *ngFor=\"let currentIdea of invertList( project.ideas ); let i = index\"\n            [index]=\"i\"\n            [author]=\"currentIdea.owner\"\n            [timestamp]=\"currentIdea.timestamp\"\n            [votes]=\"currentIdea.votes\"\n            (deleteEvent)=\"deleteHandler($event)\"\n            (editEvent)=\"editHandler($event)\"\n            (voteEvent)=\"voteHandler($event)\"\n            \n            >\n            <div class=\"content\">{{ currentIdea.text }}</div>\n        </comment-component>\n    </div>\n    <modal-component \n        *ngIf=\"showModal\" \n        [visibility]=\"showModal\" \n        (closeEvent)=\"modalCloseHandler($event)\"\n        (saveEvent)=\"modalSaveHandler($event)\"\n        [editable]=\"true\"\n        [editContent]=\"modalContent\">\n        <header>Edit Comment</header>\n    </modal-component>\n</div>"
 
 /***/ },
 
@@ -1216,7 +1217,6 @@ module.exports = "<div class=\"content\">\n    <div class=\"header\">\n        <
 "use strict";
 
 var core_1 = __webpack_require__(0);
-var md5_1 = __webpack_require__("./lib/md5.ts");
 var data_service_1 = __webpack_require__("./app/data.service.ts");
 var GenerateComponent = (function () {
     function GenerateComponent(dataService) {
@@ -1243,15 +1243,6 @@ var GenerateComponent = (function () {
             this.project['ideas'] = [ideaData];
         }
         this.dataService.saveProject(this.project.id, this.project['ideas'], 'ideas');
-    };
-    GenerateComponent.prototype.checkPermissions = function (owner) {
-        var user = JSON.parse(localStorage.getItem('currentUser'));
-        if (owner.uid == user.auth.uid) {
-            return true;
-        }
-        else {
-            return false;
-        }
     };
     // deleteHandler removes an event based on an index value - event from comment-component
     GenerateComponent.prototype.deleteHandler = function (event) {
@@ -1303,44 +1294,11 @@ var GenerateComponent = (function () {
         this.project['ideas'][this.editIndex].text = event;
         this.dataService.saveProject(this.project.id, this.project['ideas'], 'ideas');
     };
-    // formatTime takes a timestamp and transforms it into a "x days ago" format
-    GenerateComponent.prototype.formatTime = function (time) {
-        var now = new Date().getTime();
-        var seconds = Math.floor((now - time) / 1000);
-        var interval = Math.floor(seconds / 31536000);
-        if (interval > 1) {
-            return interval + " years ago.";
-        }
-        interval = Math.floor(seconds / 2592000);
-        if (interval > 1) {
-            return interval + " months ago.";
-        }
-        interval = Math.floor(seconds / 86400);
-        if (interval >= 1) {
-            return interval + " days ago.";
-        }
-        interval = Math.floor(seconds / 3600);
-        if (interval > 1) {
-            return interval + " hours ago.";
-        }
-        interval = Math.floor(seconds / 60);
-        if (interval == 1) {
-            return interval + " minute ago.";
-        }
-        if (interval > 1) {
-            return interval + " minutes ago.";
-        }
-        return "Just now.";
-    };
     // invertList is used to show ideas in reverse chron order
     GenerateComponent.prototype.invertList = function (list) {
         if (list) {
             return list.slice().reverse();
         }
-    };
-    // getGravitar fetches gravitar url from an email address
-    GenerateComponent.prototype.getGravitar = function (email) {
-        return 'https://www.gravatar.com/avatar/' + md5_1.MD5(email);
     };
     return GenerateComponent;
 }());
@@ -1367,7 +1325,7 @@ exports.GenerateComponent = GenerateComponent;
 /***/ "./app/project/project.component.html":
 /***/ function(module, exports) {
 
-module.exports = "<header-component></header-component>\n<main id=\"project\" *ngIf=\"project\">\n\n    <div class=\"ui cards grid\">\n\n        <!-- finish phase'd tier architecture for project list -->\n        <generate-component\n            *ngIf=\"project\" \n            [project]=\"project\"\n            (text)=\"project\"\n        ></generate-component>\n       <!-- <phase-1-1 \n            *ngIf=\"project.currentPhase == 1.1\" \n            [project]=\"project\"\n            class=\"card eleven wide column\"\n        ></phase-1-1>\n        <phase-2-0\n            *ngIf=\"project.currentPhase == 2\"\n            [project]=\"project\"\n            class=\"card eleven wide column\"\n        ></phase-2-0>-->\n\n        <info-pane-component\n            [goals]=\"project.goals\"\n            [owner]=\"project.owner\"\n            (settingsEvent)=\"handlerSettings($event)\">\n\n            <h1 class=\"header\">{{ project.name }}</h1>\n            <p class=\"description\">{{ project.description }}</p>\n\n        </info-pane-component>\n\n    </div>\n\n</main>\n<footer-component></footer-component>"
+module.exports = "<header-component></header-component>\n<main id=\"project\" *ngIf=\"project\">\n\n    <div class=\"ui cards grid\">\n\n        <generate-component\n            *ngIf=\"project.state == 1\" \n            [project]=\"project\"\n            (text)=\"project\"\n        ></generate-component>\n\n        <select-component\n            [project]=\"project\"\n            *ngIf=\"project.state == 2\">\n        </select-component>\n\n        <info-pane-component\n            [goals]=\"project.goals\"\n            [owner]=\"project.owner\"\n            (settingsEvent)=\"handlerSettings($event)\"\n            (nextPhaseEvent)=\"handlerNextPhase($event)\">\n\n            <h1 class=\"header\">{{ project.name }}</h1>\n            <p class=\"description\">{{ project.description }}</p>\n\n        </info-pane-component>\n\n    </div>\n\n</main>\n<footer-component></footer-component>"
 
 /***/ },
 
@@ -1406,6 +1364,10 @@ var ProjectComponent = (function () {
     handleAddProject( event ){
         this.dataService.saveProject( this.routePath, event, 'projects' );
     }*/
+    ProjectComponent.prototype.handlerNextPhase = function (event) {
+        this.project.state++;
+        this.dataService.saveProject(this.project.id, this.project.state, 'state');
+    };
     // navigate to create component for editing project details
     ProjectComponent.prototype.handlerSettings = function (event) {
         // event returns true
@@ -1440,6 +1402,7 @@ var forms_1 = __webpack_require__(4);
 var shared_module_1 = __webpack_require__("./app/shared/shared.module.ts");
 // components
 var generate_component_1 = __webpack_require__("./app/project/generate/generate.component.ts");
+var select_component_1 = __webpack_require__("./app/project/select/select.component.ts");
 //import { Phase_1_1_Component } from './phase-1/phase-1-1.component';
 //import { Phase_2_0_Component } from './phase-2/phase-2-0.component';
 var project_component_1 = __webpack_require__("./app/project/project.component.ts");
@@ -1452,6 +1415,7 @@ ProjectModule = __decorate([
     core_1.NgModule({
         declarations: [
             generate_component_1.GenerateComponent,
+            select_component_1.SelectComponent,
             //Phase_1_1_Component,
             //Phase_2_0_Component,
             project_component_1.ProjectComponent,
@@ -1461,7 +1425,8 @@ ProjectModule = __decorate([
             forms_1.FormsModule,
             shared_module_1.SharedModule,
             router_1.RouterModule.forChild([
-                { path: 'project/:id', component: project_component_1.ProjectComponent }
+                { path: 'project/:id', component: project_component_1.ProjectComponent },
+                { path: 'project/select/:id', component: select_component_1.SelectComponent }
             ])
         ],
         exports: []
@@ -1469,6 +1434,45 @@ ProjectModule = __decorate([
     __metadata("design:paramtypes", [])
 ], ProjectModule);
 exports.ProjectModule = ProjectModule;
+
+
+/***/ },
+
+/***/ "./app/project/select/select.component.html":
+/***/ function(module, exports) {
+
+module.exports = "<div class=\"content\">\n    <div class=\"ui ordered four steps\">\n        <div class=\"active step\">\n            <div class=\"content\">\n                <div class=\"title\">Generate</div>\n                <div class=\"content\">Propose ideas with reckless abandon</div>\n            </div>\n        </div>\n        <div class=\"disabled step\">\n            <div class=\"content\">\n                <div class=\"title\">Explore</div>\n            </div>\n        </div>\n        <div class=\"disabled step\">\n            <div class=\"content\">\n                <div class=\"title\">Consider</div>\n            </div>\n        </div>\n        <div class=\"disabled step\">\n            <div class=\"content\">\n                <div class=\"title\">Decide</div>\n            </div>\n        </div>\n\n    </div>\n</div>\n\n<div class=\"content\">\n    <div class=\"ui icon message blue\">\n        <i class=\"checkmark box icon\"></i>\n            Choose the best ideas to move forward.\n    </div>\n    <div class=\"ui header\">Possible Ideas\n    </div>\n    <div class=\"ui feed\">\n        <comment-component \n            *ngFor=\"let currentIdea of project.ideas; let i = index\"\n            [index]=\"i\"\n            [author]=\"currentIdea.owner\"\n            [timestamp]=\"currentIdea.timestamp\"\n            [votes]=\"currentIdea.votes\"\n            [active]=\"false\"\n            (deleteEvent)=\"deleteHandler($event)\"\n            (editEvent)=\"editHandler($event)\"\n            (voteEvent)=\"voteHandler($event)\"\n            \n            >\n            <div class=\"content\">{{ currentIdea.text }}</div>\n        </comment-component>\n    </div>\n    <modal-component \n        *ngIf=\"showModal\" \n        [visibility]=\"showModal\" \n        (closeEvent)=\"modalCloseHandler($event)\"\n        (saveEvent)=\"modalSaveHandler($event)\"\n        [editable]=\"true\"\n        [editContent]=\"modalContent\">\n        <header>Edit Comment</header>\n    </modal-component>\n</div>"
+
+/***/ },
+
+/***/ "./app/project/select/select.component.ts":
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var core_1 = __webpack_require__(0);
+var SelectComponent = (function () {
+    function SelectComponent() {
+        this.classes = "card eleven wide column";
+    }
+    return SelectComponent;
+}());
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Object)
+], SelectComponent.prototype, "project", void 0);
+__decorate([
+    core_1.HostBinding('class'),
+    __metadata("design:type", Object)
+], SelectComponent.prototype, "classes", void 0);
+SelectComponent = __decorate([
+    core_1.Component({
+        selector: 'select-component',
+        template: __webpack_require__("./app/project/select/select.component.html")
+    }),
+    __metadata("design:paramtypes", [])
+], SelectComponent);
+exports.SelectComponent = SelectComponent;
 
 
 /***/ },
@@ -1515,7 +1519,7 @@ exports.CardComponent = CardComponent;
 /***/ "./app/shared/comment/comment.component.html":
 /***/ function(module, exports) {
 
-module.exports = "\n\n <!--   <div \n        class=\"ui button labeled icon basic mini right floated\" \n        *ngIf=\"votes != undefined\" \n        >\n        <i class=\"plus icon\"></i>\n        {{ votes }}\n    </div>-->\n\n    <div class=\"label\" *ngIf=\"avitar\">\n        <img \n        class=\"ui circular mini image floated left\"\n        [src]=\"avitar\"  />\n    </div>\n\n    <div class=\"content\">\n        <div class=\"date\">{{ author.name ? author.name : author.email }} - {{ timestamp }} \n            <span *ngIf=\"votes && votes.count != 0\"><i class=\"star icon orange\"></i>{{ votes.count }} Favorites</span>\n        </div>\n        <div class=\"summary\">\n            <ng-content select=\".content\"></ng-content>\n        </div>\n\n      <div class=\"meta\">\n\n\n\n            <a class=\"star\" \n              *ngIf=\"!checkVote()\"\n              (click)=\"onVote()\"\n            >\n            <i class=\"empty star icon\"></i> Favorite\n        </a>\n\n        <a class=\"star\" \n              *ngIf=\"checkVote()\"\n              (click)=\"onVote()\"\n            >\n            <i class=\"star icon orange\"></i> Remove Favorite\n        </a>\n\n        <a class=\"edit\"\n        (click)=\"onEdit()\"\n        *ngIf=\"edit\">\n          <i class=\"pencil icon\"></i> Edit\n        </a>\n\n        <a class=\"delete\"\n        *ngIf=\"edit\"\n        (click)=\"onDelete()\">\n          <i class=\"trash icon\"></i> Delete\n        </a>\n      </div>\n    </div>"
+module.exports = "\n\n <!--   <div \n        class=\"ui button labeled icon basic mini right floated\" \n        *ngIf=\"votes != undefined\" \n        >\n        <i class=\"plus icon\"></i>\n        {{ votes }}\n    </div>-->\n\n    <div class=\"label\" *ngIf=\"author\">\n        <img \n        class=\"ui circular mini image floated left\"\n        [src]=\"fetchGravitar( author.email )\"  />\n    </div>\n\n    <div class=\"content\">\n        <div class=\"date\">{{ author.name ? author.name : author.email }} - {{ formatTime( timestamp ) }} \n            <span *ngIf=\"votes && votes.count != 0\"><i class=\"star icon orange\"></i>{{ votes.count }} Favorites</span>\n        </div>\n        <div class=\"summary\">\n            <ng-content select=\".content\"></ng-content>\n        </div>\n\n      <div class=\"meta\" *ngIf=\"active != false\">\n\n\n\n            <a class=\"star\" \n              *ngIf=\"!checkVote()\"\n              (click)=\"onVote()\"\n            >\n            <i class=\"empty star icon\"></i> Favorite\n        </a>\n\n        <a class=\"star\" \n              *ngIf=\"checkVote()\"\n              (click)=\"onVote()\"\n            >\n            <i class=\"star icon orange\"></i> Remove Favorite\n        </a>\n\n        <a class=\"edit\"\n        (click)=\"onEdit()\"\n        *ngIf=\"checkPermissions(author)\">\n          <i class=\"pencil icon\"></i> Edit\n        </a>\n\n        <a class=\"delete\"\n        *ngIf=\"checkPermissions(author)\"\n        (click)=\"onDelete()\">\n          <i class=\"trash icon\"></i> Delete\n        </a>\n      </div>\n    </div>"
 
 /***/ },
 
@@ -1525,6 +1529,7 @@ module.exports = "\n\n <!--   <div \n        class=\"ui button labeled icon basi
 "use strict";
 
 var core_1 = __webpack_require__(0);
+var md5_1 = __webpack_require__("./lib/md5.ts");
 var CommentComponent = (function () {
     function CommentComponent() {
         this.editEvent = new core_1.EventEmitter();
@@ -1541,6 +1546,15 @@ var CommentComponent = (function () {
     CommentComponent.prototype.onVote = function () {
         this.voteEvent.emit(this.index);
     };
+    CommentComponent.prototype.checkPermissions = function (author) {
+        var user = JSON.parse(localStorage.getItem('currentUser'));
+        if (author.uid == user.auth.uid) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    };
     CommentComponent.prototype.checkVote = function () {
         //console.log( this.votes['voters'] );
         var user = JSON.parse(localStorage.getItem('currentUser'));
@@ -1551,16 +1565,45 @@ var CommentComponent = (function () {
         }
         return false;
     };
+    // getGravitar fetches gravitar url from an email address
+    CommentComponent.prototype.fetchGravitar = function (email) {
+        return 'https://www.gravatar.com/avatar/' + md5_1.MD5(email);
+    };
+    // formatTime takes a timestamp and transforms it into a "x days ago" format
+    CommentComponent.prototype.formatTime = function (time) {
+        var now = new Date().getTime();
+        var seconds = Math.floor((now - time) / 1000);
+        var interval = Math.floor(seconds / 31536000);
+        if (interval > 1) {
+            return interval + " years ago.";
+        }
+        interval = Math.floor(seconds / 2592000);
+        if (interval > 1) {
+            return interval + " months ago.";
+        }
+        interval = Math.floor(seconds / 86400);
+        if (interval >= 1) {
+            return interval + " days ago.";
+        }
+        interval = Math.floor(seconds / 3600);
+        if (interval > 1) {
+            return interval + " hours ago.";
+        }
+        interval = Math.floor(seconds / 60);
+        if (interval == 1) {
+            return interval + " minute ago.";
+        }
+        if (interval > 1) {
+            return interval + " minutes ago.";
+        }
+        return "Just now.";
+    };
     return CommentComponent;
 }());
 __decorate([
     core_1.Input(),
     __metadata("design:type", Number)
 ], CommentComponent.prototype, "index", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", String)
-], CommentComponent.prototype, "avitar", void 0);
 __decorate([
     core_1.Input(),
     __metadata("design:type", String)
@@ -1571,12 +1614,12 @@ __decorate([
 ], CommentComponent.prototype, "author", void 0);
 __decorate([
     core_1.Input(),
-    __metadata("design:type", Boolean)
-], CommentComponent.prototype, "edit", void 0);
-__decorate([
-    core_1.Input(),
     __metadata("design:type", Object)
 ], CommentComponent.prototype, "votes", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Boolean)
+], CommentComponent.prototype, "active", void 0);
 __decorate([
     core_1.Output(),
     __metadata("design:type", core_1.EventEmitter)
@@ -1701,14 +1744,14 @@ exports.HeaderComponent = HeaderComponent;
 /***/ "./app/shared/info-pane/info-pane.component.html":
 /***/ function(module, exports) {
 
-module.exports = "<div class=\"content\">\n    <ng-content select=\".header\"></ng-content>\n</div>\n\n<div class=\"content\">\n    <h3>Description:</h3>\n    <ng-content select=\".description\"></ng-content>\n</div>\n\n<div class=\"content\">\n    <h3>Goals:</h3>\n    <ul>\n        <li *ngFor=\"let goal of goals\">{{ goal }}</li>\n    </ul>\n</div>\n\n<div class=\"extra content\">\n<button class=\"ui labeled icon button basic mini floated left\" *ngIf=\"checkUser()\" (click)=\"onSettings()\">\n    <i class=\"setting icon\"></i>\n    Project Settings\n</button>\n</div>\n"
+module.exports = "<div class=\"content\">\n    <ng-content select=\".header\"></ng-content>\n</div>\n\n<div class=\"content\">\n    <h3>Description:</h3>\n    <ng-content select=\".description\"></ng-content>\n</div>\n\n<div class=\"content\">\n    <h3>Goals:</h3>\n    <ul>\n        <li *ngFor=\"let goal of goals\">{{ goal }}</li>\n    </ul>\n</div>\n\n<div class=\"extra content\">\n    <button class=\"ui labeled icon button basic mini primary\" *ngIf=\"checkUser()\" (click)=\"onNextPhase()\">\n        <i class=\"right arrow icon\"></i>\n        Go to Next Phase\n    </button>\n    <button class=\"ui labeled icon button basic mini\" *ngIf=\"checkUser()\" (click)=\"onSettings()\">\n        <i class=\"setting icon\"></i>\n        Project Settings\n    </button>\n</div>\n"
 
 /***/ },
 
 /***/ "./app/shared/info-pane/info-pane.component.scss":
 /***/ function(module, exports) {
 
-module.exports = "ul {\n  padding: 0;\n  list-style: none;\n}\n\nul li + li {\n  padding-top: .5em;\n  margin-top: .5em;\n  border-top: 1px solid #eee;\n}\n\n"
+module.exports = "ul {\n  padding: 0;\n  list-style: none;\n}\n\nul li + li {\n  padding-top: .5em;\n  margin-top: .5em;\n  border-top: 1px solid #eee;\n}\n\n.ui.button {\n  margin-top: 1em;\n}\n\n"
 
 /***/ },
 
@@ -1720,11 +1763,15 @@ module.exports = "ul {\n  padding: 0;\n  list-style: none;\n}\n\nul li + li {\n 
 var core_1 = __webpack_require__(0);
 var InfoPaneComponent = (function () {
     function InfoPaneComponent() {
+        this.nextPhaseEvent = new core_1.EventEmitter();
         this.settingsEvent = new core_1.EventEmitter();
         this.allClasses = 'card four wide column';
     }
     InfoPaneComponent.prototype.onSettings = function () {
         this.settingsEvent.emit(true);
+    };
+    InfoPaneComponent.prototype.onNextPhase = function () {
+        this.nextPhaseEvent.emit(true);
     };
     InfoPaneComponent.prototype.checkUser = function () {
         if (this.owner['uid'] == JSON.parse(localStorage.getItem('currentUser')).uid) {
@@ -1744,6 +1791,10 @@ __decorate([
     core_1.Input(),
     __metadata("design:type", Object)
 ], InfoPaneComponent.prototype, "owner", void 0);
+__decorate([
+    core_1.Output(),
+    __metadata("design:type", core_1.EventEmitter)
+], InfoPaneComponent.prototype, "nextPhaseEvent", void 0);
 __decorate([
     core_1.Output(),
     __metadata("design:type", core_1.EventEmitter)

@@ -44,12 +44,6 @@ export class GenerateComponent {
         this.dataService.saveProject( this.project.id, this.project['ideas'], 'ideas')
     }
 
-    checkPermissions( owner ){
-        let user = JSON.parse(localStorage.getItem('currentUser'));
-        if( owner.uid == user.auth.uid ){ return true; }
-        else{ return false; }
-    }
-
     // deleteHandler removes an event based on an index value - event from comment-component
     deleteHandler( event: number ){
         let reverseIndex = this.project['ideas'].length - 1 - event;
@@ -104,38 +98,7 @@ export class GenerateComponent {
         this.dataService.saveProject( this.project.id, this.project['ideas'], 'ideas');
     }
 
-    // formatTime takes a timestamp and transforms it into a "x days ago" format
-    formatTime( time ){
-        let now: any = new Date().getTime();
-        let seconds = Math.floor(( now - time) / 1000);
-        let interval = Math.floor(seconds / 31536000);
-
-        if (interval > 1) {
-            return interval + " years ago.";
-        }
-        interval = Math.floor(seconds / 2592000);
-        if (interval > 1) {
-            return interval + " months ago.";
-        }
-        interval = Math.floor(seconds / 86400);
-        if (interval >= 1) {
-           return interval + " days ago.";
-           // return time.UTCString();
-        }
-        interval = Math.floor(seconds / 3600);
-        if (interval > 1) {
-            return interval + " hours ago.";
-        }
-        interval = Math.floor(seconds / 60);
-        if (interval == 1 ){
-            return interval + " minute ago.";
-        }
-        if (interval > 1) {
-            return interval + " minutes ago.";
-        }
-        return "Just now."
-    }
-
+    
     // invertList is used to show ideas in reverse chron order
     invertList( list ){
         if( list ){
@@ -143,9 +106,5 @@ export class GenerateComponent {
         }
     }
 
-    // getGravitar fetches gravitar url from an email address
-    getGravitar( email ){
-        return 'https://www.gravatar.com/avatar/' + MD5(email);
-    }
 
 }

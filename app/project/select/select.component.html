@@ -24,28 +24,22 @@
 
     </div>
 </div>
-<div class="content">
-    <div class="ui icon message blue">
-        <i class="talk outline icon"></i>
-            Create as many ideas as you can.
-    </div>
-    <div class="ui header">Add an Idea</div>
-    <text-input
-        (save)="onSave($event)"
-        >
-    </text-input>
-</div>
 
 <div class="content">
+    <div class="ui icon message blue">
+        <i class="checkmark box icon"></i>
+            Choose the best ideas to move forward.
+    </div>
     <div class="ui header">Possible Ideas
     </div>
     <div class="ui feed">
         <comment-component 
-            *ngFor="let currentIdea of invertList( project.ideas ); let i = index"
+            *ngFor="let currentIdea of project.ideas; let i = index"
             [index]="i"
             [author]="currentIdea.owner"
             [timestamp]="currentIdea.timestamp"
             [votes]="currentIdea.votes"
+            [active]="false"
             (deleteEvent)="deleteHandler($event)"
             (editEvent)="editHandler($event)"
             (voteEvent)="voteHandler($event)"

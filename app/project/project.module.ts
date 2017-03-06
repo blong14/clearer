@@ -8,6 +8,7 @@ import { SharedModule } from '../shared/shared.module';
 
 // components
 import { GenerateComponent } from './generate/generate.component';
+import { SelectComponent } from './select/select.component';
 //import { Phase_1_1_Component } from './phase-1/phase-1-1.component';
 //import { Phase_2_0_Component } from './phase-2/phase-2-0.component';
 import { ProjectComponent } from './project.component';
@@ -15,6 +16,7 @@ import { ProjectComponent } from './project.component';
 @NgModule({
     declarations: [
         GenerateComponent,
+        SelectComponent,
         //Phase_1_1_Component,
         //Phase_2_0_Component,
         ProjectComponent,
@@ -24,7 +26,8 @@ import { ProjectComponent } from './project.component';
         FormsModule,
         SharedModule,
         RouterModule.forChild([
-            { path: 'project/:id', component: ProjectComponent }
+            { path: 'project/:id', component: ProjectComponent },
+            { path: 'project/select/:id', component: SelectComponent }
         ])
     ],
     exports: [

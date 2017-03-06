@@ -25,7 +25,8 @@ export class CreateComponent {
             email: '',
             uid: ''
         },
-        team: ''
+        team: '',
+        state: 1
     }
     routePath: string;
 

@@ -39,6 +39,11 @@ export class ProjectComponent{
         this.dataService.saveProject( this.routePath, event, 'projects' );
     }*/
 
+    handlerNextPhase( event ){
+        this.project.state++;
+        this.dataService.saveProject( this.project.id, this.project.state, 'state' );
+    }
+
     // navigate to create component for editing project details
     handlerSettings( event ){
         // event returns true

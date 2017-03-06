@@ -3,27 +3,22 @@
 
     <div class="ui cards grid">
 
-        <!-- finish phase'd tier architecture for project list -->
         <generate-component
-            *ngIf="project" 
+            *ngIf="project.state == 1" 
             [project]="project"
             (text)="project"
         ></generate-component>
-       <!-- <phase-1-1 
-            *ngIf="project.currentPhase == 1.1" 
+
+        <select-component
             [project]="project"
-            class="card eleven wide column"
-        ></phase-1-1>
-        <phase-2-0
-            *ngIf="project.currentPhase == 2"
-            [project]="project"
-            class="card eleven wide column"
-        ></phase-2-0>-->
+            *ngIf="project.state == 2">
+        </select-component>
 
         <info-pane-component
             [goals]="project.goals"
             [owner]="project.owner"
-            (settingsEvent)="handlerSettings($event)">
+            (settingsEvent)="handlerSettings($event)"
+            (nextPhaseEvent)="handlerNextPhase($event)">
 
             <h1 class="header">{{ project.name }}</h1>
             <p class="description">{{ project.description }}</p>

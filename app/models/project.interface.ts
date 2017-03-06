@@ -8,4 +8,5 @@ export interface Project{
         uid: string
     },
     team: string,
+    state: number
 }
