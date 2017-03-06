@@ -12,6 +12,8 @@ import { MD5 } from '../../lib/md5';
 })
 export class CreateComponent {
 
+    // properties
+
     project: Project = {
         id: '',
         name: '',
@@ -25,67 +27,57 @@ export class CreateComponent {
         },
         team: ''
     }
-
     routePath: string;
 
     constructor( private dataService: DataService, private route: ActivatedRoute, private router: Router ){}
 
+    // methods
+
+    // accepts an id - used to propegate fields if project already exists/is being updated
     fetchProject( id ){
         this.dataService.getProject( id ).subscribe(
-            (res)=>{
-                this.project = res;
-            },
-            (err)=> console.log(err)
+            (res) => this.project = res,
+            (err) => console.log(err)
         )
-
         if( !this.project.goals ){ this.project.goals = []; }
     }
 
+    // saves a new project
     eventSave(){
-        console.log( this.project );
         this.project.id = MD5(this.project.name);
         let user = JSON.parse( localStorage.getItem('currentUser') );
         this.project.owner.email = user.auth.email;
         this.project.owner.uid = user.auth.uid;
         let newUrl = 'project/' + this.project.id;
         this.dataService.saveProject( this.project.id , this.project ).then(
-            (res)=>{
-                this.router.navigate([newUrl])
-            },
-            (err)=>{
-                console.log(err);
-            }
-            
+            (res) => this.router.navigate([newUrl]),
+            (err) => console.log(err)
         );
 
     }
 
+    // updates an existing project 
     eventUpdate(){
-
         let newUrl = 'project/' + this.project.id;
-        delete this.project['$exists'];
-        delete this.project['$key'];
+        delete this.project['$exists']; // remove FB generated system keys
+        delete this.project['$key']; 
         this.dataService.saveProject( this.project.id, this.project ).then(
-            (res)=>this.router.navigate([newUrl]),
-            (err)=>console.log(err)
+            (res) => this.router.navigate([newUrl]),
+            (err) => console.log(err)
         )
     }
 
+    // deletes a project
     eventDelete(){
         this.dataService.deleteProject(this.project.id).then(
-            (res)=>{
-                this.router.navigate(['']);
-            },
-            (err)=>{
-                console.log( err );
-            }
+            (res) => this.router.navigate(['']),
+            (err) => console.log( err )
         )
     }
 
     ngOnInit(){
-
-        this.routePath = this.route.snapshot.params['id'];
-        if( this.routePath){ this.fetchProject( this.routePath ); }
+        this.routePath = this.route.snapshot.params['id']; // get id from route if updating existing project
+        if( this.routePath){ this.fetchProject( this.routePath ); } // fetch project data if updating existing project
     }
 
 }

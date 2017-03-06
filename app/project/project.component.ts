@@ -34,12 +34,14 @@ export class ProjectComponent{
 
     }
 
+    /* REMOVING FOR NOW -- DON'T BELIEVE IT'S BEING USED // when adding a project inside 
     handleAddProject( event ){
         this.dataService.saveProject( this.routePath, event, 'projects' );
-    }
+    }*/
 
+    // navigate to create component for editing project details
     handlerSettings( event ){
-        console.log( event );
+        // event returns true
         this.router.navigate(['project/edit/' + this.project.id])
     }
 

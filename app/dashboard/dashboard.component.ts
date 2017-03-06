@@ -9,16 +9,19 @@ import { DataService } from '../data.service';
 
 export class DashboardComponent {
 
+    // properties
+
     projects: any;
 
     constructor( private dataService : DataService ){ }
 
+    // methods
+
+    // get projects to populate dashboard
     fetchProjects(){
         return this.dataService.getData().subscribe(
-            res=> {
-                this.projects = res;
-            },
-            err=> console.log( err )
+            res => this.projects = res,
+            err => console.log( err )
         );
     }
 

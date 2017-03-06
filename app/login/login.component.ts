@@ -11,14 +11,18 @@ import { AngularFire, AngularFireAuth } from 'angularfire2';
 })
 
 export class LoginComponent{
+    
+    // properties
+
     email: string;
+    error: object;
     password: string;
-    user;
-    error: any;
+    user: object;
 
     constructor( private af: AngularFire, private authService: AuthService, private router: Router ){
     }
 
+    // take auth info from fb and save to localstorage for easy reference
     setUser(){
         this.af.auth.subscribe(
             (auth) => {
@@ -34,9 +38,10 @@ export class LoginComponent{
         );
     }
 
+    // auth user to firebase and receive user info
     login(): void {
         this.authService.login( this.email, this.password ).then(
-            res=>{ 
+            (res) => { 
                 if(res){
                     this.setUser();
                 }else{
@@ -44,12 +49,11 @@ export class LoginComponent{
                 }
                 
             },
-            err=>{ console.log(err); }
+            (err) => { console.log(err); }
         );
     }
 
     ngOnInit(){
-
         this.setUser();
     }
 }

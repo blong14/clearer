@@ -9,14 +9,19 @@ import { DataService } from '../../data.service';
 })
 export class GenerateComponent {
 
-    @Input() project: Project;
+    // properties
+
+    editIndex: number;
     modalContent: string;
     showModal: boolean ;
-    editIndex: number;
+
+    @Input() project: Project;
 
     @HostBinding('class') classes = "card eleven wide column";
 
     constructor( private dataService: DataService ){}
+
+    // methods
 
     // onSave saves new idea to firebase - event from text-input-component
     onSave( event ){
@@ -60,12 +65,14 @@ export class GenerateComponent {
         this.showModal = true;
     }   
 
+    // close model
     modalCloseHandler( event ){
         if( event == false ){
             this.showModal = false;
         }
     }
 
+    // save updates made inside of modal
     modalSaveHandler( event ){
         this.project['ideas'][this.editIndex].text = event;
         this.dataService.saveProject( this.project.id, this.project['ideas'], 'ideas');
