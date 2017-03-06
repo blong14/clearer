@@ -23,8 +23,11 @@
             [author]="currentIdea.owner"
             [timestamp]="formatTime(currentIdea.timestamp)"
             [edit]="checkPermissions( currentIdea.owner )"
+            [votes]="currentIdea.votes"
             (deleteEvent)="deleteHandler($event)"
             (editEvent)="editHandler($event)"
+            (voteEvent)="voteHandler($event)"
+            
             >
             <div class="content">{{ currentIdea.text }}</div>
         </comment-component>

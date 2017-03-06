@@ -65,6 +65,32 @@ export class GenerateComponent {
         this.showModal = true;
     }   
 
+    voteHandler( event: number ){
+        let user = JSON.parse(localStorage.getItem('currentUser'));
+        let reverseIndex = this.project['ideas'].length - 1 - event;
+        let votes = this.project['ideas'][reverseIndex]['votes'];
+
+        if( votes && votes['voters'] != undefined ){
+            if( votes['voters'].includes( user.auth.uid ) ){
+                votes['count'] = votes['count'] - 1;
+                let voterIndex = votes['voters'].indexOf( user.auth.uid );
+                votes['voters'].splice( voterIndex, 1 );
+            }else{
+                votes['count'] = votes['count'] + 1;
+                votes['voters'].push( user.auth.uid );
+            }
+        }else{
+            this.project['ideas']['votes'] = {
+                count: 1,
+                voters: [
+                    user.auth.uid
+                ]
+            }; 
+            votes = this.project['ideas']['votes'];
+        }
+        this.dataService.saveProject( this.project.id, votes, 'ideas/' + reverseIndex + '/votes')
+    }
+
     // close model
     modalCloseHandler( event ){
         if( event == false ){

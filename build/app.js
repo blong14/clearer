@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "850b2ab4ec0abf1041c1"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "44adaa1d57cf7d33f388"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotMainModule = true; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -873,6 +873,7 @@ var CreateComponent = (function () {
         this.dataService = dataService;
         this.route = route;
         this.router = router;
+        // properties
         this.project = {
             id: '',
             name: '',
@@ -885,49 +886,43 @@ var CreateComponent = (function () {
             team: ''
         };
     }
+    // methods
+    // accepts an id - used to propegate fields if project already exists/is being updated
     CreateComponent.prototype.fetchProject = function (id) {
         var _this = this;
-        this.dataService.getProject(id).subscribe(function (res) {
-            _this.project = res;
-        }, function (err) { return console.log(err); });
+        this.dataService.getProject(id).subscribe(function (res) { return _this.project = res; }, function (err) { return console.log(err); });
         if (!this.project.goals) {
             this.project.goals = [];
         }
     };
+    // saves a new project
     CreateComponent.prototype.eventSave = function () {
         var _this = this;
-        console.log(this.project);
         this.project.id = md5_1.MD5(this.project.name);
         var user = JSON.parse(localStorage.getItem('currentUser'));
         this.project.owner.email = user.auth.email;
         this.project.owner.uid = user.auth.uid;
         var newUrl = 'project/' + this.project.id;
-        this.dataService.saveProject(this.project.id, this.project).then(function (res) {
-            _this.router.navigate([newUrl]);
-        }, function (err) {
-            console.log(err);
-        });
+        this.dataService.saveProject(this.project.id, this.project).then(function (res) { return _this.router.navigate([newUrl]); }, function (err) { return console.log(err); });
     };
+    // updates an existing project 
     CreateComponent.prototype.eventUpdate = function () {
         var _this = this;
         var newUrl = 'project/' + this.project.id;
-        delete this.project['$exists'];
+        delete this.project['$exists']; // remove FB generated system keys
         delete this.project['$key'];
         this.dataService.saveProject(this.project.id, this.project).then(function (res) { return _this.router.navigate([newUrl]); }, function (err) { return console.log(err); });
     };
+    // deletes a project
     CreateComponent.prototype.eventDelete = function () {
         var _this = this;
-        this.dataService.deleteProject(this.project.id).then(function (res) {
-            _this.router.navigate(['']);
-        }, function (err) {
-            console.log(err);
-        });
+        this.dataService.deleteProject(this.project.id).then(function (res) { return _this.router.navigate(['']); }, function (err) { return console.log(err); });
     };
     CreateComponent.prototype.ngOnInit = function () {
-        this.routePath = this.route.snapshot.params['id'];
+        this.routePath = this.route.snapshot.params['id']; // get id from route if updating existing project
         if (this.routePath) {
             this.fetchProject(this.routePath);
-        }
+        } // fetch project data if updating existing project
     };
     return CreateComponent;
 }());
@@ -1001,11 +996,11 @@ var DashboardComponent = (function () {
     function DashboardComponent(dataService) {
         this.dataService = dataService;
     }
+    // methods
+    // get projects to populate dashboard
     DashboardComponent.prototype.fetchProjects = function () {
         var _this = this;
-        return this.dataService.getData().subscribe(function (res) {
-            _this.projects = res;
-        }, function (err) { return console.log(err); });
+        return this.dataService.getData().subscribe(function (res) { return _this.projects = res; }, function (err) { return console.log(err); });
     };
     DashboardComponent.prototype.ngOnInit = function () {
         this.fetchProjects();
@@ -1165,6 +1160,7 @@ var LoginComponent = (function () {
         this.authService = authService;
         this.router = router;
     }
+    // take auth info from fb and save to localstorage for easy reference
     LoginComponent.prototype.setUser = function () {
         var _this = this;
         this.af.auth.subscribe(function (auth) {
@@ -1177,6 +1173,7 @@ var LoginComponent = (function () {
             console.log(err);
         });
     };
+    // auth user to firebase and receive user info
     LoginComponent.prototype.login = function () {
         var _this = this;
         this.authService.login(this.email, this.password).then(function (res) {
@@ -1209,7 +1206,7 @@ exports.LoginComponent = LoginComponent;
 /***/ "./app/project/generate/generate.component.html":
 /***/ function(module, exports) {
 
-module.exports = "<div class=\"content\">\n    <div class=\"header\">\n        <h1>Phase 1: Generate Ideas</h1>\n    </div>\n</div>\n<div class=\"content\">\n    <h3>Add an idea:</h3>\n    <text-input\n        (save)=\"onSave($event)\"\n        >\n    </text-input>\n</div>\n\n<div class=\"content\">\n    <div class=\"header\">\n        <h2>Current Ideas:</h2>\n    </div>\n    <div class=\"ui feed\">\n        <comment-component \n            *ngFor=\"let currentIdea of invertList( project.ideas ); let i = index\"\n            [index]=\"i\"\n            [avitar]=\"getGravitar( currentIdea.owner.email )\"\n            [author]=\"currentIdea.owner\"\n            [timestamp]=\"formatTime(currentIdea.timestamp)\"\n            [edit]=\"checkPermissions( currentIdea.owner )\"\n            (deleteEvent)=\"deleteHandler($event)\"\n            (editEvent)=\"editHandler($event)\"\n            >\n            <div class=\"content\">{{ currentIdea.text }}</div>\n        </comment-component>\n    </div>\n    <modal-component \n        *ngIf=\"showModal\" \n        [visibility]=\"showModal\" \n        (closeEvent)=\"modalCloseHandler($event)\"\n        (saveEvent)=\"modalSaveHandler($event)\"\n        [editable]=\"true\"\n        [editContent]=\"modalContent\">\n        <header>Edit Comment</header>\n    </modal-component>\n</div>"
+module.exports = "<div class=\"content\">\n    <div class=\"header\">\n        <h1>Phase 1: Generate Ideas</h1>\n    </div>\n</div>\n<div class=\"content\">\n    <h3>Add an idea:</h3>\n    <text-input\n        (save)=\"onSave($event)\"\n        >\n    </text-input>\n</div>\n\n<div class=\"content\">\n    <div class=\"header\">\n        <h2>Current Ideas:</h2>\n    </div>\n    <div class=\"ui feed\">\n        <comment-component \n            *ngFor=\"let currentIdea of invertList( project.ideas ); let i = index\"\n            [index]=\"i\"\n            [avitar]=\"getGravitar( currentIdea.owner.email )\"\n            [author]=\"currentIdea.owner\"\n            [timestamp]=\"formatTime(currentIdea.timestamp)\"\n            [edit]=\"checkPermissions( currentIdea.owner )\"\n            [votes]=\"currentIdea.votes\"\n            (deleteEvent)=\"deleteHandler($event)\"\n            (editEvent)=\"editHandler($event)\"\n            (voteEvent)=\"voteHandler($event)\"\n            \n            >\n            <div class=\"content\">{{ currentIdea.text }}</div>\n        </comment-component>\n    </div>\n    <modal-component \n        *ngIf=\"showModal\" \n        [visibility]=\"showModal\" \n        (closeEvent)=\"modalCloseHandler($event)\"\n        (saveEvent)=\"modalSaveHandler($event)\"\n        [editable]=\"true\"\n        [editContent]=\"modalContent\">\n        <header>Edit Comment</header>\n    </modal-component>\n</div>"
 
 /***/ },
 
@@ -1226,6 +1223,7 @@ var GenerateComponent = (function () {
         this.dataService = dataService;
         this.classes = "card eleven wide column";
     }
+    // methods
     // onSave saves new idea to firebase - event from text-input-component
     GenerateComponent.prototype.onSave = function (event) {
         var user = JSON.parse(localStorage.getItem('currentUser'));
@@ -1268,11 +1266,39 @@ var GenerateComponent = (function () {
         this.editIndex = reverseIndex;
         this.showModal = true;
     };
+    GenerateComponent.prototype.voteHandler = function (event) {
+        var user = JSON.parse(localStorage.getItem('currentUser'));
+        var reverseIndex = this.project['ideas'].length - 1 - event;
+        var votes = this.project['ideas'][reverseIndex]['votes'];
+        if (votes && votes['voters'] != undefined) {
+            if (votes['voters'].includes(user.auth.uid)) {
+                votes['count'] = votes['count'] - 1;
+                var voterIndex = votes['voters'].indexOf(user.auth.uid);
+                votes['voters'].splice(voterIndex, 1);
+            }
+            else {
+                votes['count'] = votes['count'] + 1;
+                votes['voters'].push(user.auth.uid);
+            }
+        }
+        else {
+            this.project['ideas']['votes'] = {
+                count: 1,
+                voters: [
+                    user.auth.uid
+                ]
+            };
+            votes = this.project['ideas']['votes'];
+        }
+        this.dataService.saveProject(this.project.id, votes, 'ideas/' + reverseIndex + '/votes');
+    };
+    // close model
     GenerateComponent.prototype.modalCloseHandler = function (event) {
         if (event == false) {
             this.showModal = false;
         }
     };
+    // save updates made inside of modal
     GenerateComponent.prototype.modalSaveHandler = function (event) {
         this.project['ideas'][this.editIndex].text = event;
         this.dataService.saveProject(this.project.id, this.project['ideas'], 'ideas');
@@ -1341,7 +1367,7 @@ exports.GenerateComponent = GenerateComponent;
 /***/ "./app/project/project.component.html":
 /***/ function(module, exports) {
 
-module.exports = "<header-component></header-component>\n<main id=\"project\" *ngIf=\"project\">\n\n    <div class=\"ui cards grid\">\n\n        <!-- finish phase'd tier architecture for project list -->\n        <generate-component\n            *ngIf=\"project\" \n            [project]=\"project\"\n            (text)=\"project\"\n            (addproject)=\"handleAddproject($event)\"\n        ></generate-component>\n       <!-- <phase-1-1 \n            *ngIf=\"project.currentPhase == 1.1\" \n            [project]=\"project\"\n            class=\"card eleven wide column\"\n        ></phase-1-1>\n        <phase-2-0\n            *ngIf=\"project.currentPhase == 2\"\n            [project]=\"project\"\n            class=\"card eleven wide column\"\n        ></phase-2-0>-->\n\n        <info-pane-component\n            [goals]=\"project.goals\"\n            [owner]=\"project.owner\"\n            (settingsEvent)=\"handlerSettings($event)\">\n\n            <h1 class=\"header\">{{ project.name }}</h1>\n            <p class=\"description\">{{ project.description }}</p>\n\n        </info-pane-component>\n\n    </div>\n\n</main>\n<footer-component></footer-component>"
+module.exports = "<header-component></header-component>\n<main id=\"project\" *ngIf=\"project\">\n\n    <div class=\"ui cards grid\">\n\n        <!-- finish phase'd tier architecture for project list -->\n        <generate-component\n            *ngIf=\"project\" \n            [project]=\"project\"\n            (text)=\"project\"\n        ></generate-component>\n       <!-- <phase-1-1 \n            *ngIf=\"project.currentPhase == 1.1\" \n            [project]=\"project\"\n            class=\"card eleven wide column\"\n        ></phase-1-1>\n        <phase-2-0\n            *ngIf=\"project.currentPhase == 2\"\n            [project]=\"project\"\n            class=\"card eleven wide column\"\n        ></phase-2-0>-->\n\n        <info-pane-component\n            [goals]=\"project.goals\"\n            [owner]=\"project.owner\"\n            (settingsEvent)=\"handlerSettings($event)\">\n\n            <h1 class=\"header\">{{ project.name }}</h1>\n            <p class=\"description\">{{ project.description }}</p>\n\n        </info-pane-component>\n\n    </div>\n\n</main>\n<footer-component></footer-component>"
 
 /***/ },
 
@@ -1376,11 +1402,13 @@ var ProjectComponent = (function () {
             _this.project = res;
         }, function (err) { return console.log(err); });
     };
-    ProjectComponent.prototype.handleAddProject = function (event) {
-        this.dataService.saveProject(this.routePath, event, 'projects');
-    };
+    /* REMOVING FOR NOW -- DON'T BELIEVE IT'S BEING USED // when adding a project inside
+    handleAddProject( event ){
+        this.dataService.saveProject( this.routePath, event, 'projects' );
+    }*/
+    // navigate to create component for editing project details
     ProjectComponent.prototype.handlerSettings = function (event) {
-        console.log(event);
+        // event returns true
         this.router.navigate(['project/edit/' + this.project.id]);
     };
     return ProjectComponent;
@@ -1487,7 +1515,7 @@ exports.CardComponent = CardComponent;
 /***/ "./app/shared/comment/comment.component.html":
 /***/ function(module, exports) {
 
-module.exports = "\n\n <!--   <div \n        class=\"ui button labeled icon basic mini right floated\" \n        *ngIf=\"votes != undefined\" \n        >\n        <i class=\"plus icon\"></i>\n        {{ votes }}\n    </div>-->\n\n    <div class=\"label\" *ngIf=\"avitar\">\n        <img \n        class=\"ui circular mini image floated left\"\n        [src]=\"avitar\"  />\n    </div>\n\n    <div class=\"content\">\n            <div class=\"date\">{{ author.name ? author.name : author.email }} - {{ timestamp }}</div>\n        <div class=\"summary\">\n            <ng-content select=\".content\"></ng-content>\n        </div>\n\n      <div class=\"meta\">\n        <a class=\"edit\"\n        (click)=\"onEdit()\"\n        *ngIf=\"edit\">\n          <i class=\"pencil icon\"></i> Edit\n        </a>\n\n        <a class=\"delete\"\n        *ngIf=\"edit\"\n        (click)=\"onDelete()\">\n          <i class=\"trash icon\"></i> Delete\n        </a>\n      </div>\n    </div>"
+module.exports = "\n\n <!--   <div \n        class=\"ui button labeled icon basic mini right floated\" \n        *ngIf=\"votes != undefined\" \n        >\n        <i class=\"plus icon\"></i>\n        {{ votes }}\n    </div>-->\n\n    <div class=\"label\" *ngIf=\"avitar\">\n        <img \n        class=\"ui circular mini image floated left\"\n        [src]=\"avitar\"  />\n    </div>\n\n    <div class=\"content\">\n        <div class=\"date\">{{ author.name ? author.name : author.email }} - {{ timestamp }} \n            <span *ngIf=\"votes && votes.count != 0\"><i class=\"star icon\"></i> {{ votes.count }} Favorites</span>\n        </div>\n        <div class=\"summary\">\n            <ng-content select=\".content\"></ng-content>\n        </div>\n\n      <div class=\"meta\">\n\n\n\n            <a class=\"star\" \n              *ngIf=\"!checkVote()\"\n              (click)=\"onVote()\"\n            >\n            <i class=\"empty star icon\"></i> Favorite\n        </a>\n\n        <a class=\"star\" \n              *ngIf=\"checkVote()\"\n              (click)=\"onVote()\"\n            >\n            <i class=\"star icon\"></i> Remove Favorite\n        </a>\n\n        <a class=\"edit\"\n        (click)=\"onEdit()\"\n        *ngIf=\"edit\">\n          <i class=\"pencil icon\"></i> Edit\n        </a>\n\n        <a class=\"delete\"\n        *ngIf=\"edit\"\n        (click)=\"onDelete()\">\n          <i class=\"trash icon\"></i> Delete\n        </a>\n      </div>\n    </div>"
 
 /***/ },
 
@@ -1501,6 +1529,7 @@ var CommentComponent = (function () {
     function CommentComponent() {
         this.editEvent = new core_1.EventEmitter();
         this.deleteEvent = new core_1.EventEmitter();
+        this.voteEvent = new core_1.EventEmitter();
         this.isComment = "event";
     }
     CommentComponent.prototype.onEdit = function () {
@@ -1508,6 +1537,19 @@ var CommentComponent = (function () {
     };
     CommentComponent.prototype.onDelete = function () {
         this.deleteEvent.emit(this.index);
+    };
+    CommentComponent.prototype.onVote = function () {
+        this.voteEvent.emit(this.index);
+    };
+    CommentComponent.prototype.checkVote = function () {
+        //console.log( this.votes['voters'] );
+        var user = JSON.parse(localStorage.getItem('currentUser'));
+        if (this.votes && this.votes['voters'] != undefined) {
+            if (this.votes['voters'].includes(user.auth.uid)) {
+                return true;
+            }
+        }
+        return false;
     };
     return CommentComponent;
 }());
@@ -1533,7 +1575,7 @@ __decorate([
 ], CommentComponent.prototype, "edit", void 0);
 __decorate([
     core_1.Input(),
-    __metadata("design:type", Number)
+    __metadata("design:type", Object)
 ], CommentComponent.prototype, "votes", void 0);
 __decorate([
     core_1.Output(),
@@ -1543,6 +1585,10 @@ __decorate([
     core_1.Output(),
     __metadata("design:type", core_1.EventEmitter)
 ], CommentComponent.prototype, "deleteEvent", void 0);
+__decorate([
+    core_1.Output(),
+    __metadata("design:type", core_1.EventEmitter)
+], CommentComponent.prototype, "voteEvent", void 0);
 __decorate([
     core_1.HostBinding('class'),
     __metadata("design:type", Object)

@@ -15,9 +15,9 @@ export class LoginComponent{
     // properties
 
     email: string;
-    error: object;
+    error: Object;
     password: string;
-    user: object;
+    user: Object;
 
     constructor( private af: AngularFire, private authService: AuthService, private router: Router ){
     }

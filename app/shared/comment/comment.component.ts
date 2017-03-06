@@ -11,10 +11,11 @@ export class CommentComponent {
     @Input() timestamp: string;
     @Input() author: Object;
     @Input() edit: boolean;
-    @Input() votes: number;
+    @Input() votes: Object;
 
     @Output() editEvent: EventEmitter<number> = new EventEmitter();
     @Output() deleteEvent: EventEmitter<number> = new EventEmitter();
+    @Output() voteEvent: EventEmitter<number> = new EventEmitter();
 
     onEdit(){
         this.editEvent.emit(this.index);
@@ -22,6 +23,21 @@ export class CommentComponent {
 
     onDelete(){
         this.deleteEvent.emit(this.index);
+    }
+
+    onVote(){
+        this.voteEvent.emit(this.index);
+    }
+
+    checkVote(){
+        //console.log( this.votes['voters'] );
+        let user = JSON.parse(localStorage.getItem('currentUser'));
+        if( this.votes && this.votes['voters'] != undefined ){
+            if( this.votes['voters'].includes( user.auth.uid ) ){
+                return true;
+            }
+        }
+        return false;
     }
 
     @HostBinding('class') isComment = "event";

@@ -15,12 +15,31 @@
     </div>
 
     <div class="content">
-            <div class="date">{{ author.name ? author.name : author.email }} - {{ timestamp }}</div>
+        <div class="date">{{ author.name ? author.name : author.email }} - {{ timestamp }} 
+            <span *ngIf="votes && votes.count != 0"><i class="star icon"></i> {{ votes.count }} Favorites</span>
+        </div>
         <div class="summary">
             <ng-content select=".content"></ng-content>
         </div>
 
       <div class="meta">
+
+
+
+            <a class="star" 
+              *ngIf="!checkVote()"
+              (click)="onVote()"
+            >
+            <i class="empty star icon"></i> Favorite
+        </a>
+
+        <a class="star" 
+              *ngIf="checkVote()"
+              (click)="onVote()"
+            >
+            <i class="star icon"></i> Remove Favorite
+        </a>
+
         <a class="edit"
         (click)="onEdit()"
         *ngIf="edit">
