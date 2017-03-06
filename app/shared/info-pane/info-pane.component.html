@@ -15,8 +15,12 @@
 </div>
 
 <div class="extra content">
-<button class="ui labeled icon button basic mini floated left" *ngIf="checkUser()" (click)="onSettings()">
-    <i class="setting icon"></i>
-    Project Settings
-</button>
+    <button class="ui labeled icon button basic mini primary">
+        <i class="right arrow icon"></i>
+        Go to Next Phase
+    </button>
+    <button class="ui labeled icon button basic mini" *ngIf="checkUser()" (click)="onSettings()">
+        <i class="setting icon"></i>
+        Project Settings
+    </button>
 </div>
