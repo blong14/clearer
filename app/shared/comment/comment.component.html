@@ -16,7 +16,7 @@
 
     <div class="content">
         <div class="date">{{ author.name ? author.name : author.email }} - {{ timestamp }} 
-            <span *ngIf="votes && votes.count != 0"><i class="star icon"></i> {{ votes.count }} Favorites</span>
+            <span *ngIf="votes && votes.count != 0"><i class="star icon orange"></i>{{ votes.count }} Favorites</span>
         </div>
         <div class="summary">
             <ng-content select=".content"></ng-content>
@@ -37,7 +37,7 @@
               *ngIf="checkVote()"
               (click)="onVote()"
             >
-            <i class="star icon"></i> Remove Favorite
+            <i class="star icon orange"></i> Remove Favorite
         </a>
 
         <a class="edit"
