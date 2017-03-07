@@ -1,7 +1,9 @@
 main{
+    background: radial-gradient( circle, #b452ec, #8d4cb2);
     background: #eee;
     zoom: 1;
     padding: 2em;
+    min-height: calc( 100vh - 97px );
 }
 
 main:after{
@@ -14,4 +16,8 @@ main:after{
 
 .btn{
     cursor: pointer;
+}
+
+.card{
+    background: rgba(255,255,255,.8)!important;
 }
