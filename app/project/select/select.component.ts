@@ -14,6 +14,7 @@ export class SelectComponent{
 
     constructor( private dataService: DataService ){}
 
+    // set state on idea object - explore event coming from comments component
     handlerExplore( event ){
         let reverseIndex = this.project['ideas'].length - 1 - event;
         let state = this.project['ideas'][reverseIndex]['state'];

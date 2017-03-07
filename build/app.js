@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "d8fe35924653bab8b426"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "593af725f2bf276f8605"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotMainModule = true; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -1742,7 +1742,7 @@ module.exports = "<footer id=\"app-footer\">\n    <p>Copyright &copy; 2017 Zebra
 /***/ "./app/shared/footer/footer.component.scss":
 /***/ function(module, exports) {
 
-module.exports = "footer {\n  border-top: 1px solid #999;\n  padding: .5em 15px;\n  clear: both;\n}\n\n"
+module.exports = "footer {\n  padding: 1em 15px;\n  clear: both;\n}\n\n"
 
 /***/ },
 

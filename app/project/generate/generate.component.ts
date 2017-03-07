@@ -60,6 +60,7 @@ export class GenerateComponent {
         this.showModal = true;
     }   
 
+    // voteHandler receives event from comment compnent and iterates vote count + voters object appropriately
     voteHandler( event: number ){
         let user = JSON.parse(localStorage.getItem('currentUser'));
         let reverseIndex = this.project['ideas'].length - 1 - event;
