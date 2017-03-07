@@ -25,11 +25,12 @@ export class GenerateComponent {
 
     // onSave saves new idea to firebase - event from text-input-component
     onSave( event ){
-
         let user = JSON.parse(localStorage.getItem('currentUser'));
+        console.log( user.auth );
         let ideaData = {
             text: event,
             timestamp: new Date().getTime(),
+            state: 1,
             owner: {
                 'uid': user.auth.uid,
                 'email': user.auth.email,

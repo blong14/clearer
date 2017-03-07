@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "1a5e87fed6bccbd058b0"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "d8fe35924653bab8b426"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotMainModule = true; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -1204,10 +1204,55 @@ exports.LoginComponent = LoginComponent;
 
 /***/ },
 
+/***/ "./app/project/explore/explore.component.html":
+/***/ function(module, exports) {
+
+module.exports = "<div class=\"content\">\n    <div class=\"ui ordered four steps\">\n        <div class=\"completed step\">\n            <div class=\"content\">\n                <div class=\"title\">Generate</div>\n            </div>\n        </div>\n        <div class=\"active step\">\n            <div class=\"content\">\n                <div class=\"title\">Explore</div>\n                <div class=\"content\">Test the edges of each idea</div>\n            </div>\n        </div>\n        <div class=\"disabled step\">\n            <div class=\"content\">\n                <div class=\"title\">Consider</div>\n            </div>\n        </div>\n        <div class=\"disabled step\">\n            <div class=\"content\">\n                <div class=\"title\">Decide</div>\n            </div>\n        </div>\n    </div>\n</div>\n\n<div class=\"content\">\n\n    <div class=\"ui header\">Ideas to Explore</div>\n\n    <div class=\"ui cards\">\n        <ng-container *ngFor=\"let currentIdea of invertList( project.ideas ); let i = index\">\n        <comment-component \n            *ngIf=\"currentIdea.state == 3\"\n            [index]=\"i\"\n            [author]=\"currentIdea.owner\"\n            [timestamp]=\"currentIdea.timestamp\"\n            [votes]=\"currentIdea.votes\"\n            [active]=\"false\"\n            \n            >\n            <div class=\"content\">{{ currentIdea.text }}</div>\n        </comment-component>\n        </ng-container>\n\n</div>"
+
+/***/ },
+
+/***/ "./app/project/explore/explore.component.ts":
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var core_1 = __webpack_require__(0);
+var ExploreComponent = (function () {
+    function ExploreComponent() {
+        this.classes = "card eleven wide column";
+    }
+    // invertList is used to show ideas in reverse chron order
+    ExploreComponent.prototype.invertList = function (list) {
+        if (list) {
+            return list.slice().reverse();
+        }
+    };
+    return ExploreComponent;
+}());
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Object)
+], ExploreComponent.prototype, "project", void 0);
+__decorate([
+    core_1.HostBinding('class'),
+    __metadata("design:type", Object)
+], ExploreComponent.prototype, "classes", void 0);
+ExploreComponent = __decorate([
+    core_1.Component({
+        selector: 'explore-component',
+        template: __webpack_require__("./app/project/explore/explore.component.html")
+    }),
+    __metadata("design:paramtypes", [])
+], ExploreComponent);
+exports.ExploreComponent = ExploreComponent;
+
+
+/***/ },
+
 /***/ "./app/project/generate/generate.component.html":
 /***/ function(module, exports) {
 
-module.exports = "<div class=\"content\">\n    <div class=\"ui ordered four steps\">\n        <div class=\"active step\">\n            <div class=\"content\">\n                <div class=\"title\">Generate</div>\n                <div class=\"content\">Propose ideas with reckless abandon</div>\n            </div>\n        </div>\n        <div class=\"disabled step\">\n            <div class=\"content\">\n                <div class=\"title\">Explore</div>\n            </div>\n        </div>\n        <div class=\"disabled step\">\n            <div class=\"content\">\n                <div class=\"title\">Consider</div>\n            </div>\n        </div>\n        <div class=\"disabled step\">\n            <div class=\"content\">\n                <div class=\"title\">Decide</div>\n            </div>\n        </div>\n\n    </div>\n</div>\n<div class=\"content\">\n    <div class=\"ui icon message blue\">\n        <i class=\"talk outline icon\"></i>\n            Create as many ideas as you can.\n    </div>\n    <div class=\"ui header\">Add an Idea</div>\n    <text-input\n        (save)=\"onSave($event)\"\n        >\n    </text-input>\n</div>\n\n<div class=\"content\">\n    <div class=\"ui header\">Possible Ideas\n    </div>\n    <div class=\"ui feed\">\n        <comment-component \n            *ngFor=\"let currentIdea of invertList( project.ideas ); let i = index\"\n            [index]=\"i\"\n            [author]=\"currentIdea.owner\"\n            [timestamp]=\"currentIdea.timestamp\"\n            [votes]=\"currentIdea.votes\"\n            (deleteEvent)=\"deleteHandler($event)\"\n            (editEvent)=\"editHandler($event)\"\n            (voteEvent)=\"voteHandler($event)\"\n            \n            >\n            <div class=\"content\">{{ currentIdea.text }}</div>\n        </comment-component>\n    </div>\n    <modal-component \n        *ngIf=\"showModal\" \n        [visibility]=\"showModal\" \n        (closeEvent)=\"modalCloseHandler($event)\"\n        (saveEvent)=\"modalSaveHandler($event)\"\n        [editable]=\"true\"\n        [editContent]=\"modalContent\">\n        <header>Edit Comment</header>\n    </modal-component>\n</div>"
+module.exports = "<div class=\"content\">\n    <div class=\"ui ordered four steps\">\n        <div class=\"active step\">\n            <div class=\"content\">\n                <div class=\"title\">Generate</div>\n                <div class=\"content\">Propose ideas with reckless abandon</div>\n            </div>\n        </div>\n        <div class=\"disabled step\">\n            <div class=\"content\">\n                <div class=\"title\">Explore</div>\n            </div>\n        </div>\n        <div class=\"disabled step\">\n            <div class=\"content\">\n                <div class=\"title\">Consider</div>\n            </div>\n        </div>\n        <div class=\"disabled step\">\n            <div class=\"content\">\n                <div class=\"title\">Decide</div>\n            </div>\n        </div>\n\n    </div>\n</div>\n<div class=\"content\">\n    <div class=\"ui icon message blue\">\n        <i class=\"talk outline icon\"></i>\n            Create as many ideas as you can.\n    </div>\n    <div class=\"ui header\">Add an Idea</div>\n    <text-input\n        (save)=\"onSave($event)\"\n        >\n    </text-input>\n</div>\n\n<div class=\"content\">\n    <div class=\"ui header\">Possible Ideas\n    </div>\n    <div class=\"ui cards\">\n        <comment-component \n            *ngFor=\"let currentIdea of invertList( project.ideas ); let i = index\"\n            [index]=\"i\"\n            [author]=\"currentIdea.owner\"\n            [timestamp]=\"currentIdea.timestamp\"\n            [votes]=\"currentIdea.votes\"\n            (deleteEvent)=\"deleteHandler($event)\"\n            (editEvent)=\"editHandler($event)\"\n            (voteEvent)=\"voteHandler($event)\"\n            \n            >\n            <div class=\"content\">{{ currentIdea.text }}</div>\n        </comment-component>\n    </div>\n    <modal-component \n        *ngIf=\"showModal\" \n        [visibility]=\"showModal\" \n        (closeEvent)=\"modalCloseHandler($event)\"\n        (saveEvent)=\"modalSaveHandler($event)\"\n        [editable]=\"true\"\n        [editContent]=\"modalContent\">\n        <header>Edit Comment</header>\n    </modal-component>\n</div>"
 
 /***/ },
 
@@ -1227,9 +1272,11 @@ var GenerateComponent = (function () {
     // onSave saves new idea to firebase - event from text-input-component
     GenerateComponent.prototype.onSave = function (event) {
         var user = JSON.parse(localStorage.getItem('currentUser'));
+        console.log(user.auth);
         var ideaData = {
             text: event,
             timestamp: new Date().getTime(),
+            state: 1,
             owner: {
                 'uid': user.auth.uid,
                 'email': user.auth.email,
@@ -1325,7 +1372,7 @@ exports.GenerateComponent = GenerateComponent;
 /***/ "./app/project/project.component.html":
 /***/ function(module, exports) {
 
-module.exports = "<header-component></header-component>\n<main id=\"project\" *ngIf=\"project\">\n\n    <div class=\"ui cards grid\">\n\n        <generate-component\n            *ngIf=\"project.state == 1\" \n            [project]=\"project\"\n            (text)=\"project\"\n        ></generate-component>\n\n        <select-component\n            [project]=\"project\"\n            *ngIf=\"project.state == 2\">\n        </select-component>\n\n        <info-pane-component\n            [goals]=\"project.goals\"\n            [owner]=\"project.owner\"\n            (settingsEvent)=\"handlerSettings($event)\"\n            (nextPhaseEvent)=\"handlerNextPhase($event)\">\n\n            <h1 class=\"header\">{{ project.name }}</h1>\n            <p class=\"description\">{{ project.description }}</p>\n\n        </info-pane-component>\n\n    </div>\n\n</main>\n<footer-component></footer-component>"
+module.exports = "<header-component></header-component>\n<main id=\"project\" *ngIf=\"project\">\n\n    <div class=\"ui cards grid\">\n\n        <generate-component\n            *ngIf=\"project.state == 1\" \n            [project]=\"project\"\n            (text)=\"project\"\n        ></generate-component>\n\n        <select-component\n            [project]=\"project\"\n            *ngIf=\"project.state == 2\">\n        </select-component>\n\n        <explore-component\n            [project]=\"project\"\n            *ngIf=\"project.state == 3\">\n        </explore-component>\n\n        <info-pane-component\n            [goals]=\"project.goals\"\n            [owner]=\"project.owner\"\n            (settingsEvent)=\"handlerSettings($event)\"\n            (nextPhaseEvent)=\"handlerNextPhase($event)\">\n\n            <h1 class=\"header\">{{ project.name }}</h1>\n            <p class=\"description\">{{ project.description }}</p>\n\n        </info-pane-component>\n\n    </div>\n\n</main>\n<footer-component></footer-component>"
 
 /***/ },
 
@@ -1401,6 +1448,7 @@ var router_1 = __webpack_require__(2);
 var forms_1 = __webpack_require__(4);
 var shared_module_1 = __webpack_require__("./app/shared/shared.module.ts");
 // components
+var explore_component_1 = __webpack_require__("./app/project/explore/explore.component.ts");
 var generate_component_1 = __webpack_require__("./app/project/generate/generate.component.ts");
 var select_component_1 = __webpack_require__("./app/project/select/select.component.ts");
 //import { Phase_1_1_Component } from './phase-1/phase-1-1.component';
@@ -1414,6 +1462,7 @@ var ProjectModule = (function () {
 ProjectModule = __decorate([
     core_1.NgModule({
         declarations: [
+            explore_component_1.ExploreComponent,
             generate_component_1.GenerateComponent,
             select_component_1.SelectComponent,
             //Phase_1_1_Component,
@@ -1425,8 +1474,7 @@ ProjectModule = __decorate([
             forms_1.FormsModule,
             shared_module_1.SharedModule,
             router_1.RouterModule.forChild([
-                { path: 'project/:id', component: project_component_1.ProjectComponent },
-                { path: 'project/select/:id', component: select_component_1.SelectComponent }
+                { path: 'project/:id', component: project_component_1.ProjectComponent }
             ])
         ],
         exports: []
@@ -1441,7 +1489,7 @@ exports.ProjectModule = ProjectModule;
 /***/ "./app/project/select/select.component.html":
 /***/ function(module, exports) {
 
-module.exports = "<div class=\"content\">\n    <div class=\"ui ordered four steps\">\n        <div class=\"active step\">\n            <div class=\"content\">\n                <div class=\"title\">Generate</div>\n                <div class=\"content\">Propose ideas with reckless abandon</div>\n            </div>\n        </div>\n        <div class=\"disabled step\">\n            <div class=\"content\">\n                <div class=\"title\">Explore</div>\n            </div>\n        </div>\n        <div class=\"disabled step\">\n            <div class=\"content\">\n                <div class=\"title\">Consider</div>\n            </div>\n        </div>\n        <div class=\"disabled step\">\n            <div class=\"content\">\n                <div class=\"title\">Decide</div>\n            </div>\n        </div>\n\n    </div>\n</div>\n\n<div class=\"content\">\n    <div class=\"ui icon message blue\">\n        <i class=\"checkmark box icon\"></i>\n            Choose the best ideas to move forward.\n    </div>\n    <div class=\"ui header\">Possible Ideas\n    </div>\n    <div class=\"ui feed\">\n        <comment-component \n            *ngFor=\"let currentIdea of project.ideas; let i = index\"\n            [index]=\"i\"\n            [author]=\"currentIdea.owner\"\n            [timestamp]=\"currentIdea.timestamp\"\n            [votes]=\"currentIdea.votes\"\n            [active]=\"false\"\n            (deleteEvent)=\"deleteHandler($event)\"\n            (editEvent)=\"editHandler($event)\"\n            (voteEvent)=\"voteHandler($event)\"\n            \n            >\n            <div class=\"content\">{{ currentIdea.text }}</div>\n        </comment-component>\n    </div>\n    <modal-component \n        *ngIf=\"showModal\" \n        [visibility]=\"showModal\" \n        (closeEvent)=\"modalCloseHandler($event)\"\n        (saveEvent)=\"modalSaveHandler($event)\"\n        [editable]=\"true\"\n        [editContent]=\"modalContent\">\n        <header>Edit Comment</header>\n    </modal-component>\n</div>"
+module.exports = "<div class=\"content\">\n    <div class=\"ui ordered four steps\">\n        <div class=\"active step\">\n            <div class=\"content\">\n                <div class=\"title\">Generate</div>\n                <div class=\"content\">Propose ideas with reckless abandon</div>\n            </div>\n        </div>\n        <div class=\"disabled step\">\n            <div class=\"content\">\n                <div class=\"title\">Explore</div>\n            </div>\n        </div>\n        <div class=\"disabled step\">\n            <div class=\"content\">\n                <div class=\"title\">Consider</div>\n            </div>\n        </div>\n        <div class=\"disabled step\">\n            <div class=\"content\">\n                <div class=\"title\">Decide</div>\n            </div>\n        </div>\n\n    </div>\n</div>\n\n<div class=\"content\">\n    <div class=\"ui icon message blue\">\n        <i class=\"checkmark box icon\"></i>\n            Choose the best ideas to move forward.\n    </div>\n    <div class=\"ui header\">Possible Ideas\n    </div>\n    <div class=\"ui cards\">\n        <comment-component \n            *ngFor=\"let currentIdea of invertList( project.ideas ); let i = index\"\n            [index]=\"i\"\n            [author]=\"currentIdea.owner\"\n            [timestamp]=\"currentIdea.timestamp\"\n            [votes]=\"currentIdea.votes\"\n            [active]=\"false\"\n            [state]=\"currentIdea.state\"\n            (exploreEvent)=\"handlerExplore($event)\"\n            >\n            <div class=\"content\">{{ currentIdea.text }}</div>\n        </comment-component>\n    </div>\n    <modal-component \n        *ngIf=\"showModal\" \n        [visibility]=\"showModal\" \n        (closeEvent)=\"modalCloseHandler($event)\"\n        (saveEvent)=\"modalSaveHandler($event)\"\n        [editable]=\"true\"\n        [editContent]=\"modalContent\">\n        <header>Edit Comment</header>\n    </modal-component>\n</div>"
 
 /***/ },
 
@@ -1451,10 +1499,29 @@ module.exports = "<div class=\"content\">\n    <div class=\"ui ordered four step
 "use strict";
 
 var core_1 = __webpack_require__(0);
+var data_service_1 = __webpack_require__("./app/data.service.ts");
 var SelectComponent = (function () {
-    function SelectComponent() {
+    function SelectComponent(dataService) {
+        this.dataService = dataService;
         this.classes = "card eleven wide column";
     }
+    SelectComponent.prototype.handlerExplore = function (event) {
+        var reverseIndex = this.project['ideas'].length - 1 - event;
+        var state = this.project['ideas'][reverseIndex]['state'];
+        if (state != 3) {
+            state = 3;
+        }
+        else {
+            state = 1;
+        }
+        this.dataService.saveProject(this.project.id, state, 'ideas/' + reverseIndex + '/state');
+    };
+    // invertList is used to show ideas in reverse chron order
+    SelectComponent.prototype.invertList = function (list) {
+        if (list) {
+            return list.slice().reverse();
+        }
+    };
     return SelectComponent;
 }());
 __decorate([
@@ -1470,7 +1537,7 @@ SelectComponent = __decorate([
         selector: 'select-component',
         template: __webpack_require__("./app/project/select/select.component.html")
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [data_service_1.DataService])
 ], SelectComponent);
 exports.SelectComponent = SelectComponent;
 
@@ -1519,7 +1586,7 @@ exports.CardComponent = CardComponent;
 /***/ "./app/shared/comment/comment.component.html":
 /***/ function(module, exports) {
 
-module.exports = "\n\n <!--   <div \n        class=\"ui button labeled icon basic mini right floated\" \n        *ngIf=\"votes != undefined\" \n        >\n        <i class=\"plus icon\"></i>\n        {{ votes }}\n    </div>-->\n\n    <div class=\"label\" *ngIf=\"author\">\n        <img \n        class=\"ui circular mini image floated left\"\n        [src]=\"fetchGravitar( author.email )\"  />\n    </div>\n\n    <div class=\"content\">\n        <div class=\"date\">{{ author.name ? author.name : author.email }} - {{ formatTime( timestamp ) }} \n            <span *ngIf=\"votes && votes.count != 0\"><i class=\"star icon orange\"></i>{{ votes.count }} Favorites</span>\n        </div>\n        <div class=\"summary\">\n            <ng-content select=\".content\"></ng-content>\n        </div>\n\n      <div class=\"meta\" *ngIf=\"active != false\">\n\n\n\n            <a class=\"star\" \n              *ngIf=\"!checkVote()\"\n              (click)=\"onVote()\"\n            >\n            <i class=\"empty star icon\"></i> Favorite\n        </a>\n\n        <a class=\"star\" \n              *ngIf=\"checkVote()\"\n              (click)=\"onVote()\"\n            >\n            <i class=\"star icon orange\"></i> Remove Favorite\n        </a>\n\n        <a class=\"edit\"\n        (click)=\"onEdit()\"\n        *ngIf=\"checkPermissions(author)\">\n          <i class=\"pencil icon\"></i> Edit\n        </a>\n\n        <a class=\"delete\"\n        *ngIf=\"checkPermissions(author)\"\n        (click)=\"onDelete()\">\n          <i class=\"trash icon\"></i> Delete\n        </a>\n      </div>\n    </div>"
+module.exports = "<div class=\"content\">\n        <div class=\"meta right floated\">{{ formatTime( timestamp ) }}</div>\n        <img \n        class=\"ui avatar image\"\n        [src]=\"fetchGravitar( author.email )\"  />\n        {{ author.name ? author.name : author.email }}\n    \n</div>\n\n    <div class=\"content\">\n        <div class=\"summary\">\n            <ng-content select=\".content\"></ng-content>\n        </div>\n    </div>\n\n    <div class=\"extra content\">\n\n      <div class=\"meta left floated\" *ngIf=\"active != false\">\n\n\n\n\n        <a class=\"star\" \n              (click)=\"onVote()\"\n            >\n            <i class=\"star icon\" [class.orange]=\"checkVote()\"></i>\n            <span *ngIf=\"votes && votes.count != 0\">{{ votes.count }} </span>\n        </a>\n\n\n      </div>\n      <div class=\"meta right floated\" *ngIf=\"active != false\">\n\n        <a class=\"edit\"\n        (click)=\"onEdit()\"\n        *ngIf=\"checkPermissions(author)\">\n          <i class=\"pencil icon\"></i> Edit\n        </a>\n\n        <a class=\"delete\"\n        *ngIf=\"checkPermissions(author)\"\n        (click)=\"onDelete()\">\n          <i class=\"trash icon\"></i> Delete\n        </a>\n      </div>\n\n      <a *ngIf=\"active == false\" class=\"right floated\" (click)=\"onExplore()\">\n          <i class=\"check circle icon\" [class.green]=\"checkState()\"></i>\n          Explore this Idea\n      </a>\n\n\n    </div>\n\n      "
 
 /***/ },
 
@@ -1535,7 +1602,8 @@ var CommentComponent = (function () {
         this.editEvent = new core_1.EventEmitter();
         this.deleteEvent = new core_1.EventEmitter();
         this.voteEvent = new core_1.EventEmitter();
-        this.isComment = "event";
+        this.exploreEvent = new core_1.EventEmitter();
+        this.classes = "card";
     }
     CommentComponent.prototype.onEdit = function () {
         this.editEvent.emit(this.index);
@@ -1546,6 +1614,9 @@ var CommentComponent = (function () {
     CommentComponent.prototype.onVote = function () {
         this.voteEvent.emit(this.index);
     };
+    CommentComponent.prototype.onExplore = function () {
+        this.exploreEvent.emit(this.index);
+    };
     CommentComponent.prototype.checkPermissions = function (author) {
         var user = JSON.parse(localStorage.getItem('currentUser'));
         if (author.uid == user.auth.uid) {
@@ -1553,6 +1624,11 @@ var CommentComponent = (function () {
         }
         else {
             return false;
+        }
+    };
+    CommentComponent.prototype.checkState = function () {
+        if (this.state == 3) {
+            return true;
         }
     };
     CommentComponent.prototype.checkVote = function () {
@@ -1575,28 +1651,28 @@ var CommentComponent = (function () {
         var seconds = Math.floor((now - time) / 1000);
         var interval = Math.floor(seconds / 31536000);
         if (interval > 1) {
-            return interval + " years ago.";
+            return interval + " years";
         }
         interval = Math.floor(seconds / 2592000);
         if (interval > 1) {
-            return interval + " months ago.";
+            return interval + " months";
         }
         interval = Math.floor(seconds / 86400);
         if (interval >= 1) {
-            return interval + " days ago.";
+            return interval + " d";
         }
         interval = Math.floor(seconds / 3600);
         if (interval > 1) {
-            return interval + " hours ago.";
+            return interval + " h";
         }
         interval = Math.floor(seconds / 60);
         if (interval == 1) {
-            return interval + " minute ago.";
+            return interval + " m";
         }
         if (interval > 1) {
-            return interval + " minutes ago.";
+            return interval + " m";
         }
-        return "Just now.";
+        return "now";
     };
     return CommentComponent;
 }());
@@ -1621,6 +1697,10 @@ __decorate([
     __metadata("design:type", Boolean)
 ], CommentComponent.prototype, "active", void 0);
 __decorate([
+    core_1.Input(),
+    __metadata("design:type", Number)
+], CommentComponent.prototype, "state", void 0);
+__decorate([
     core_1.Output(),
     __metadata("design:type", core_1.EventEmitter)
 ], CommentComponent.prototype, "editEvent", void 0);
@@ -1633,9 +1713,13 @@ __decorate([
     __metadata("design:type", core_1.EventEmitter)
 ], CommentComponent.prototype, "voteEvent", void 0);
 __decorate([
+    core_1.Output(),
+    __metadata("design:type", core_1.EventEmitter)
+], CommentComponent.prototype, "exploreEvent", void 0);
+__decorate([
     core_1.HostBinding('class'),
     __metadata("design:type", Object)
-], CommentComponent.prototype, "isComment", void 0);
+], CommentComponent.prototype, "classes", void 0);
 CommentComponent = __decorate([
     core_1.Component({
         selector: 'comment-component',

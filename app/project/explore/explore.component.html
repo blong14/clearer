@@ -1,14 +1,14 @@
 <div class="content">
     <div class="ui ordered four steps">
-        <div class="active step">
+        <div class="completed step">
             <div class="content">
                 <div class="title">Generate</div>
-                <div class="content">Propose ideas with reckless abandon</div>
             </div>
         </div>
-        <div class="disabled step">
+        <div class="active step">
             <div class="content">
                 <div class="title">Explore</div>
+                <div class="content">Test the edges of each idea</div>
             </div>
         </div>
         <div class="disabled step">
@@ -21,38 +21,26 @@
                 <div class="title">Decide</div>
             </div>
         </div>
-
     </div>
 </div>
 
 <div class="content">
-    <div class="ui icon message blue">
-        <i class="checkmark box icon"></i>
-            Choose the best ideas to move forward.
-    </div>
-    <div class="ui header">Possible Ideas
-    </div>
+
+    <div class="ui header">Ideas to Explore</div>
+
     <div class="ui cards">
+        <ng-container *ngFor="let currentIdea of invertList( project.ideas ); let i = index">
         <comment-component 
-            *ngFor="let currentIdea of invertList( project.ideas ); let i = index"
+            *ngIf="currentIdea.state == 3"
             [index]="i"
             [author]="currentIdea.owner"
             [timestamp]="currentIdea.timestamp"
             [votes]="currentIdea.votes"
             [active]="false"
-            [state]="currentIdea.state"
-            (exploreEvent)="handlerExplore($event)"
+            
             >
             <div class="content">{{ currentIdea.text }}</div>
         </comment-component>
-    </div>
-    <modal-component 
-        *ngIf="showModal" 
-        [visibility]="showModal" 
-        (closeEvent)="modalCloseHandler($event)"
-        (saveEvent)="modalSaveHandler($event)"
-        [editable]="true"
-        [editContent]="modalContent">
-        <header>Edit Comment</header>
-    </modal-component>
+        </ng-container>
+
 </div>

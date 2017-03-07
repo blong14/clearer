@@ -1,44 +1,35 @@
-
-
- <!--   <div 
-        class="ui button labeled icon basic mini right floated" 
-        *ngIf="votes != undefined" 
-        >
-        <i class="plus icon"></i>
-        {{ votes }}
-    </div>-->
-
-    <div class="label" *ngIf="author">
+<div class="content">
+        <div class="meta right floated">{{ formatTime( timestamp ) }}</div>
         <img 
-        class="ui circular mini image floated left"
+        class="ui avatar image"
         [src]="fetchGravitar( author.email )"  />
-    </div>
+        {{ author.name ? author.name : author.email }}
+    
+</div>
 
     <div class="content">
-        <div class="date">{{ author.name ? author.name : author.email }} - {{ formatTime( timestamp ) }} 
-            <span *ngIf="votes && votes.count != 0"><i class="star icon orange"></i>{{ votes.count }} Favorites</span>
-        </div>
         <div class="summary">
             <ng-content select=".content"></ng-content>
         </div>
+    </div>
 
-      <div class="meta" *ngIf="active != false">
+    <div class="extra content">
+
+      <div class="meta left floated" *ngIf="active != false">
 
 
 
-            <a class="star" 
-              *ngIf="!checkVote()"
-              (click)="onVote()"
-            >
-            <i class="empty star icon"></i> Favorite
-        </a>
 
         <a class="star" 
-              *ngIf="checkVote()"
               (click)="onVote()"
             >
-            <i class="star icon orange"></i> Remove Favorite
+            <i class="star icon" [class.orange]="checkVote()"></i>
+            <span *ngIf="votes && votes.count != 0">{{ votes.count }} </span>
         </a>
+
+
+      </div>
+      <div class="meta right floated" *ngIf="active != false">
 
         <a class="edit"
         (click)="onEdit()"
@@ -52,4 +43,13 @@
           <i class="trash icon"></i> Delete
         </a>
       </div>
+
+      <a *ngIf="active == false" class="right floated" (click)="onExplore()">
+          <i class="check circle icon" [class.green]="checkState()"></i>
+          Explore this Idea
+      </a>
+
+
     </div>
+
+      
