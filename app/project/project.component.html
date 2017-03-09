@@ -1,6 +1,8 @@
 <header-component></header-component>
 <main id="project" *ngIf="project">
 
+    DEBUG: Project State - {{ project.state }}
+
     <div class="ui cards grid">
 
         <generate-component
@@ -14,9 +16,14 @@
             *ngIf="project.state == 2">
         </select-component>
 
-        <explore-component
+        <idea-config-component
             [project]="project"
             *ngIf="project.state == 3">
+        </idea-config-component>
+
+        <explore-component
+            [project]="project"
+            *ngIf="project.state == 4">
         </explore-component>
 
         <info-pane-component

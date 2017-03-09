@@ -20,7 +20,7 @@ export class DashboardComponent {
     // get projects to populate dashboard
     fetchProjects(){
         return this.dataService.getData().subscribe(
-            res => this.projects = res,
+            res => { this.projects = res; console.log(this.projects); },
             err => console.log( err )
         );
     }

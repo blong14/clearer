@@ -8,6 +8,7 @@ import { SharedModule } from '../shared/shared.module';
 
 // components
 import { ExploreComponent } from './explore/explore.component';
+import { IdeaConfigComponent } from './idea-config/idea-config.component';
 import { GenerateComponent } from './generate/generate.component';
 import { SelectComponent } from './select/select.component';
 //import { Phase_1_1_Component } from './phase-1/phase-1-1.component';
@@ -17,6 +18,7 @@ import { ProjectComponent } from './project.component';
 @NgModule({
     declarations: [
         ExploreComponent,
+        IdeaConfigComponent,
         GenerateComponent,
         SelectComponent,
         //Phase_1_1_Component,

@@ -21,3 +21,18 @@ main:after{
 .card{
     background: rgba(255,255,255,.8)!important;
 }
+
+.ui.modal{
+    top: 2em;
+}
+
+.ui .field{
+    position: relative;
+}
+
+.ui .field .icon{
+    position: absolute;
+    right: .5em;
+    top: 50%;
+    margin-top: -9px;
+}

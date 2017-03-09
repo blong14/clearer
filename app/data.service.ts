@@ -49,6 +49,10 @@ export class DataService {
          return this.af.database.object('/projects/' + id ).update( updates );
     }
 
+    getUsers() : FirebaseListObservable<any[]>{
+        return this.af.database.list('/users');
+    }
+
    /* getproject( id: string ): Observable<project>{
         console.log( 'called:' + id );
         return this.http.get('../_data/projects/' + id + '.json').map(
