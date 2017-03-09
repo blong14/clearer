@@ -1,5 +1,6 @@
 import { Component, Input, HostBinding } from '@angular/core';
 import { Project } from '../../models/project.interface';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'explore-component',
@@ -11,11 +12,14 @@ export class ExploreComponent{
 
     @HostBinding('class') classes = "card eleven wide column";
 
-    // invertList is used to show ideas in reverse chron order
-    invertList( list ){
-        if( list ){
-            return list.slice().reverse();
-        }
+    constructor( private router: Router, private activatedRoute: ActivatedRoute ){}
+
+    editIdea( index: number ){
+        let projectID = this.activatedRoute.snapshot.params['id'];
+        this.router.navigate(['/project/' + projectID + '/idea/' + index ])
     }
-    
+
+    configIdea(){
+
+    }
 }

@@ -29,14 +29,14 @@
     <div class="ui header">Ideas to Explore</div>
 
     <div class="ui cards">
-        <ng-container *ngFor="let currentIdea of invertList( project.ideas ); let i = index">
+        <ng-container *ngFor="let currentIdea of project.ideas; let i = index">
         <comment-component 
             *ngIf="currentIdea.state == 3"
             [index]="i"
-            [author]="currentIdea.owner"
-            [timestamp]="currentIdea.timestamp"
-            [votes]="currentIdea.votes"
-            [active]="false"
+            [idea]="currentIdea"
+            [project]="project"
+            (viewEvent)="editIdea($event)"
+            (editEvent)="configIdea($event)"
             
             >
             <div class="content">{{ currentIdea.text }}</div>

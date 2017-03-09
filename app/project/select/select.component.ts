@@ -16,15 +16,14 @@ export class SelectComponent{
 
     // set state on idea object - explore event coming from comments component
     handlerExplore( event ){
-        let reverseIndex = this.project['ideas'].length - 1 - event;
-        let state = this.project['ideas'][reverseIndex]['state'];
+        let state = this.project['ideas'][event]['state'];
 
         if( state != 3 ){
             state = 3;
         }else{
             state = 1;
         }
-        this.dataService.saveProject( this.project.id, state, 'ideas/' + reverseIndex + '/state');
+        this.dataService.saveProject( this.project.id, state, 'ideas/' + event + '/state');
 
     }
 

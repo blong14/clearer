@@ -1,13 +1,15 @@
-<div class="content">
-        <div class="meta right floated">{{ formatTime( timestamp ) }}</div>
-        <img 
-        class="ui avatar image"
-        [src]="fetchGravitar( author.email )"  />
-        {{ author.name ? author.name : author.email }}
-    
+<div class="content"  *ngIf="checkProjectState() > 3">
+  <span class="meta right floated"><i class="trophy icon"></i>
+    <img 
+      class="ui avatar right "
+      [src]="fetchGravitar()"  />
+      {{ displayChampion() }}
+  </span>
 </div>
 
     <div class="content">
+
+        <div class="meta">{{ formatTime() }}</div>
         <div class="summary">
             <ng-content select=".content"></ng-content>
         </div>
@@ -15,7 +17,7 @@
 
     <div class="extra content">
 
-      <div class="meta left floated" *ngIf="active != false">
+      <div class="meta left floated" *ngIf="checkProjectState() < 2">
 
 
 
@@ -24,28 +26,38 @@
               (click)="onVote()"
             >
             <i class="star icon" [class.orange]="checkVote()"></i>
-            <span *ngIf="votes && votes.count != 0">{{ votes.count }} </span>
+            <span *ngIf="idea.votes && idea.votes.count != 0">{{ idea.votes.count }} </span>
         </a>
 
 
       </div>
-      <div class="meta right floated" *ngIf="active != false">
+      <div class="meta right floated" *ngIf="checkProjectState() < 2">
 
         <a class="edit"
         (click)="onEdit()"
-        *ngIf="checkPermissions(author)">
+        *ngIf="isIdeaOwner()">
           <i class="pencil icon"></i> Edit
         </a>
 
         <a class="delete"
-        *ngIf="checkPermissions(author)"
+        *ngIf="isIdeaOwner()"
         (click)="onDelete()">
           <i class="trash icon"></i> Delete
         </a>
       </div>
 
-      <a *ngIf="active == false" class="right floated" (click)="onExplore()">
-          <i class="check circle icon" [class.green]="checkState()"></i>
+      <div class="meta right floated" *ngIf="checkProjectState() == 4">
+        <a class="view" (click)="onView()">
+          <i class="pencil icon"></i> Contribute
+        </a>
+
+        <a class="config" (click)="onEdit()" *ngIf="isProjectOwner()">
+          <i class="setting icon"></i>Settings
+        </a>
+      </div>
+
+      <a *ngIf="checkProjectState() == 2 && isProjectOwner()" class="right floated" (click)="onSelect()">
+          <i class="check circle icon" [class.green]="checkIdeaState() > 1"></i>
           Explore this Idea
       </a>
 

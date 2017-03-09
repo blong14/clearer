@@ -34,14 +34,11 @@
     </div>
     <div class="ui cards">
         <comment-component 
-            *ngFor="let currentIdea of invertList( project.ideas ); let i = index"
+            *ngFor="let currentIdea of project.ideas; let i = index"
             [index]="i"
-            [author]="currentIdea.owner"
-            [timestamp]="currentIdea.timestamp"
-            [votes]="currentIdea.votes"
-            [active]="false"
-            [state]="currentIdea.state"
-            (exploreEvent)="handlerExplore($event)"
+            [idea]="currentIdea"
+            [project]="project"
+            (selectEvent)="handlerExplore($event)"
             >
             <div class="content">{{ currentIdea.text }}</div>
         </comment-component>

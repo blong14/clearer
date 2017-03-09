@@ -14,6 +14,7 @@ import { SharedModule } from './shared/shared.module';
 // feature modules
 import { CreateModule } from './create/create.module';
 import { DashboardModule } from './dashboard/dashboard.module';
+import { IdeaModule } from './idea/idea.module';
 import { ProjectModule } from './project/project.module';
 
 // components
@@ -47,6 +48,7 @@ const myFirebaseAuthConfig = {
         CreateModule,
         DashboardModule,
         ProjectModule,
+        IdeaModule,
         RouterModule.forRoot([
             { path: 'login', component: LoginComponent },
         ])

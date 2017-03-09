@@ -1,0 +1,26 @@
+<header-component></header-component>
+<main id="project" *ngIf="project">
+
+    DEBUG: Project State - {{ project.state }}
+
+    <div class="ui cards grid">
+
+        <info-pane-component
+            [goals]="project.goals"
+            [owner]="project.owner"
+            (settingsEvent)="handlerSettings($event)"
+            (nextPhaseEvent)="handlerNextPhase($event)">
+
+            <h1 class="header">{{ project.name }}</h1>
+            <p class="description">{{ project.description }}</p>
+
+        </info-pane-component>
+
+        <div class="card">
+        {{ idea.text }}
+        </div>
+
+    </div>
+
+</main>
+<footer-component></footer-component>

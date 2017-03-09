@@ -13,7 +13,7 @@ export class GenerateComponent {
 
     editIndex: number;
     modalContent: string;
-    showModal: boolean ;
+    showModal: boolean = false;
 
     @Input() project: Project;
 
@@ -47,24 +47,45 @@ export class GenerateComponent {
 
     // deleteHandler removes an event based on an index value - event from comment-component
     deleteHandler( event: number ){
-        let reverseIndex = this.project['ideas'].length - 1 - event;
-        this.project['ideas'].splice(reverseIndex, 1);
+        this.project['ideas'].splice(event, 1);
         this.dataService.saveProject( this.project.id, this.project['ideas'], 'ideas');
     }
 
     // editHandler fires off edit event based on index value - event from comment-component
     editHandler( event: number ){
-        let reverseIndex = this.project['ideas'].length - 1 - event;
-        this.modalContent = this.project['ideas'][reverseIndex].text;
-        this.editIndex = reverseIndex;
+        this.modalContent = this.project['ideas'][event].text;
+        this.editIndex = event;
         this.showModal = true;
     }   
+
+    addIdea(){
+
+        let user = JSON.parse(localStorage.getItem('currentUser'));
+        let ideaData = {
+            text: '',
+            timestamp: new Date().getTime(),
+            state: 1,
+            owner: {
+                'uid': user.auth.uid,
+                'email': user.auth.email,
+                'name': user.auth.displayName
+            }
+        };
+        if( this.project['ideas'] == undefined ){ this.project['ideas']= []; }
+        this.project['ideas'].push( ideaData );
+
+        let length = this.project['ideas'].length;
+    
+        this.modalContent = this.project['ideas'][length-1]['text'];
+        this.dataService.saveProject( this.project.id, this.project['ideas'][length-1], '/ideas/' + (length-1));
+
+        this.editHandler( length-1 );
+    }
 
     // voteHandler receives event from comment compnent and iterates vote count + voters object appropriately
     voteHandler( event: number ){
         let user = JSON.parse(localStorage.getItem('currentUser'));
-        let reverseIndex = this.project['ideas'].length - 1 - event;
-        let votes = this.project['ideas'][reverseIndex]['votes'];
+        let votes = this.project['ideas'][event]['votes'];
 
         if( votes && votes['voters'] != undefined ){
             if( votes['voters'].includes( user.auth.uid ) ){
@@ -84,7 +105,7 @@ export class GenerateComponent {
             }; 
             votes = this.project['ideas']['votes'];
         }
-        this.dataService.saveProject( this.project.id, votes, 'ideas/' + reverseIndex + '/votes')
+        this.dataService.saveProject( this.project.id, votes, 'ideas/' + event + '/votes')
     }
 
     // close model
@@ -98,14 +119,6 @@ export class GenerateComponent {
     modalSaveHandler( event ){
         this.project['ideas'][this.editIndex].text = event;
         this.dataService.saveProject( this.project.id, this.project['ideas'], 'ideas');
-    }
-
-    
-    // invertList is used to show ideas in reverse chron order
-    invertList( list ){
-        if( list ){
-            return list.slice().reverse();
-        }
     }
 
 
