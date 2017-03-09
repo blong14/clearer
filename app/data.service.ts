@@ -12,23 +12,11 @@ import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'a
 @Injectable()
 export class DataService {
 
-    constructor( private af: AngularFire, private http: Http ) { 
-
-
-    }
+    constructor( private af: AngularFire, private http: Http ) { }
 
     getData(): FirebaseListObservable<Project[]>{
 
-
-
         return this.af.database.list('/projects');
-        /*return this.http.get('../_data/projects.json').map(
-            res=> {
-                let response = res.json();
-                return ressponse;
-            },
-            error=> error
-        );*/
     }
 
     getProject( id: string ): FirebaseObjectObservable<Project>{
@@ -51,26 +39,6 @@ export class DataService {
 
     getUsers() : FirebaseListObservable<any[]>{
         return this.af.database.list('/users');
-    }
-
-   /* getproject( id: string ): Observable<project>{
-        console.log( 'called:' + id );
-        return this.http.get('../_data/projects/' + id + '.json').map(
-            res=>{
-                let response = res.json();
-                return response;
-            },
-            error=> error
-        );
-    }*/
-
-    returnData( paramName: string ){
-        /*
-        return this.http.get('/_data/' + paramName + '.json').map(
-            res=> res,
-            err=> err
-        );*/
-        return false;
     }
 
 }
