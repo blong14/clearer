@@ -112,7 +112,7 @@
             <button class="ui button red" (click)="cancelSetup()">
                 Cancel
             </button>
-                    <button class="ui button right floated green" [class.disabled]="!isLastIdea()" (click)="finishSetup()">
+                    <button class="ui button right floated green" [class.disabled]="!checkChampions()" (click)="finishSetup()">
                         <i class="check icon"></i>
                         Finished
                     </button>

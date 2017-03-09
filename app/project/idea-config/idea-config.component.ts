@@ -18,6 +18,7 @@ export class IdeaConfigComponent {
     @Input() project: Project;
     users: object;
     activeIndex: number;
+    selectedKeys: Array<number> = [];
 
     @HostBinding('class') classes = "card eleven wide column";
 
@@ -81,11 +82,22 @@ export class IdeaConfigComponent {
         }
     }
 
+    checkChampions(){
+        let pass = true;
+        for( let i = 0; i < this.selectedKeys.length; i++ ){
+            if( this.project['ideas'][this.selectedKeys[i]]['champion'] == undefined ){
+                pass = false;
+            }
+        }
+        return pass;
+    }
+
     checkIfSelected( index: number ){
         if( this.project['ideas'][index]['state'] == 3 ){
             if( this.activeIndex == undefined ){
                  this.activeIndex = index;
             }
+            this.selectedKeys.push(index);
             return true;
         }
     }
