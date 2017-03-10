@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from '../data.service';
 import { Idea } from '../models/idea.interface';
 import { Project } from '../models/project.interface';
+import { MD5 } from '../../lib/md5';
 
 @Component({
     selector: 'idea-component',
@@ -17,6 +18,12 @@ export class IdeaComponent{
     idea: Idea;
 
     constructor( private dataService: DataService, private activatedRoute: ActivatedRoute, private router: Router ){}
+
+    fetchGravitar(){
+        let email = this.idea.champion;
+        return 'https://www.gravatar.com/avatar/' + MD5( email );
+    }
+
 
     fetchIdea(){
         let projectID = this.activatedRoute.snapshot.params['id'];

@@ -1,9 +1,48 @@
 <header-component></header-component>
 <main id="project" *ngIf="project">
 
-    DEBUG: Project State - {{ project.state }}
+    <div class="ui breadcrumb">
+        
+        <i class="left angle icon divider"></i>
+        <a class="section">Back to Project</a>
+    </div>
 
     <div class="ui cards grid">
+
+
+
+        <div class="ui card eleven wide column">
+
+            <div class="content">
+
+                <div class="right floated right aligned">
+                    <div class="ui tiny header">
+                        <div class="content">
+                        <div class="sub header">Champion</div>
+                        {{ idea.owner.email }}
+                        </div>
+                        <img class="ui avatar" [src]="fetchGravitar( idea.owner )" />
+                    </div>
+                </div>
+
+                <div class="header">
+                    {{ idea.text }}
+                </div>
+
+            </div>
+
+
+            <div class="content">
+                <div class="ui header">
+                    Additional Questions
+                </div>
+                <div class="content">
+                    <ul>
+                        <li *ngFor="let question of idea.questions">{{ question.text }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
 
         <info-pane-component
             [goals]="project.goals"
@@ -15,10 +54,6 @@
             <p class="description">{{ project.description }}</p>
 
         </info-pane-component>
-
-        <div class="card">
-        {{ idea.text }}
-        </div>
 
     </div>
 
