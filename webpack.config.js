@@ -5,6 +5,7 @@ var webpack = require('webpack');
 var server = require('webpack-dev-server');
 var ts = require('awesome-typescript-loader');
 var ProgressBarPlugin = require('progress-bar-webpack-plugin');
+var chalk = require('chalk');
 var jsonServer = require('json-server');
 
 var cwd = process.cwd();

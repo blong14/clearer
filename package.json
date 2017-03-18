@@ -30,6 +30,7 @@
     "start": "webpack-dev-server",
     "build": "webpack",
     "test": "./node_modules/.bin/karma start ./test/karma.conf.js",
+    "predeploy": "yarn build",
     "deploy": "surge --domain project-zebra.surge.sh",
     "postinstall": "node node_modules/phantomjs-prebuilt/install.js"
   },
