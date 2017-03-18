@@ -28,7 +28,6 @@
   "scripts": {
     "prestart": "webpack --config vendor/webpack.config.js",
     "start": "webpack-dev-server",
-    "prebuild": "npm rebuild node-sass",
     "build": "webpack",
     "test": "./node_modules/.bin/karma start ./test/karma.conf.js",
     "deploy": "surge --domain project-zebra.surge.sh",
