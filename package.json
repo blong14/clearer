@@ -30,7 +30,8 @@
     "start": "webpack-dev-server",
     "build": "webpack",
     "test": "./node_modules/.bin/karma start ./test/karma.conf.js",
-    "deploy": "surge --domain project-zebra.surge.sh"
+    "deploy": "surge --domain project-zebra.surge.sh",
+    "postinstall": "node node_modules/phantomjs-prebuilt/install.js"
   },
   "devDependencies": {
     "@types/core-js": "^0.9.35",
