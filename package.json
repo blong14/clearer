@@ -29,7 +29,8 @@
     "prestart": "webpack --config vendor/webpack.config.js",
     "start": "webpack-dev-server",
     "build": "webpack",
-    "test": "karma start ./test/karma.conf.js",
+    "test": "./node_modules/.bin/karma start --single-run --browsers PhantomJS",
+    "localtest": "karma start ./test/karma.conf.js",
     "deploy": "surge --domain project-zebra.surge.sh"
   },
   "devDependencies": {

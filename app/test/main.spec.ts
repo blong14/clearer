@@ -38,18 +38,28 @@ describe('DashboardComponent (external template)', function(){
 
     beforeEach( async(() => {
         TestBed.configureTestingModule({
-            declarations: [ DashboardComponent ]
+            declarations: [ DashboardComponent ],
+            providers: [ DataService ]
         })
         .compileComponents();
 
         fixture = TestBed.createComponent(DashboardComponent);
         comp = fixture.componentInstance;
 
+        dataService = fixture.debugElement.injector.get(DataService);
+
+        let spy = spyOn( dataService, 'getData' )
+            .and.returnValue(Promise.resolve(testProjects));
+
+        de = fixture.debugElement.query(By.css('.header'));
+        el = de.nativeElement;
+
+
     }));
 
     it( 'data returned successfully', function(){
-       
-           expect(1).toBe(1);
+       fixture.detectChanges();
+           expect('Test description.').toEqual('Test description.');
      
     });
 });
