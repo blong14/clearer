@@ -23,7 +23,7 @@ module.exports = () => {
       inline: true,
       hot: true,
       port: 4000,
-      publicPath: './build/',
+      publicPath: '/build/',
       quiet: true,
       historyApiFallback: true,
       stats: {
@@ -44,7 +44,7 @@ module.exports = () => {
       chunkFilename: '[name].chunk.js',
       filename: '[name].js',
       path: path.resolve(cwd, 'build'),
-      publicPath: './build/',
+      publicPath: '/build/',
       sourceMapFilename: '[name].map'
     },
     module: {
