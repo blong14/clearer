@@ -6,4 +6,3 @@ after_success:
 deploy:
   provider: surge
   domain: project-zebra.surge.sh
-  skip_cleanup: true
