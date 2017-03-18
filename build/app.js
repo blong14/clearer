@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "533687855bf5135455dd"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "5b268bbac0ab2e3e4d92"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotMainModule = true; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -700,7 +700,7 @@
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "./build/";
+/******/ 	__webpack_require__.p = "/build/";
 /******/
 /******/ 	// __webpack_hash__
 /******/ 	__webpack_require__.h = function() { return hotCurrentHash; };
@@ -984,7 +984,7 @@ exports.CreateModule = CreateModule;
 /***/ "./app/dashboard/dashboard.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<header-component></header-component>\n\n<main>\n  <h1>testing travis build</h1>\n\n  <section id=\"dashboard\">\n\n    <div class=\"ui cards\">\n\n      <card-component *ngFor=\"let project of projects\">\n        <div class=\"header\">{{ project.name }}</div>\n        <div class=\"content\">{{ project.description }}</div>\n        <div class=\"link\" [routerLink]=\"['project/' + project.id]\">View Project</div>\n      </card-component>\n\n      <card-component>\n        <div class=\"header\">Add a Project</div>\n        <div class=\"content\">Start a new project</div>\n        <div class=\"link\" [routerLink]=\"['/project/create']\">Create Project</div>\n      </card-component>\n\n    </div>\n  </section>\n</main>\n<footer-component></footer-component>"
+module.exports = "<header-component></header-component>\n\n<main>\n\n  <section id=\"dashboard\">\n\n    <div class=\"ui cards\">\n\n      <card-component *ngFor=\"let project of projects\">\n        <div class=\"header\">{{ project.name }}</div>\n        <div class=\"content\">{{ project.description }}</div>\n        <div class=\"link\" [routerLink]=\"['project/' + project.id]\">View Project</div>\n      </card-component>\n\n      <card-component>\n        <div class=\"header\">Add a Project</div>\n        <div class=\"content\">Start a new project</div>\n        <div class=\"link\" [routerLink]=\"['/project/create']\">Create Project</div>\n      </card-component>\n\n    </div>\n  </section>\n</main>\n<footer-component></footer-component>"
 
 /***/ }),
 
