@@ -7,7 +7,11 @@ export interface Idea {
     },
     questions: Array<object>,
     state: number,
-    champion: string,
+    champion: {
+        name: string,
+        email: string,
+        uid: string
+    },
     timestamp: number,
     votes: {
         count: number,

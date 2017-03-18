@@ -30,7 +30,6 @@
     "start": "webpack-dev-server",
     "build": "webpack",
     "test": "./node_modules/.bin/karma start ./test/karma.conf.js",
-    "localtest": "karma start ./test/karma.conf.js",
     "deploy": "surge --domain project-zebra.surge.sh"
   },
   "devDependencies": {
