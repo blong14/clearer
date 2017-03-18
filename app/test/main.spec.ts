@@ -1,7 +1,7 @@
 import{ ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
-import { Observable } from 'rxjs/observable';
+import { Observable } from 'rxjs/Observable';
 
 
 import { DashboardComponent } from '../dashboard/dashboard.component';
