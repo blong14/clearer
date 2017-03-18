@@ -5,6 +5,7 @@ module.exports = (config) => {
         autoWatch: true,
         browsers: ['PhantomJS'],
         files: [
+            '../node_modules/es6-shim/es6-shim.js',
             'karma.entry.js'
         ],
         frameworks: ['jasmine'],
@@ -13,7 +14,7 @@ module.exports = (config) => {
             'karma.entry.js': ['webpack', 'sourcemap']
         },
         reporters: ['dots'],
-        singleRun: false,
+        singleRun: true,
         webpack: require('../webpack.test'),
         webpackServer: {
             noInfo: true
