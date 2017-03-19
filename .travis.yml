@@ -1,0 +1,10 @@
+language: node_js
+node_js:
+  - 6.9.5
+script:
+  - "npm rebuild node-sass"
+  - "webpack"
+deploy:
+  provider: surge
+  domain: project-zebra.surge.sh
+  skip_cleanup: true
