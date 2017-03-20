@@ -1,9 +1,9 @@
 language: node_js
 node_js:
-  - 6.9.5
+- 6.9.5
 script:
-  - "ng build"
-deploy:
-  provider: surge
-  domain: project-zebra.surge.sh
-  skip_cleanup: true
+- ng build
+notifications:
+  email: false
+  slack:
+    secure: tHuLm6NR6QRHZTOzWRO+V8mOVwXe4WzEOmSpZxKcsI1XdO34TlKfLfG76Wtf8BDQnpOdCo0DORzUyFFzJ1cyjVM+uA3KxUjexZSb02iMLNywt68VoSt0cTpfakOwEwW5hT0kFDQjU7IdHSSSk8aaddfWrP+QJxq+6g5IdTj8aM7l+KqdFG+tdSybrL9MseGIb4vLhhUNrn2AL1b6AHxOHpGsmaG/fg38QLsU8ahGeryFHrPJUGr2ARjuDq0JEmIjKog56SKXcyUsR2PKS+Gt1AgMTSn46Cmct8K8uh3qX+niqwyr5CXkEQv9nmrep5zl3jxhBQr+AthhODg4L3t8HZIDz7CtwQb6nD2eWn6PbdNhmflMg8bZn9CsLeYtLaoGs3g+52ndXKB/sQWYm4idzgDQNWiDa7ah5A9Q2I9tePFOa3wyKprA5bN/S2sVrgwS5bv7eFScqbQL4cJ6eTu6hdpgFiuHFwe+Z53WhufphDuQyzTxjJwqpA5O4CrDOi2apnc708SX3FcNXPmFS1Eu/X/+3pZF6Pt+x3jwJFpjMpAN/BfDFA6A0YmwZ8OBXk5XhVCr1XcJdzeyGejPe2njzcCXplVbQqaPWEAHWM888qojQrrgZLfzB/ABHCQGwmweup9M4AX82elLz+UA5D2QbeJhR6Ncjm7Nuw8YSA6097w=
