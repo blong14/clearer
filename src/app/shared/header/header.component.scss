@@ -1,0 +1,25 @@
+header{
+    padding: .5em 15px;
+    background: #111;
+    zoom: 1;
+
+    &:after{
+        content: '';
+        height: 0;
+        clear: both;
+        display: block;
+        visibility: hidden;
+    }
+
+    .logo{
+        width: 50%;
+        float: left;
+        color: #fff;
+    }
+
+    .header-buttons{
+        width: 50%;
+        float: right;
+        text-align: right;
+    }
+}

@@ -1,0 +1,26 @@
+<div class="content">
+    <ng-content select=".header"></ng-content>
+</div>
+
+<div class="content">
+    <h3>Description:</h3>
+    <ng-content select=".description"></ng-content>
+</div>
+
+<div class="content">
+    <h3>Goals:</h3>
+    <ul>
+        <li *ngFor="let goal of goals">{{ goal }}</li>
+    </ul>
+</div>
+
+<div class="extra content">
+    <button class="ui labeled icon button basic mini primary" *ngIf="checkUser()" (click)="onNextPhase()">
+        <i class="right arrow icon"></i>
+        Go to Next Phase
+    </button>
+    <button class="ui labeled icon button basic mini" *ngIf="checkUser()" (click)="onSettings()">
+        <i class="setting icon"></i>
+        Project Settings
+    </button>
+</div>

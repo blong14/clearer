@@ -1,15 +1,32 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from '../data.service';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+    selector: 'dashboard-component',
+    templateUrl: 'dashboard.component.html',
+    providers:[ DataService ]
 })
-export class DashboardComponent implements OnInit {
 
-  constructor() { }
+export class DashboardComponent implements OnInit{
 
-  ngOnInit() {
-  }
+    // properties
+
+    projects: any;
+
+    constructor( private dataService : DataService ){ }
+
+    // methods
+
+    // get projects to populate dashboard
+    fetchProjects(){
+        return this.dataService.getData().subscribe(
+            res => this.projects = res,
+            err => console.log( err )
+        );
+    }
+
+    ngOnInit(){
+        this.fetchProjects();
+    }
 
 }

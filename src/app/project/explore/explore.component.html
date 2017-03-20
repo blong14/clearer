@@ -1,0 +1,46 @@
+<div class="content">
+    <div class="ui ordered four steps">
+        <div class="completed step">
+            <div class="content">
+                <div class="title">Generate</div>
+            </div>
+        </div>
+        <div class="active step">
+            <div class="content">
+                <div class="title">Explore</div>
+                <div class="content">Test the edges of each idea</div>
+            </div>
+        </div>
+        <div class="disabled step">
+            <div class="content">
+                <div class="title">Consider</div>
+            </div>
+        </div>
+        <div class="disabled step">
+            <div class="content">
+                <div class="title">Decide</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+
+    <div class="ui header">Ideas to Explore</div>
+
+    <div class="ui cards">
+        <ng-container *ngFor="let currentIdea of project.ideas; let i = index">
+        <comment-component
+            *ngIf="currentIdea.state == 3"
+            [index]="i"
+            [idea]="currentIdea"
+            [project]="project"
+            (viewEvent)="editIdea($event)"
+            (editEvent)="configIdea($event)"
+
+            >
+            <div class="content">{{ currentIdea.text }}</div>
+        </comment-component>
+        </ng-container>
+
+</div>

@@ -1,0 +1,39 @@
+/* You can add global styles to this file, and also import other style files */
+main{
+    background: radial-gradient( circle, #b452ec, #8d4cb2);
+    background: #eee;
+    zoom: 1;
+    padding: 2em;
+    min-height: calc( 100vh - 97px );
+}
+
+main:after{
+    content: '';
+    height: 0;
+    clear: both;
+    display: block;
+    visibility: hidden;
+}
+
+.btn{
+    cursor: pointer;
+}
+
+.card{
+    background: rgba(255,255,255,.8)!important;
+}
+
+.ui.modal{
+    top: 2em;
+}
+
+.ui .field{
+    position: relative;
+}
+
+.ui .field .icon{
+    position: absolute;
+    right: .5em;
+    top: 50%;
+    margin-top: -9px;
+}

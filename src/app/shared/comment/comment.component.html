@@ -1,0 +1,66 @@
+<div class="content"  *ngIf="checkProjectState() > 3">
+  <span class="meta right floated"><i class="trophy icon"></i>
+    <img
+      class="ui avatar"
+      [src]="fetchGravitar()"  />
+      {{ displayChampion() }}
+  </span>
+</div>
+
+    <div class="content">
+
+        <div class="meta">{{ formatTime() }}</div>
+        <div class="summary">
+            <ng-content select=".content"></ng-content>
+        </div>
+    </div>
+
+    <div class="extra content">
+
+      <div class="meta left floated" *ngIf="checkProjectState() < 2">
+
+
+
+
+        <a class="star"
+              (click)="onVote()"
+            >
+            <i class="star icon" [class.orange]="checkVote()"></i>
+            <span *ngIf="idea.votes && idea.votes.count != 0">{{ idea.votes.count }} </span>
+        </a>
+
+
+      </div>
+      <div class="meta right floated" *ngIf="checkProjectState() < 2">
+
+        <a class="edit"
+        (click)="onEdit()"
+        *ngIf="isIdeaOwner()">
+          <i class="pencil icon"></i> Edit
+        </a>
+
+        <a class="delete"
+        *ngIf="isIdeaOwner()"
+        (click)="onDelete()">
+          <i class="trash icon"></i> Delete
+        </a>
+      </div>
+
+      <div class="meta right floated" *ngIf="checkProjectState() == 4">
+        <a class="view" (click)="onView()">
+          <i class="pencil icon"></i> Contribute
+        </a>
+
+        <a class="config" (click)="onEdit()" *ngIf="isProjectOwner()">
+          <i class="setting icon"></i>Settings
+        </a>
+      </div>
+
+      <a *ngIf="checkProjectState() == 2 && isProjectOwner()" class="right floated" (click)="onSelect()">
+          <i class="check circle icon" [class.green]="checkIdeaState() > 1"></i>
+          Explore this Idea
+      </a>
+
+
+    </div>
+

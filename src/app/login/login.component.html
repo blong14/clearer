@@ -1,0 +1,44 @@
+<header-component></header-component>
+<main id="login">
+    <div class="ui centered card">
+
+      <div class="content">
+        <h1 class="header">Login</h1>
+      </div>
+
+      <div class="content">
+
+        <form class="ui form">
+
+            <span *ngIf="error">{{ error }}</span>
+
+            <label for="username">Username</label>
+            <input
+                type="text"
+                name="username"
+                class="col-12 mb-1"
+                [(ngModel)]="email"
+            />
+
+            <label for="password">Password</label>
+            <input
+                type="text"
+                name="password"
+                class="col-12 mb-1"
+                [(ngModel)]="password"
+            />
+
+            <div class="btn-wrapper">
+                <input type="submit" value="Sign In" (click)="login()" class="ui button primary" />
+            </div>
+
+        </form>
+
+        <div class="sign-up">
+            <p>Need an account?</p>
+            <a class="ui button">Sign Up</a>
+        </div>
+    </div>
+  </div>
+</main>
+<footer-component></footer-component>
