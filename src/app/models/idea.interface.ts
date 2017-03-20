@@ -5,15 +5,15 @@ export interface Idea {
         name: string,
         uid: string
     },
-    questions: Array<Object>,
+    questions?: Array<Object>,
     state: number,
-    champion: {
+    champion?: {
         name: string,
         email: string,
         uid: string
     },
     timestamp: number,
-    votes: {
+    votes?: {
         count: number,
         voters: Array<string>
     }

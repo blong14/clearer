@@ -1,23 +1,42 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CreateComponent } from './create.component';
-
+import { ActivatedRoute } from '@angular/router';
+import { AngularFire } from 'angularfire2';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { SharedModule } from '../shared/shared.module';
+import { Http } from '@angular/http';
+import { Observable } from 'rxjs/Rx';
+import { RouterTestingModule } from '@angular/router/testing';
 
+import { SharedModule } from '../shared/shared.module';
 import { DataService } from '../data.service';
+
+import { CreateComponent } from './create.component';
+
 
 describe('CreateComponent', () => {
   let component: CreateComponent;
   let fixture: ComponentFixture<CreateComponent>;
 
+  const FakeAngularFire = {};
+  const FakeHttp = {};
+
+  const FakeActivatedRoute = {
+    snapshot: {
+      params: Observable.of([{
+        id: '1001'
+      }])
+    }
+  }
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ CreateComponent ],
-      imports: [ CommonModule, FormsModule, SharedModule ],
+      imports: [ CommonModule, FormsModule, SharedModule, RouterTestingModule ],
       providers: [
-        DataService,
+        { provide: AngularFire, useValue: FakeAngularFire },
+        { provide: Http, useValue: FakeHttp },
+        { provide: ActivatedRoute, useValue: FakeActivatedRoute },
       ]
     })
     .compileComponents();
