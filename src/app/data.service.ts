@@ -29,7 +29,7 @@ export class DataService {
         return this.af.database.object('/projects/' + id).remove();
     }
 
-    saveProject( id: string, dataToSave: any, path?: string): Promise<void> {
+    saveProject( id: string, dataToSave: any, path?: string): firebase.Promise<void> {
          let updates = {};
          let success: boolean;
          if(path){ updates[ path ] = dataToSave; }

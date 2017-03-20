@@ -12,7 +12,7 @@ export class AuthService {
 
   constructor( private af: AngularFire, public http : Http, private route: Router ) { }
 
-  login(em: string, pw: string): Promise<FirebaseAuthState>{
+  login(em: string, pw: string): firebase.Promise<FirebaseAuthState>{
 
     let auth = this.af.auth.login({ email: em, password: pw });
     localStorage.setItem('currentUser', JSON.stringify( auth ) );
