@@ -1,6 +1,6 @@
 import { Component, HostBinding, Input } from '@angular/core';
 import { Project } from '../../models/project.interface';
-import { MD5 } from '../../../lib/md5';
+import { MD5 } from '../../../../lib/md5';
 import { DataService } from '../../data.service';
 
 @Component({
