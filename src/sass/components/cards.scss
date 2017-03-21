@@ -1,12 +1,15 @@
 .cards{
   display: flex;
   flex-direction: row;
+  flex-basis: 25%;
+  flex-wrap: wrap;
 
   .card{
     display: flex;
     flex-direction: column;
     width: 23%;
     margin-right: 2%;
+    margin-bottom: 2%;
     border: 1px solid #ddd;
     background: #fff;
     padding: 1em 1em 3em;
@@ -45,6 +48,51 @@
       }
     }
 
+    &.transparent{
+      opacity: .6;
+      transition: all .5s;
+
+      &:hover{
+        opacity: 1;
+      }
+    }
+
   }
 
+  .plus.icon{
+    font-size: 3em;
+    width: 100%;
+    color: #ddd;
+    text-align: center;
+    display: block;
+    transition: color .5s;
+  }
+
+  .card:hover{
+    .plus.icon{
+      color: #77a0dc;
+    }
+  }
+
+}
+
+
+
+.placeholder-text{
+  height: 1.2em;
+  width: 100%;
+  background: #eee;
+
+  &:before, &:after{
+    height: 1.2em;
+    width: 100%;
+    background: #eee;
+    margin: .75em 0;
+    display: block;
+    content: '';
+  }
+
+  &:before{
+    margin-top: 1.85em;
+  }
 }
