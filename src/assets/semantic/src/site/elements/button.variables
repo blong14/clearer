@@ -1,0 +1,8 @@
+/*******************************
+    User Variable Overrides
+*******************************/
+
+@background: rgba(255,255,255,.5);
+@hoverBackgroundColor: rgba(255,255,255,.75);
+
+@secondaryTextColor: #111;

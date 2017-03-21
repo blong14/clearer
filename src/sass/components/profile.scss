@@ -1,0 +1,17 @@
+.profile{
+  display: flex;
+  align-items: center;
+
+  + .profile{
+    margin-top: 2em;
+  }
+
+}
+
+.avitar{
+  border-radius: 50%;
+  height: 70px;
+  width: 70px;
+  margin-right: 1em;
+}
+

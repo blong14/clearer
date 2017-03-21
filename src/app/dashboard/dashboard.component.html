@@ -1,0 +1,158 @@
+<header-component></header-component>
+
+<main id="dashboard">
+
+  <section class="main-content">
+
+    <div id="my-projects" class="section">
+
+      <h2>My Projects</h2>
+
+      <div class="cards">
+
+          <card-component *ngFor="let project of projects" [routerLink]="['project/' + project.id]">
+            <div class="header">{{ project.name }}</div>
+            <div class="content">{{ project.description }}</div>
+          </card-component>
+
+          <div class="card transparent" [routerLink]="['/project/create']">
+            <div class="header">Create New Project</div>
+            <i class="placeholder-text"></i>
+            <i class="plus icon"></i>
+          </div>
+
+      </div><!--.cards-->
+
+    </div><!--#my-projects-->
+
+    <div id="recent-updates" class="section">
+
+      <h2>Recent Updates</h2>
+
+      <div class="feed">
+
+        <div class="feed-item">
+          <i class="add user icon"></i>
+          <p><a href="#">Marie Schacht</a> joined your team <a href="#">MarkupShop</a></p>
+          <p class="meta timestamp">1 Hour Ago</p>
+        </div><!--.feed-item-->
+
+        <div class="feed-item">
+          <i class="right arrow icon"></i>
+          <p><a href="#">Josh Mobley</a> moved project <a href="#">Make Hopscotch Awesome</a> forward</p>
+          <p class="meta timestamp">3 Hours Ago</p>
+        </div><!--.feed-item-->
+
+      </div><!--.feed-->
+
+    </div><!--#recent-updates-->
+
+  </section>
+
+  <aside class="sidebar">
+
+    <h2>My Teams</h2>
+
+    <div class="profile-list">
+
+      <div class="profile">
+        <img src="http://placehold.it/100x100" class="avitar" />
+        <p class="label">MarkupShop</p>
+      </div>
+
+      <div class="profile">
+        <img src="http://placehold.it/100x100" class="avitar" />
+        <p class="label">Zebra</p>
+      </div>
+
+
+    </div>
+
+  </aside>
+
+  <!--
+
+    <div class="segment twelve wide column">
+
+
+        <h3 class="ui header violet">My Projects
+          <button class="ui button violet compact tiny right floated "><i class="plus icon"></i>New Project</button>
+        </h3>
+
+      <div class="ui segment vertical">
+
+        <div class="ui cards">
+
+          <card-component *ngFor="let project of projects">
+            <div class="header">{{ project.name }}</div>
+            <div class="content">{{ project.description }}</div>
+            <div class="link" [routerLink]="['project/' + project.id]">View Project</div>
+          </card-component>
+
+        </div>
+
+      </div>
+        <h3 class="ui header violet">Recent Updates</h3>
+
+      <div class="ui segment vertical">
+        <div class="ui feed">
+
+          <div class="event">
+            <div class="label">
+              <i class="add user icon"></i>
+            </div>
+            <div class="content">
+              <div class="summary">
+                <a class="user">
+                  Marie Schacht
+                </a> joined your team
+                <div class="date">
+                  1 Hour Ago
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="event">
+            <div class="label">
+              <i class="arrow right icon"></i>
+            </div>
+            <div class="content">
+              <div class="summary">
+                <a class="user">
+                  Josh Mobley
+                </a> moved project
+                <a>
+                  Make Hopscotch Awesome
+                </a> forward
+                <div class="date">
+                  1 Hour Ago
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class="segment four wide column">
+
+      <h3 class="ui header violet">My Teams
+          <button class="ui button violet compact tiny right floated "><i class="plus icon"></i>Join Team</button>
+      </h3>
+
+      <div class="ui segment">
+          <div class="content">This is a team</div>
+
+      </div>
+
+    </div>
+
+
+
+
+  </section> -->
+</main>
+<footer-component></footer-component>
