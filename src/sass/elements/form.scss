@@ -1,0 +1,26 @@
+input, textarea{
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  padding: .5em .5em;
+  font-size: 1em;
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+
+  + label, + input, + textarea{
+    margin-top: 1em;
+  }
+
+}
+
+label{
+  display: block;
+}
+
+form, .form{
+
+  .button{
+    margin-top: 1em;
+  }
+
+}

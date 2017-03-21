@@ -1,0 +1,42 @@
+<header-component></header-component>
+
+<main id="create">
+
+  <section class="main-content">
+    <div class="form">
+        <h3>Project Basics</h3>
+            <label>Project Name</label>
+            <input type="text" placeholder="Project Name" [(ngModel)]="project.name" />
+            <label>Description</label>
+            <textarea rows="4" [(ngModel)]="project.description" ></textarea>
+
+            <label><h3>Project Goals</h3></label>
+
+                <label>Goal 1</label>
+                <input type="text" placeholder="Goal" [(ngModel)]="project.goals[0]"  />
+                <label>Goal 2</label>
+                <input type="text" placeholder="Goal" [(ngModel)]="project.goals[1]"  />
+                <label>Goal 3</label>
+                <input type="text" placeholder="Goal" [(ngModel)]="project.goals[2]" />
+
+        <button class="button primary" tabindex="0" (click)="eventSave()" *ngIf="!project.id">
+            Create Project
+        </button>
+        <button class="button primary" tabindex="0" (click)="eventUpdate()" *ngIf="project.id">
+            Update Project
+        </button>
+        <button class="button" tabindex="1" (click)="eventDelete()" *ngIf="project.id">
+            Delete Project
+        </button>
+    </div><!--.form-->
+  </section><!--.main-content-->
+
+  <aside class="sidebar">
+  </aside>
+
+
+
+</main>
+
+
+<footer-component></footer-component>

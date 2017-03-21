@@ -1,0 +1,45 @@
+header{
+    padding: 0 2em;
+    background: #333;
+    zoom: 1;
+
+    &:after{
+        content: '';
+        height: 0;
+        clear: both;
+        display: block;
+        visibility: hidden;
+    }
+
+    .logo{
+        color: #fff;
+        text-transform: uppercase;
+        font-family: "Share";
+        font-style: italic;
+        font-size: 2em;
+        letter-spacing: 2px;
+        transition: color .5s;
+        line-height: 1.2em;
+        display: inline-block;
+        padding: .25em 0;
+    }
+
+    .header-buttons{
+        width: 50%;
+        float: right;
+        text-align: right;
+    }
+
+    .header-button{
+      background: #444;
+      color: #ccc;
+      padding: 1em 1.5em;
+      display: inline-block;
+      cursor: pointer;
+      transition: all .3s;
+
+      &:hover{
+        background: #555;
+      }
+    }
+}

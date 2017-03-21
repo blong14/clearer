@@ -1,8 +1,0 @@
-<header id="app-header">
-        <a routerLink="/" class="ui button black">Zebra</a>
-        <div class="header-buttons">
-            <a *ngIf="!user" routerLink="login" class="ui primary button">Login</a>
-            <a *ngIf="user" (click)="logout()" class="ui button">Logout</a>
-
-        </div>
-</header>

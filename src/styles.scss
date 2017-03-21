@@ -1,0 +1,24 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import 'sass/main';
+
+@import url('https://fonts.googleapis.com/css?family=Montserrat:600|Oxygen:400,700|Share:700i');
+
+
+.btn{
+    cursor: pointer;
+}
+.ui.modal{
+    top: 2em;
+}
+
+.ui .field{
+    position: relative;
+}
+
+.ui .field .icon{
+    position: absolute;
+    right: .5em;
+    top: 50%;
+    margin-top: -9px;
+}

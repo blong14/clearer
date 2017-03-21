@@ -1,0 +1,48 @@
+<header-component></header-component>
+<main id="project" *ngIf="project">
+
+
+    <section class="main-content">
+    DEBUG: Project State - {{ project.state }}
+
+        <generate-component
+            *ngIf="project.state == 1"
+            [project]="project"
+            (text)="project"
+        ></generate-component>
+
+        <select-component
+            [project]="project"
+            *ngIf="project.state == 2">
+        </select-component>
+
+        <idea-config-component
+            [project]="project"
+            *ngIf="project.state == 3">
+        </idea-config-component>
+
+        <explore-component
+            [project]="project"
+            *ngIf="project.state == 4">
+        </explore-component>
+
+      </section>
+      <aside class="sidebar">
+
+        <info-pane-component
+            [goals]="project.goals"
+            [owner]="project.owner"
+            (settingsEvent)="handlerSettings($event)"
+            (nextPhaseEvent)="handlerNextPhase($event)">
+
+            <h1 class="header">{{ project.name }}</h1>
+            <p class="description">{{ project.description }}</p>
+
+        </info-pane-component>
+
+      </aside>
+
+
+
+</main>
+<footer-component></footer-component>

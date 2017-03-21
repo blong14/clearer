@@ -1,0 +1,121 @@
+<div class="content">
+    <div class="ui ordered four steps">
+        <div class="completed step">
+            <div class="content">
+                <div class="title">Generate</div>
+            </div>
+        </div>
+        <div class="active step">
+            <div class="content">
+                <div class="title">Explore</div>
+                <div class="content">Test the edges of each idea</div>
+            </div>
+        </div>
+        <div class="disabled step">
+            <div class="content">
+                <div class="title">Consider</div>
+            </div>
+        </div>
+        <div class="disabled step">
+            <div class="content">
+                <div class="title">Decide</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+
+    <div class="ui header">Ideas to Explore</div>
+
+    <div class="ui cards">
+        <ng-container *ngFor="let currentIdea of project.ideas; let i = index">
+        <comment-component
+            *ngIf="currentIdea.state == 3"
+            [index]="i"
+            [idea]="currentIdea"
+            [project]="project"
+
+            >
+            <div class="content">{{ currentIdea.text }}</div>
+        </comment-component>
+        </ng-container>
+
+</div>
+
+<div class="ui page dimmer active"></div>
+<div class="ui modal   active">
+
+    <div class="header">
+        Idea Setup
+    </div>
+
+    <div class="content">
+        <div class="ui info message">
+            <p class="header">Prepare your ideas to be explored!</p>
+            <p>Each idea needs a Champion - someone to help activate your team and be   responsible for ensuring the idea gets the thought it deserves.</p>
+        </div>
+
+
+    </div>
+
+    <div class="content">
+
+    <div class="ui styled accordion fluid">
+
+        <div *ngFor="let currentIdea of project.ideas; let i = index;" >
+
+            <div *ngIf="checkIfSelected(i)">
+
+            <div class="ui title active" (click)="setActiveIndex(i)">
+                {{ currentIdea.text }}
+            </div>
+            <div class="content" [class.active]="checkActive(i)">
+            <div class="ui form">
+                <div class="field">
+                    <label for="champion">Select Champion</label>
+                    <select type="select" [(ngModel)]="currentIdea.champion" name="champion" class="ui dropdown" (change)="saveIdea(i)">
+                        <option *ngFor="let user of users; let i = index;" value="{{ user.email }}">{{ user.name }} </option>
+                    </select>
+                </div>
+
+                <div class="field" >
+                    <label for="questions">Additional Questions</label>
+                    <div class="field" *ngFor="let question of currentIdea.questions; let j = index;" >
+                    <input type="text" [(ngModel)]="currentIdea.questions[j].text" name="question-{{j}}" placeholder="Write your question..." />
+                    <i class="delete icon" (click)="removeQuestion(i,j)"></i>
+                    </div>
+
+                </div>
+                    <button class="ui labeled icon button compact" (click)="addQuestion(i);">
+                        <i class="plus icon"></i>
+                        Add a question
+                    </button>
+                    <button class="ui labeled icon button compact right floated " *ngIf="!isLastIdea()" (click)="saveIdea(i); setNextIndex(i+1)">
+                        <i class="right arrow icon"></i>
+                        Next Idea
+                    </button>
+                    </div>
+
+            </div>
+
+            </div>
+            </div>
+        </div>
+
+
+        </div>
+
+        <div class="content">
+            <button class="ui button red" (click)="cancelSetup()">
+                Cancel
+            </button>
+                    <button class="ui button right floated green" [class.disabled]="!checkChampions()" (click)="finishSetup()">
+                        <i class="check icon"></i>
+                        Finished
+                    </button>
+        </div>
+
+    </div>
+
+</div>
