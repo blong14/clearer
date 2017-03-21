@@ -1,6 +1,6 @@
 main{
   display: flex!important;
-  height: calc( 100vh - 92px );
+  height: calc( 100vh - 80px );
 }
 
 .main-content{
@@ -13,7 +13,7 @@ main{
 .sidebar{
   width: 30%;
   float: right;
-  background: #5d8acd;
+  background: linear-gradient( -240deg, #5d8acd, #785FCD );
   padding: 2em;
   color: #fff;
   z-index: 2;
@@ -33,7 +33,7 @@ main{
     z-index: -1;
   }
 
-  &:hover{
+ /* &:hover{
     box-shadow: -12px 0 8px -2px #aaa;
     transform: translateX(12px);
     &:after{
@@ -41,7 +41,7 @@ main{
 
     }
 
-  }
+  }*/
 }
 
 .section{

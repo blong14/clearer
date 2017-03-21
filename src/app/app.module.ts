@@ -1,7 +1,7 @@
 // core modules
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
@@ -20,6 +20,7 @@ import { ProjectModule } from './project/project.module';
 // components
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
+import { LoginBoxComponent } from './login/login-box/login-box.component';
 
 export const firebaseConfig = {
     apiKey: "AIzaSyBR83ITEPOl_AfBm6LNrJdnOzV8In4EA4k",
@@ -38,6 +39,7 @@ const myFirebaseAuthConfig = {
     declarations: [
         AppComponent,
         LoginComponent,
+        LoginBoxComponent
     ],
     imports: [
         BrowserModule,

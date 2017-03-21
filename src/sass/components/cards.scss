@@ -82,17 +82,14 @@
   height: 1.2em;
   width: 100%;
   background: #eee;
+  display: block;
 
   &:before, &:after{
     height: 1.2em;
     width: 100%;
     background: #eee;
-    margin: .75em 0;
+    margin: 0 0 .75em;
     display: block;
     content: '';
-  }
-
-  &:before{
-    margin-top: 1.85em;
   }
 }

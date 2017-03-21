@@ -1,32 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostBinding } from '@angular/core';
 import { DataService } from '../data.service';
+import { slideInDownAnimation } from '../animations';
 
 @Component({
     selector: 'dashboard-component',
     templateUrl: 'dashboard.component.html',
-    providers:[ DataService ]
+    providers: [
+      DataService
+    ]
 })
 
-export class DashboardComponent implements OnInit{
+export class DashboardComponent{
 
-    // properties
-
-    projects: any;
-
-    constructor( private dataService : DataService ){ }
-
-    // methods
-
-    // get projects to populate dashboard
-    fetchProjects(){
-        return this.dataService.getData().subscribe(
-            res => this.projects = res,
-            err => console.log( err )
-        );
-    }
-
-    ngOnInit(){
-        this.fetchProjects();
-    }
+  constructor(){ }
 
 }

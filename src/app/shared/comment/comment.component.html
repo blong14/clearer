@@ -1,7 +1,8 @@
-<div class="content"  *ngIf="checkProjectState() > 3">
-  <span class="meta right floated"><i class="trophy icon"></i>
+<div class="header"  *ngIf="checkProjectState() > 3">
+  <span class="meta">
+    <i class="trophy icon"></i>
     <img
-      class="ui avatar"
+      class="avitar"
       [src]="fetchGravitar()"  />
       {{ displayChampion() }}
   </span>

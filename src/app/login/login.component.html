@@ -2,32 +2,7 @@
 
 <main id="login">
 
-
-
-  <div class="login-box">
-
-    <h3>Login</h3>
-
-    <form id="login-form">
-
-      <strong *ngIf="error">{{ error }}</strong>
-
-      <label for="email">Email</label>
-      <input type="email" name="email" id="email" [(ngModel)]="email" />
-
-      <label for="password">Password</label>
-      <input type="password" name="password" id="password" [(ngModel)]="password" />
-
-      <button class="button" (click)="login()">Sign In</button>
-    </form>
-
-    <hr />
-
-    <h3>Need an Account?</h3>
-    <button class="button primary">Sign Up</button>
-
-  </div>
-
+  <login-box></login-box>
 
 </main>
 
