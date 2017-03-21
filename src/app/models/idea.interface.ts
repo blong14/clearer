@@ -1,22 +1,26 @@
+import { User } from './user.interface';
+
+interface Comment {
+  author: User,
+  text: string
+}
+
+interface Question {
+  text: string,
+  comments: Array<Comment>
+}
+
+
 export interface Idea {
     text: string,
-    owner: {
-        email: string,
-        name: string,
-        uid: string
-    },
-    questions?: Array<Object>,
+    owner: User,
     state: number,
-    champion?: {
-        name: string,
-        email: string,
-        uid: string
-    },
     timestamp: number,
     votes?: {
         count: number,
         voters: Array<string>
-    }
-
-
+    },
+    champion?: User,
+    comments?: Array<Comment>,
+    questions?: Array<Question>
 }

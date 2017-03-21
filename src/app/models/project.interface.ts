@@ -1,12 +1,16 @@
+import { User } from './user.interface';
+import { Idea } from './idea.interface';
+import { Team } from './team.interface';
+import { Brief } from './brief.interface';
+
 export interface Project{
     id: string,
     name: string,
     description: string,
-    goals: Object,
-    owner: {
-        email: string,
-        uid: string
-    },
-    team: string,
-    state: number
+    brief: Brief,
+    owner: User,
+    team: Team,
+    collaborators: Array<User>,
+    state: number,
+    ideas?: Array<Idea>
 }
