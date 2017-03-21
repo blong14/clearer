@@ -1,0 +1,50 @@
+.cards{
+  display: flex;
+  flex-direction: row;
+
+  .card{
+    display: flex;
+    flex-direction: column;
+    width: 23%;
+    margin-right: 2%;
+    border: 1px solid #ddd;
+    background: #fff;
+    padding: 1em 1em 3em;
+    position: relative;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: transform .5s, box-shadow .5s;
+
+    &:hover{
+      transform: translateY(-3px);
+      box-shadow: 0 1px 5px #ccc;
+    }
+
+    .header{
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 1em;
+      margin-bottom: 1em;
+      font-weight: bold;
+    }
+
+    .link{
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: .5em 1em;
+      text-align: center;
+      background: #5d8acd;
+      color: #fff;
+      cursor: pointer;
+      transition: background .5s;
+      border-radius: 0 0 6px 6px;
+
+      &:hover{
+        background: #77a0dc;
+      }
+    }
+
+  }
+
+}

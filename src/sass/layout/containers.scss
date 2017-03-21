@@ -1,0 +1,27 @@
+main{
+  display: flex!important;
+  height: calc( 100vh - 92px );
+}
+
+.main-content{
+  width: 70%;
+  float: left;
+  background: #eee;
+  padding: 2em;
+}
+
+.sidebar{
+  width: 30%;
+  float: right;
+  background: #5d8acd;
+  padding: 2em;
+  color: #fff;
+}
+
+.section{
+  + .section{
+    padding-top: 2em;
+    margin-top: 2em;
+    border-top: 1px solid #ccc;
+  }
+}

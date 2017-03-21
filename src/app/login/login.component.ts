@@ -6,7 +6,6 @@ import { AngularFire, AngularFireAuth } from 'angularfire2';
 
 @Component({
     selector: 'login-component',
-    styleUrls: ['login.component.scss'],
     templateUrl: 'login.component.html'
 })
 

@@ -29,7 +29,7 @@
         <div class="ui button basic blue" tabindex="0" (click)="eventSave()" *ngIf="!project.id">
             Create Project
         </div>
-        <div class="ui button basic blue" tabindex="0" (click)="eventUpdate()" *ngIf="project.id">
+        <div class="ui button primary" tabindex="0" (click)="eventUpdate()" *ngIf="project.id">
             Update Project
         </div>
         <div class="ui button basic red" tabindex="1" (click)="eventDelete()" *ngIf="project.id">

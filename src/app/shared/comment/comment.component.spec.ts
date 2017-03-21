@@ -17,6 +17,19 @@ describe('CommentComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CommentComponent);
     component = fixture.componentInstance;
+    const store = {
+      currentUser:{
+        auth:{
+          uid: '1001'
+        }
+      }
+    }
+    const fakeLocalStorage = JSON.stringify( store );
+    spyOn( localStorage, 'getItem').and.callFake(
+      function( key ){
+        return fakeLocalStorage[key];
+      }
+    );
     component.idea = {
       text: 'This is a Mock Idea',
       owner: {
@@ -39,13 +52,6 @@ describe('CommentComponent', () => {
         uid: '1001'
       },
     }
-    const fakeCurrentUser = {
-      auth: {
-        uid: '1001',
-        email: 'josh@tester.com'
-      }
-    }
-    spyOn(localStorage, 'currentUser').and.returnValue( fakeCurrentUser );
 
     fixture.detectChanges();
   });
