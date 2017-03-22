@@ -1,0 +1,12 @@
+<div class="section">
+  <h2>Possible Ideas</h2>
+<div class="cards" *ngIf="project">
+
+  <app-card *ngFor="let idea of project.ideas">
+    <div class="header"></div>
+    <div class="content">{{ idea.text }}</div>
+    <div class="meta">{{ formatTime( idea.timestamp ) }} ago</div>
+  </app-card>
+
+</div>
+</div>

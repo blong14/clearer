@@ -10,25 +10,22 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class AuthService {
 
+  authState: FirebaseAuthState;
+
   constructor( private af: AngularFire, public http : Http, private route: Router ) { }
 
-  login(em: string, pw: string): firebase.Promise<FirebaseAuthState>{
+  login(em: string, pw: string){
 
-    let auth = this.af.auth.login({ email: em, password: pw });
-    localStorage.setItem('currentUser', JSON.stringify( auth ) );
-    return auth;
+    return this.af.auth.login({ email: em, password: pw });
+
+  }
+
+  getUser(){
+    return this.af.auth;
   }
 
   logout(){
-        let logout = this.af.auth.logout();
-        logout.then(
-          (res)=>{
-            localStorage.removeItem('currentUser');
-            this.route.navigate(['/login']);
-          },
-          (err)=>{
-            console.log(err);
-          });
+    return this.af.auth.logout();
   }
 
 }

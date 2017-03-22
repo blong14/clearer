@@ -1,0 +1,24 @@
+
+
+    <div class="section">
+
+      <h2>My Projects</h2>
+
+      <div class="cards">
+
+          <app-card *ngFor="let project of projects" [routerLink]="['project/' + project.id]" [isLink]="true">
+            <div class="header">{{ project.name }}</div>
+            <div class="content">{{ project.description }}</div>
+          </app-card>
+
+          <app-card [class.transparent]="true" [routerLink]="['/project/create']">
+            <div class="header">Create New Project</div>
+            <div class="content">
+              <i class="placeholder-text"></i>
+              <i class="plus icon"></i>
+            </div>
+          </app-card>
+
+      </div><!--.cards-->
+
+    </div><!--#my-projects-->

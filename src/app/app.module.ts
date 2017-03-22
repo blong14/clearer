@@ -6,21 +6,18 @@ import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 
-// services
+// feature modules
+import { DashboardModule } from './containers/dashboard/dashboard.module';
+import { LoginModule } from './containers/login/login.module';
+import { ProjectModule } from './containers/project/project.module';
+
+import { AppComponent } from './app.component';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
+
+import { AuthGuardService } from './auth-guard.service';
 import { AuthService } from './auth.service';
 
-import { SharedModule } from './shared/shared.module';
-
-// feature modules
-import { CreateModule } from './create/create.module';
-import { DashboardModule } from './dashboard/dashboard.module';
-import { IdeaModule } from './idea/idea.module';
-import { ProjectModule } from './project/project.module';
-
-// components
-import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { LoginBoxComponent } from './login/login-box/login-box.component';
 
 export const firebaseConfig = {
     apiKey: "AIzaSyBR83ITEPOl_AfBm6LNrJdnOzV8In4EA4k",
@@ -37,28 +34,27 @@ const myFirebaseAuthConfig = {
 
 @NgModule({
     declarations: [
-        AppComponent,
-        LoginComponent,
-        LoginBoxComponent
+      AppComponent,
+      HeaderComponent,
+      FooterComponent
     ],
     imports: [
-        BrowserModule,
-        HttpModule,
-        FormsModule,
-        SharedModule,
         AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig),
-        CreateModule,
+        BrowserModule,
         DashboardModule,
+        FormsModule,
+        HttpModule,
+        LoginModule,
         ProjectModule,
-        IdeaModule,
-        RouterModule.forRoot([
-            { path: 'login', component: LoginComponent },
-        ])
+        RouterModule.forRoot([ ])
     ],
     exports: [
     ],
-    providers: [ AuthService ],
-    bootstrap: [ AppComponent ]
+    bootstrap: [ AppComponent ],
+    providers: [
+      AuthGuardService,
+      AuthService
+    ]
 })
 
 export class AppModule{}

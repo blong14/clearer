@@ -1,0 +1,42 @@
+.progress-bar-animation{
+  height: 10px;
+  width: 100%;
+  background: #fff;
+  transition: background 1s;
+}
+
+[data-progress="Generate"]{
+  .progress-bar-animation{
+    background: linear-gradient( 90deg, green 10%, #fff 15%);
+  }
+  h5{
+    margin-left: 10%;
+  }
+}
+
+[data-progress="Explore"]{
+  .progress-bar-animation{
+    background: linear-gradient( 90deg, green 30%, #fff 35%);
+  }
+  h5{
+    margin-left: 30%;
+  }
+}
+
+[data-progress="Consider"]{
+  .progress-bar-animation{
+    background: linear-gradient( 90deg, green 60%, #fff 65%);
+  }
+  h5{
+    margin-left: 60%;
+  }
+}
+
+[data-progress="Decide"]{
+  .progress-bar-animation{
+    background: linear-gradient( 90deg, green 85%, #fff 90%);
+  }
+  h5{
+    margin-left: 85%;
+  }
+}
