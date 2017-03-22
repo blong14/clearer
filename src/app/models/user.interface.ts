@@ -3,5 +3,6 @@ export interface User {
     email: string,
     username?: string,
     password?: string,
-    uid?: string
+    uid?: string,
+    teams?: Array<number>
 }
