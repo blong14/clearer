@@ -4,14 +4,16 @@
 
     <app-progress-bar></app-progress-bar>
 
-    <app-idea-list [project]="project"></app-idea-list>
+    <app-idea-list [project]="project" *ngIf="project"></app-idea-list>
 
   </section>
 
   <aside class="sidebar">
 
-    <router-outlet name="sidebar"></router-outlet>
+    <app-project-brief [project]="project" *ngIf="project"></app-project-brief>
 
   </aside>
+
+  <router-outlet></router-outlet>
 
 </main>

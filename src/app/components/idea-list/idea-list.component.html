@@ -6,6 +6,21 @@
     <div class="header"></div>
     <div class="content">{{ idea.text }}</div>
     <div class="meta">{{ formatTime( idea.timestamp ) }} ago</div>
+    <div class="action-left">
+      <a (click)="toggleStar()"><i class="star icon"></i>{{ idea.votes.count }}</a>
+    </div>
+    <div class="action-right">
+      <a (click)="editIdea()"><i class="pencil icon"></i></a>
+      <a (click)="deleteIdea()"><i class="trash icon"></i></a>
+    </div>
+  </app-card>
+
+  <app-card [class.transparent]="true" [routerLink]="['idea/create']" [isLink]="isLink()">
+    <div class="header">Add an Idea</div>
+    <div class="content">
+      <i class="placeholder-text"></i>
+      <i class="plus icon"></i>
+    </div>
   </app-card>
 
 </div>

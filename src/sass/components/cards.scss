@@ -15,10 +15,10 @@
     padding: 1em 1em 3em;
     position: relative;
     border-radius: 6px;
-    cursor: pointer;
     transition: transform .5s, box-shadow .5s;
 
     &.link{
+      cursor: pointer;
 
       &:hover{
         transform: translateY(-3px);
@@ -67,6 +67,18 @@
       &:hover{
         opacity: 1;
       }
+    }
+
+    .action-left{
+      position: absolute;
+      bottom: 1em;
+      left: 1em;
+    }
+
+    .action-right{
+      position: absolute;
+      bottom: 1em;
+      right: 1em;
     }
 
   }

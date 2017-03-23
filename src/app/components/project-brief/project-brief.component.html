@@ -1,3 +1,29 @@
-<p>
-  project-brief works!
-</p>
+<div class="section">
+
+<h1>
+  <span *ngIf="project.name">{{ project.name }}</span>
+  <span *ngIf="!project.name">Project Name...</span>
+</h1>
+
+  <p *ngIf="project.description">{{ project.description }}</p>
+  <p *ngIf="!project.description">Project description...</p>
+
+</div>
+
+<div *ngIf="project.brief">
+
+  <div class="section" *ngIf="project.brief.goals.length > 0">
+
+  <h4>Goals</h4>
+  <ul>
+    <li *ngFor="let goal of project.brief.goals">{{ goal.text }}</li>
+  </ul>
+</div>
+<div class="section" *ngIf="project.brief.constraints.length > 0">
+  <h4>Constraints</h4>
+  <ul>
+    <li *ngFor="let constraint of project.brief.constraints">{{ constraint.text }}</li>
+  </ul>
+</div>
+
+</div>

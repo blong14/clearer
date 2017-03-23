@@ -11,17 +11,17 @@ import { slideInDownAnimation } from '../../animations';
 })
 export class CardComponent {
 
-    @Input() link: string;
-    @Input() isLink: string;
+    @Input() isLink: boolean;
 
     @HostBinding('@routeAnimation') routeAnimation = true;
     @HostBinding('class.card') isCard = true;
-    @HostBinding('class.link') addLink = this.checkLink();
-    // TODO: GET THE LINK CLASS BEING APPLIED ONLY IF THE CARD IS A LINK
-    checkLink(){
-      if( this.isLink == 'true' ){
-        return true;
-      }
-    }
+    @HostBinding('class.link') addLink;
 
+    ngOnInit(){
+
+     if( this.isLink == true ){
+       this.addLink = true;
+     }
+
+    }
 }

@@ -24,6 +24,10 @@ export class ProjectListComponent implements OnInit {
       );
   }
 
+  isLink(){
+    return true;
+  }
+
   ngOnInit(){
       this.fetchProjects();
   }

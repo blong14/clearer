@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-project-brief',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./project-brief.component.scss']
 })
 export class ProjectBriefComponent implements OnInit {
+
+  @Input() project;
 
   constructor() { }
 

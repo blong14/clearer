@@ -15,12 +15,13 @@ import { AuthGuardService } from '../../auth-guard.service';
     CommonModule,
     ComponentsModule,
     RouterModule.forChild([
-      { path: '', component: DashboardComponent, canActivate: [ AuthGuardService ],
-      children: [
-        { path: '', component: ProjectListComponent, outlet: 'main' },
-        { path: '', component: ActivityListComponent, outlet: 'secondary'},
-        { path: '', component: TeamListComponent, outlet: 'sidebar' }
-      ]}
+      { path: '', component: DashboardComponent, pathMatch: 'full', canActivate: [ AuthGuardService ],
+        children: [
+          { path: '', component: ProjectListComponent, outlet: 'main' },
+          { path: '', component: ActivityListComponent, outlet: 'secondary'},
+          { path: '', component: TeamListComponent, outlet: 'sidebar' }
+        ]
+      }
     ])
   ],
   declarations: [

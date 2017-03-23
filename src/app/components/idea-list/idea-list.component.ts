@@ -12,6 +12,10 @@ export class IdeaListComponent implements OnInit {
 
   constructor() { }
 
+  isLink(){
+    return true;
+  }
+
   formatTime( timestamp: number ){
         let time = timestamp;
         let now: any = new Date().getTime();
@@ -28,7 +32,6 @@ export class IdeaListComponent implements OnInit {
         interval = Math.floor(seconds / 86400);
         if (interval >= 1) {
            return interval + " days";
-           // return time.UTCString();
         }
         interval = Math.floor(seconds / 3600);
         if (interval > 1) {

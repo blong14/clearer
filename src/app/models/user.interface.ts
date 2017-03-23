@@ -1,8 +1,8 @@
 export interface User {
-    name: string,
-    email: string,
+    uid: string,
+    name?: string,
+    email?: string,
     username?: string,
     password?: string,
-    uid?: string,
     teams?: Array<number>
 }

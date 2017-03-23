@@ -9,8 +9,8 @@ export interface Project{
     description: string,
     brief: Brief,
     owner: User,
-    team: Team,
-    collaborators: Array<User>,
+    team?: Team,
+    collaborators?: Array<User>,
     state: number,
     ideas?: Array<Idea>
 }

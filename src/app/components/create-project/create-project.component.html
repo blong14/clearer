@@ -1,0 +1,60 @@
+<main id="project">
+
+  <section class="main-content">
+
+
+    <div class="form">
+      <div class="section">
+        <h3>Project Basics</h3>
+            <label>Project Name</label>
+            <input type="text" placeholder="Project Name" [(ngModel)]="project.name" />
+            <label>Description</label>
+            <textarea rows="4" [(ngModel)]="project.description" ></textarea>
+      </div>
+      <div class="section">
+
+            <h3>Goals</h3>
+
+            <div *ngIf="project.brief.goals">
+              <div *ngFor="let goal of project.brief.goals; let i = index" class="repeatable-field" >
+                <input type="text" placeholder="Goal..." name="goal-{{ i }}" [(ngModel)]="project.brief.goals[i].text" />
+                <i class="delete icon" (click)="removeGoal(i)"></i>
+              </div>
+            </div>
+
+            <button class="button" (click)="addGoal()">Add Goal</button>
+
+      </div>
+      <div class="section">
+
+        <h3>Constraints</h3>
+
+        <div *ngIf="project.brief.constraints">
+              <div *ngFor="let constraint of project.brief.constraints; let i = index" class="repeatable-field" >
+                <input type="text" placeholder="Constraint..." name="constraint-{{ i }}" [(ngModel)]="project.brief.constraints[i].text" />
+                <i class="delete icon" (click)="removeConstraint(i)"></i>
+              </div>
+            </div>
+            <button class="button" (click)="addConstraint()">Add Constraint</button>
+        </div>
+
+        <button class="button primary" tabindex="0" (click)="saveProject()" *ngIf="!project.id">
+            Create Project
+        </button>
+        <button class="button primary" tabindex="0" (click)="eventUpdate()" *ngIf="project.id">
+            Update Project
+        </button>
+        <button class="button" tabindex="1" (click)="eventDelete()" *ngIf="project.id">
+            Delete Project
+        </button>
+    </div><!--.form-->
+
+  </section>
+
+  <aside class="sidebar">
+
+    <app-project-brief [project]="project"></app-project-brief>
+
+  </aside>
+
+</main>
