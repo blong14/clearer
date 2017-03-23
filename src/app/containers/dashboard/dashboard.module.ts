@@ -18,8 +18,7 @@ import { AuthGuardService } from '../../auth-guard.service';
       { path: '', component: DashboardComponent, pathMatch: 'full', canActivate: [ AuthGuardService ],
         children: [
           { path: '', component: ProjectListComponent, outlet: 'main' },
-          { path: '', component: ActivityListComponent, outlet: 'secondary'},
-          { path: '', component: TeamListComponent, outlet: 'sidebar' }
+          { path: '', component: ActivityListComponent, outlet: 'sidebar' }
         ]
       }
     ])
