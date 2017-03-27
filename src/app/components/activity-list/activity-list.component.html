@@ -19,6 +19,15 @@
             <span class="meta timestamp">3 Hours Ago</span>
           </p>
         </div><!--.feed-item-->
+        <div *ngIf="feed">
+        <div class="feed-item" *ngFor="let item of feed">
+          <i class="add icon"></i>
+            <p>
+              <a href="#">{{ item.user }}</a> {{ item.action }} to {{ item.project }}
+              <span class="meta timestamp">{{ item.timestamp }}</span>
+            </p>
+        </div>
+        </div>
 
       </div><!--.feed-->
 

@@ -1,42 +1,57 @@
 .progress-bar-animation{
-  height: 10px;
+  height: 2em;
   width: 100%;
   background: #fff;
   transition: background 1s;
+  position: relative;
+}
+
+label{
+  text-transform: uppercase;
+  color: #aaa;
+  font-size: .8em;
+  letter-spacing: 2px;
+}
+
+h5{
+  position: absolute;
+  z-index: 1;
+  color: #fff;
+  top: .25em;
 }
 
 [data-progress="Generate"]{
   .progress-bar-animation{
-    background: linear-gradient( 90deg, green 10%, #fff 15%);
+    background: linear-gradient( 90deg, #785FCD 10%, #fff 15%);
   }
   h5{
-    margin-left: 10%;
+    right: 90%;
   }
 }
 
 [data-progress="Explore"]{
   .progress-bar-animation{
-    background: linear-gradient( 90deg, green 30%, #fff 35%);
+    background: linear-gradient( 90deg, #785FCD 30%, #fff 35%);
   }
   h5{
-    margin-left: 30%;
+    right: 70%;
   }
 }
 
 [data-progress="Consider"]{
   .progress-bar-animation{
-    background: linear-gradient( 90deg, green 60%, #fff 65%);
+    background: linear-gradient( 90deg, #785FCD 60%, #fff 65%);
   }
   h5{
-    margin-left: 60%;
+    right: 40%;
   }
 }
 
 [data-progress="Decide"]{
   .progress-bar-animation{
-    background: linear-gradient( 90deg, green 85%, #fff 90%);
+    background: linear-gradient( 90deg, #785FCD 85%, #fff 90%);
   }
   h5{
-    margin-left: 85%;
+    right: 10%;
   }
 }

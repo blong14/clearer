@@ -2,16 +2,16 @@
   <h2>Possible Ideas</h2>
 <div class="cards" *ngIf="project">
 
-  <app-card *ngFor="let idea of project.ideas">
+  <app-card *ngFor="let idea of project.ideas; let i = index;">
     <div class="header"></div>
     <div class="content">{{ idea.text }}</div>
-    <div class="meta">{{ formatTime( idea.timestamp ) }} ago</div>
+    <div class="meta">{{ formatTime( idea.timestamp ) }}</div>
     <div class="action-left">
-      <a (click)="toggleStar()"><i class="star icon"></i>{{ idea.votes.count }}</a>
+      <a (click)="toggleStar(i)"><i class="star icon" [class.active]="checkStarred(i)"></i>{{ starCount(i) }}</a>
     </div>
-    <div class="action-right">
-      <a (click)="editIdea()"><i class="pencil icon"></i></a>
-      <a (click)="deleteIdea()"><i class="trash icon"></i></a>
+    <div class="action-right" *ngIf="checkOwner(i)">
+      <a (click)="editIdea(i)"><i class="pencil icon"></i></a>
+      <a (click)="deleteIdea(i)"><i class="trash icon"></i></a>
     </div>
   </app-card>
 

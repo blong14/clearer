@@ -16,9 +16,9 @@ export interface Idea {
     owner: User,
     state: number,
     timestamp: number,
-    votes?: {
+    stars?: {
         count: number,
-        voters: Array<string>
+        people: Array<string>
     },
     champion?: User,
     comments?: Array<Comment>,

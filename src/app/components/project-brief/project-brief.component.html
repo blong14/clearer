@@ -1,5 +1,11 @@
 <div class="section">
 
+
+    <div *ngIf="isOwner">
+      <button class="button primary" (click)="editBrief()">Settings</button>
+    </div>
+
+
 <h1>
   <span *ngIf="project.name">{{ project.name }}</span>
   <span *ngIf="!project.name">Project Name...</span>

@@ -4,6 +4,7 @@ import { DataService } from '../../data.service';
 import { AuthService } from '../../auth.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MD5 } from '../../../../lib/md5';
+import { Feed } from '../../models/feed.interface';
 
 @Component({
   selector: 'app-create-project',
@@ -30,6 +31,7 @@ export class CreateProjectComponent implements OnInit {
       owner: {
         uid: ""
       },
+      ideas: [],
       state: 1
     }
   }
@@ -58,7 +60,15 @@ export class CreateProjectComponent implements OnInit {
         this.project.id = MD5(this.project.name);
         let newUrl = 'project/' + this.project.id;
         this.dataService.saveProject( this.project.id, this.project ).then(
-          (res) => this.router.navigate([ newUrl ]),
+          (res) => {
+            let feed = new Feed;
+            feed.action = "created new project";
+            feed.type = "addProject";
+            feed.timestamp = Date.now();
+            this.dataService.saveFeed( feed ).then(
+              (res) => this.router.navigate([ newUrl ])
+            );
+          },
           (err) => console.log( err )
         );
       }

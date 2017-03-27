@@ -19,10 +19,23 @@ export class DataService {
         return this.af.database.list('/projects');
     }
 
-    getProject( id: string ): FirebaseObjectObservable<Project>{
+    getFeed() {
+      return this.af.database.list('/feed');
+    }
 
-        return this.af.database.object('/projects/' + id);
+    saveFeed( dataToSave ) {
+      return this.af.database.list('/feed').push( dataToSave );
+    }
 
+    getProject( id: string, path?: string ): FirebaseObjectObservable<any>{
+      let dbPath: string;
+
+      if( path ){
+        dbPath = '/projects/' + id + '/' + path;
+      }else{
+        dbPath = '/projects/' + id;
+      }
+        return this.af.database.object( dbPath );
     }
 
     deleteProject( id: string ){

@@ -15,6 +15,7 @@ export class ProjectComponent implements OnInit {
 
   project: Project;
   projectID: string;
+  addIdea: boolean;
 
   constructor( private dataService: DataService, private router: Router, private activatedRoute: ActivatedRoute ) { }
 
@@ -23,7 +24,6 @@ export class ProjectComponent implements OnInit {
 
         this.dataService.getProject( projectId ).subscribe(
             res => {
-                console.log(res);
                 this.project = res;
             },
             err => console.log( err )
@@ -32,14 +32,10 @@ export class ProjectComponent implements OnInit {
     }
 
   ngOnInit() {
-    this.activatedRoute.params
-      .subscribe(
-        (res) => {
-          this.projectID = res['id'];
-          this.getData( this.projectID );
-        },
-        (err) => console.log(err)
-      );
+    let routeObj = this.activatedRoute.snapshot;
+
+    this.getData( routeObj.params['id'] );
+    this.addIdea = routeObj.data['addIdea'];
   }
 
 }

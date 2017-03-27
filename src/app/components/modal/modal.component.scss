@@ -14,6 +14,7 @@
     top: 0;
     left: 0;
     content: '';
+    z-index: 1;
   }
 }
 
@@ -26,11 +27,5 @@
   margin-left: -400px;
   padding: 2em;
   border-radius: 5px;
-}
-
-.header{
-  border-bottom: 1px solid #ccc;
-  padding-bottom: 1em;
-  margin-bottom: 1em;
-  font-size: 1.4em;
+  z-index: 1;
 }

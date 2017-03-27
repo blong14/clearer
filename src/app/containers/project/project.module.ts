@@ -17,15 +17,16 @@ import { IdeaCreateComponent } from '../../components/idea-create/idea-create.co
     FormsModule,
     RouterModule.forChild([
       { path: 'project/create', component: CreateProjectComponent },
-      { path: 'project/:id', component: ProjectComponent,
-        children: [
-          { path: 'idea/create', component: IdeaCreateComponent }
-        ]
-      }
+      { path: 'project/:id', component: ProjectComponent },
+      { path: 'project/:id/edit', component: CreateProjectComponent },
+      { path: 'project/:id/idea/create', component: ProjectComponent, data: { addIdea: true } },
+      { path: 'project/:id/idea/:ideaID', component: ProjectComponent, data: { addIdea: true } }
+
     ])
   ],
   declarations: [
     CreateProjectComponent,
+    IdeaCreateComponent,
     IdeaListComponent,
     ProjectComponent,
     ProgressBarComponent

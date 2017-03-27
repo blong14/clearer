@@ -2,11 +2,11 @@
   <div class="header">Add Idea</div>
   <div class="content">
     <div class="form">
-      <textarea></textarea>
+      <textarea [(ngModel)]="idea.text"></textarea>
     </div>
   </div>
   <div class="actions">
-    <button class="button primary">Save Idea</button>
-    <button class="button">Cancel</button>
+    <button class="button primary" (click)="saveIdea()">Save Idea</button>
+    <button class="button" (click)="cancel()">Cancel</button>
   </div>
 </app-modal>
