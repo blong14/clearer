@@ -122,7 +122,6 @@ export class IdeaListComponent implements OnInit {
     }
 
   ngOnInit() {
-    console.log( this.project );
     this.setUser();
   }
 

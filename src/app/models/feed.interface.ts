@@ -1,26 +1,18 @@
-interface IFeed {
-  action: string;
-  project: {
-    id: string
-  },
+export interface IFeed {
+  action: string,
+  project: string,
   timestamp: number,
-  type: string;
-  user: {
-    uid: string
-  }
+  type: string,
+  user: string,
 }
 
 export class Feed implements IFeed {
 
   action: string;
-  project: {
-    id: string
-  };
+  project: string;
   timestamp: number;
   type: string;
-  user: {
-    uid: string
-  };
+  user: string;
 
   constructor(){}
 
