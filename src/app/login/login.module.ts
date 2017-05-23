@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
+import { AuthGuardService } from '../auth-guard.service';
+
 import { LoginComponent } from './login.component';
 
 @NgModule({
