@@ -13,6 +13,8 @@ import { SignupModule } from './signup/signup.module';
 
 import { AppComponent } from './app.component';
 
+import { AuthService } from './auth.service';
+
 export const firebaseConfig = {
     apiKey: "AIzaSyBR83ITEPOl_AfBm6LNrJdnOzV8In4EA4k",
     authDomain: "project-zebra.firebaseapp.com",
@@ -39,6 +41,7 @@ const myFirebaseAuthConfig = {
     SignupModule
   ],
   bootstrap: [ AppComponent ],
-  declarations: [ AppComponent ]
+  declarations: [ AppComponent ],
+  providers: [AuthService]
 })
 export class AppModule { }

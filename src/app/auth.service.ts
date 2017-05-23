@@ -14,9 +14,7 @@ export class AuthService {
   constructor( private af: AngularFire, public http : Http, private route: Router ) { }
 
   login(em: string, pw: string){
-
     return this.af.auth.login({ email: em, password: pw });
-
   }
 
   getUser(){
@@ -24,7 +22,6 @@ export class AuthService {
   }
 
   logout(){
-    console.log('log out');
     return this.af.auth.logout();
   }
 
