@@ -1,0 +1,25 @@
+<main id="login">
+
+  <div class="login-box">
+
+    <h3>Login</h3>
+
+    <form id="login-form">
+      <strong *ngIf="error">{{ error }}</strong>
+      <label for="email">Email</label>
+      <input type="email" name="email" id="email" [(ngModel)]="email" />
+      <label for="password">Password</label>
+      <input type="password" name="password" id="password" [(ngModel)]="password" />
+      <button class="button" (click)="login()" *ngIf="!inProcess">Sign In</button>
+      <button class="button disabled" *ngIf="inProcess">Signing In...</button>
+    </form>
+
+    <hr />
+
+    <h3>Sign Up</h3>
+    <p>As we're finshing the final touches, we're accepting new users through invitation only.</p>
+    <button class="button primary">Request an Invite</button>
+
+  </div>
+
+</main>
