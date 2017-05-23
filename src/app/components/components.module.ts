@@ -1,25 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { CardComponent } from './card/card.component';
-import { CreateProjectComponent } from './create-project/create-project.component';
-import { ProjectBriefComponent } from './project-brief/project-brief.component';
-import { ModalComponent } from './modal/modal.component';
-
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   imports: [
     CommonModule
   ],
-  declarations: [
-    CardComponent,
-    ProjectBriefComponent,
-    ModalComponent
-  ],
+  declarations: [HeaderComponent, FooterComponent],
   exports: [
-    CardComponent,
-    ProjectBriefComponent,
-    ModalComponent
+    HeaderComponent,
+    FooterComponent
   ]
 })
 export class ComponentsModule { }

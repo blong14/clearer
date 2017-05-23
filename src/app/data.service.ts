@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { ActivatedRoute } from '@angular/router';
 
-import { Project } from './models/project.interface';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
@@ -14,7 +13,7 @@ export class DataService {
 
     constructor( private af: AngularFire, private http: Http ) { }
 
-    getData(): FirebaseListObservable<Project[]>{
+    getData(): FirebaseListObservable<any>{
 
         return this.af.database.list('/projects');
     }

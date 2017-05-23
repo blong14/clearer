@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { User } from './models/user.interface';
 import { AngularFire, FirebaseListObservable, FirebaseObjectObservable, FirebaseAuthState } from 'angularfire2';
 import { Router } from '@angular/router';
 
@@ -25,6 +24,7 @@ export class AuthService {
   }
 
   logout(){
+    console.log('log out');
     return this.af.auth.logout();
   }
 
