@@ -9,7 +9,14 @@
         <label for="email">Email</label>
         <input type="email" name="email" [(ngModel)]="email" />
         <label for="password">Password</label>
-        <input type="password" name="password" [(ngModel)]="password" />
+        <input type="password" name="password" [(ngModel)]="password" (keyup)="passwordCheck()" />
+        <label for="meter">Password Strength</label>
+        <div class="password-meter" name="meter">
+          <span class="low" *ngIf="passwordStrength == 1"></span>
+          <span class="ok" *ngIf="passwordStrength == 2"></span>
+          <span class="good" *ngIf="passwordStrength == 3"></span>
+          <span class="great" *ngIf="passwordStrength == 4"></span>
+        </div>
         <label for="password_confirm">Confirm Password</label>
         <input type="password" name="password_confirm" [(ngModel)]="passwordConfirm" />
         <button type="submit" class="button primary" (click)="signup()">Sign Up</button>
