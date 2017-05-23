@@ -40,8 +40,8 @@ const myFirebaseAuthConfig = {
     RouterModule.forRoot([]),
     SignupModule
   ],
-  bootstrap: [ AppComponent ],
-  declarations: [ AppComponent ],
+  bootstrap: [AppComponent],
+  declarations: [AppComponent],
   providers: [AuthService]
 })
 export class AppModule { }
