@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
-import { AuthGuardService } from '../auth-guard.service';
+import { NotAuthGuardService } from '../not-auth-guard.service';
 
 import { LoginComponent } from './login.component';
 
@@ -12,9 +12,10 @@ import { LoginComponent } from './login.component';
     CommonModule,
     FormsModule,
     RouterModule.forChild([
-      { path: 'login', component: LoginComponent }
+      { path: 'login', component: LoginComponent, canActivate: [NotAuthGuardService] }
     ])
   ],
-  declarations: [LoginComponent]
+  declarations: [LoginComponent],
+  providers: [NotAuthGuardService]
 })
 export class LoginModule { }
