@@ -14,9 +14,8 @@ export class DataService {
 
     constructor( private af: AngularFire, private http: Http, private router: Router ) { }
 
-    getData(): FirebaseListObservable<any>{
-
-        return this.af.database.list('/projects');
+    getProjects(): FirebaseListObservable<any>{
+      return this.af.database.list('/projects');
     }
 
     getFeed() {

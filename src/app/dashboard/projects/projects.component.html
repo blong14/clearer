@@ -1,0 +1,7 @@
+<h3>Projects</h3>
+<div class="cards" *ngIf="projects">
+  <app-card *ngFor="let item of projects" [routerLink]="['/project/' + item.id]">
+    <div class="header">{{ item.name }}</div>
+    <div class="content">{{ item.description }}</div>
+  </app-card>
+</div>
