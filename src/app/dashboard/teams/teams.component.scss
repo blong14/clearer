@@ -1,0 +1,23 @@
+h3 {
+  color: #fff;
+  padding: 0 2rem;
+}
+
+.team-selector {
+  a {
+    width: 100%;
+    display: block;
+    padding: 1em 2rem;
+    color: #fff;
+    background: rgba( 255, 255, 255, .2 );
+    margin-bottom: 2px;
+
+    &:hover {
+      background: rgba( 255, 255, 255, .4 );
+    }
+
+    &.is-active {
+      background: #785FCD;
+    }
+  }
+}
