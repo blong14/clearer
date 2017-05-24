@@ -9,11 +9,20 @@
       <tr *ngFor="let user of members">
         <td>{{ user.name }}</td>
         <td>{{ user.email }}</td>
-        <td class="small"><a routerLink="#">Edit</a></td>
+        <!--<td class="small"><a routerLink="#">Edit</a></td>-->
         <td class="small"><a routerLink="#">Remove</a></td>
       </tr>
     </table>
-    <button class="button primary" (click)="createTeam()">Add a Member</button>
+    <button *ngIf="!addMemberState" class="button primary" (click)="toggleAddMemberState()">Add a Member</button>
+    <button *ngIf="!addMemberState" class="button" (click)="goBack()">Back to Profile</button>
+    <div *ngIf="addMemberState">
+      <label *ngIf="!inviteUser" for="email">Find user by email</label>
+      <input *ngIf="!inviteUser" type="email" [(ngModel)]="inviteEmail" />
+      <h4 *ngIf="inviteUser">Found 'em!</h4>
+      <button *ngIf="inviteUser" class="button primary" (click)="addMember()">Invite {{ inviteUser.name }}</button>
+      <button *ngIf="!inviteUser" class="button primary" (click)="findUser(inviteEmail)">Find User</button>
+      <button class="button" (click)="toggleAddMemberState()">Nevermind</button>
+    </div>
   </div>
   </div>
 

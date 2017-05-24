@@ -16,9 +16,9 @@
       <button *ngIf="editState" class="button" (click)="toggleEdit()">Cancel</button>
       <h3>Teams</h3>
       <p *ngIf="!user.teams">You are not a member of any teams.</p>
-      <ul *ngIf="user.teams">
-        <li *ngFor="let team of teams">{{ team.name }}</li>
-      </ul>
+      <div *ngIf="user.teams">
+        <p *ngFor="let team of teams"><a [routerLink]="['/team',team.$key]">{{ team.name }}</a></p>
+      </div>
       <button *ngIf="!createTeamState" class="button" (click)="toggleCreateTeamState()">Create a Team</button>
       <div *ngIf="createTeamState">
         <label for="teamName">Name your Team</label>

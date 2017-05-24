@@ -12,7 +12,11 @@ import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'a
 @Injectable()
 export class DataService {
 
-    constructor( private af: AngularFire, private http: Http, private router: Router ) { }
+    constructor(
+      private af: AngularFire,
+      private http: Http,
+      private router: Router
+    ) { }
 
     getProjects(): FirebaseListObservable<any>{
       return this.af.database.list('/projects');
@@ -34,7 +38,8 @@ export class DataService {
       }else{
         dbPath = '/projects/' + id;
       }
-        return this.af.database.object( dbPath );
+
+      return this.af.database.object( dbPath );
     }
 
     deleteProject( id: string ){
@@ -59,6 +64,20 @@ export class DataService {
       });
     }
 
+    addMemberToTeam( userID: string, teamID: string ) {
+      console.log( userID, teamID);
+      this.af.database.list('/users/' + userID + '/teams/').push(teamID).then(
+        (res) => {
+          console.log(res);
+          this.af.database.list('/teams/' + teamID + '/members/').push(userID).then(
+            (res) => {
+              console.log(res);
+            });
+        }
+      );
+
+    }
+
     getTeam( teamID: string ) {
       return this.af.database.object('/teams/' + teamID);
     }
@@ -66,6 +85,10 @@ export class DataService {
     getUser( id: string = undefined ) : FirebaseObjectObservable<any[]>{
       if( id != undefined ) { return this.af.database.object('/users/' + id ); }
       return this.af.database.object('/users');
+    }
+
+    getUsers() {
+      return this.af.database.list('/users');
     }
 
     saveUser( id: string, user: Object ): firebase.Promise<void> {
