@@ -1,0 +1,32 @@
+.info {
+  padding: 4em;
+  width: 800px;
+  margin: 0 auto;
+
+  h2 {
+    padding-left: 2rem;
+    margin-left: 140px;
+  }
+
+  .image {
+    float: left;
+    width: 140px;
+    position: relative;
+
+    .button {
+      position: absolute;
+      top: 3.75em;
+      left: .75em;
+      margin: 0 auto;
+    }
+  }
+
+  .content {
+    padding-left: 140px;
+    margin-left: 2rem;
+  }
+
+  button {
+    margin-top: 1em;
+  }
+}

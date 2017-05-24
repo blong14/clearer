@@ -13,5 +13,11 @@
   height: 70px;
   width: 70px;
   margin-right: 1em;
+
+  &--large {
+    height: 140px;
+    width: 140px;
+    @extend .avitar;
+  }
 }
 

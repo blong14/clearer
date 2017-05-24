@@ -49,8 +49,13 @@ export class DataService {
          return this.af.database.object('/projects/' + id ).update( updates );
     }
 
-    getUsers() : FirebaseListObservable<any[]>{
-        return this.af.database.list('/users');
+    getUser( id: string = undefined ) : FirebaseObjectObservable<any[]>{
+      if( id != undefined ) { return this.af.database.object('/users/' + id ); }
+      return this.af.database.object('/users');
+    }
+
+    saveUser( id: string, user: Object ): firebase.Promise<void> {
+      return this.af.database.object('/users/' + id ).update(user);
     }
 
     createUser( name, email, password ) {
