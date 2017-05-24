@@ -49,6 +49,20 @@ export class DataService {
          return this.af.database.object('/projects/' + id ).update( updates );
     }
 
+    createTeam( userID: string, teamName: string ) {
+      return this.af.database.list('/teams').push({
+        owner: userID,
+        name: teamName,
+        members: [
+          userID
+        ]
+      });
+    }
+
+    getTeam( teamID: string ) {
+      return this.af.database.object('/teams/' + teamID);
+    }
+
     getUser( id: string = undefined ) : FirebaseObjectObservable<any[]>{
       if( id != undefined ) { return this.af.database.object('/users/' + id ); }
       return this.af.database.object('/users');

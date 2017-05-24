@@ -15,11 +15,17 @@
       <button *ngIf="editState" class="button primary" (click)="saveProfile()">Save Changes</button>
       <button *ngIf="editState" class="button" (click)="toggleEdit()">Cancel</button>
       <h3>Teams</h3>
-      <ul>
-        <li>Project Zebra</li>
-        <li>Hopscotch</li>
-        <li>New Kind</li>
+      <p *ngIf="!user.teams">You are not a member of any teams.</p>
+      <ul *ngIf="user.teams">
+        <li *ngFor="let team of teams">{{ team.name }}</li>
       </ul>
+      <button *ngIf="!createTeamState" class="button" (click)="toggleCreateTeamState()">Create a Team</button>
+      <div *ngIf="createTeamState">
+        <label for="teamName">Name your Team</label>
+        <input type="text" name="teamName" [(ngModel)]="teamName" />
+        <button class="button primary" (click)="saveTeam()">Create</button>
+        <button class="button" (click)="toggleCreateTeamState()">Cancel</button>
+      </div>
     </div>
   </div>
 

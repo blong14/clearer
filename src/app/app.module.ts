@@ -11,6 +11,7 @@ import { LoginModule } from './login/login.module';
 import { ProfileModule } from './profile/profile.module';
 import { ProjectModule } from './project/project.module';
 import { SignupModule } from './signup/signup.module';
+import { TeamModule } from './team/team.module';
 
 import { AppComponent } from './app.component';
 
@@ -40,7 +41,8 @@ const myFirebaseAuthConfig = {
     ProfileModule,
     ProjectModule,
     RouterModule.forRoot([]),
-    SignupModule
+    SignupModule,
+    TeamModule
   ],
   bootstrap: [AppComponent],
   declarations: [AppComponent],
