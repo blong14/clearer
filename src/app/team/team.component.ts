@@ -68,10 +68,19 @@ export class TeamComponent implements OnInit {
     this.toggleAddMemberState();
   }
 
+  removeMember( userID ) {
+    this.dataService.removeMemberFromTeam(userID, this.team['$key']);
+  }
+
   toggleAddMemberState() {
     this.inviteUser = undefined;
     this.inviteEmail = undefined;
     this.addMemberState = !this.addMemberState;
+  }
+
+  isAdmin( userID ) {
+    if( this.team['owner'] == userID ){ return true; }
+    return false;
   }
 
   goBack() {

@@ -66,16 +66,23 @@ export class DataService {
 
     addMemberToTeam( userID: string, teamID: string ) {
       console.log( userID, teamID);
-      this.af.database.list('/users/' + userID + '/teams/').push(teamID).then(
+      return this.af.database.object('/users/' + userID + '/teams/' + teamID ).set(teamID).then(
         (res) => {
           console.log(res);
-          this.af.database.list('/teams/' + teamID + '/members/').push(userID).then(
+          this.af.database.object('/teams/' + teamID + '/members/' + userID ).set(userID).then(
             (res) => {
               console.log(res);
             });
         }
       );
 
+    }
+
+    removeMemberFromTeam( userID: string, teamID: string ) {
+      return this.af.database.list('/users/' + userID + '/teams/' + teamID).remove().then(
+        () => {
+          this.af.database.list('/teams/' + teamID + '/members/' + userID).remove();
+      });
     }
 
     getTeam( teamID: string ) {

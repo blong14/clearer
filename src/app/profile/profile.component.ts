@@ -56,7 +56,8 @@ export class ProfileComponent implements OnInit {
         let teamKey = res.key;
 
         if( userTeams == undefined ) {
-          userTeams = [teamKey];
+          userTeams = new Array;
+          userTeams[0] = teamKey;
         }else {
           userTeams.push(teamKey);
         }
@@ -74,15 +75,24 @@ export class ProfileComponent implements OnInit {
   }
 
   getTeams() {
-    this.teams = new Array();
-    let teamArr = this.user['teams'];
-    teamArr.forEach( (item) => {
-      this.dataService.getTeam( item ).subscribe(
-        (res) => {
-          this.teams.push(res);
-        }
-      )
-    });
+
+    if( this.user['teams'] != undefined ) {
+      let teamArr = Object.keys(this.user['teams']).map(key => this.user['teams'][key]);
+      this.teams = new Array();
+
+      if( teamArr != undefined ) {
+        teamArr.forEach( (item) => {
+          this.dataService.getTeam( item ).subscribe(
+            (res) => {
+              this.teams.push(res);
+            }
+          )
+        });
+      }
+
+    }
+
+
   }
 
   ngOnInit() {

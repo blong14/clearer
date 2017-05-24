@@ -6,12 +6,18 @@
   <div class="members">
     <h3>Members</h3>
     <table *ngIf="members">
-      <tr *ngFor="let user of members">
-        <td>{{ user.name }}</td>
-        <td>{{ user.email }}</td>
-        <!--<td class="small"><a routerLink="#">Edit</a></td>-->
-        <td class="small"><a routerLink="#">Remove</a></td>
-      </tr>
+      <ng-container *ngFor="let user of members">
+        <tr *ngIf="!isAdmin(user.$key)">
+          <td>{{ user.name }}</td>
+          <td>{{ user.email }}</td>
+          <!--<td class="small"><a routerLink="#">Edit</a></td>-->
+          <td class="small"><a (click)="removeMember(user.$key)">Remove</a></td>
+        </tr>
+        <tr *ngIf="isAdmin(user.$key)">
+          <td>{{ user.name }}</td>
+          <td>{{ user.email }}</td>
+          <td class="small">Admin</td>
+      </ng-container>
     </table>
     <button *ngIf="!addMemberState" class="button primary" (click)="toggleAddMemberState()">Add a Member</button>
     <button *ngIf="!addMemberState" class="button" (click)="goBack()">Back to Profile</button>
