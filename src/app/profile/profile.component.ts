@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { DataService } from '../data.service';
 
 @Component({
@@ -11,14 +12,17 @@ export class ProfileComponent implements OnInit {
 
   user: Object;
   editState: boolean = false;
+  createTeamState: boolean = false;
+  teamName: string;
+  teams: Array<any>;
 
-  constructor( private dataService: DataService ) { }
+  constructor( private dataService: DataService, private router: Router ) { }
 
   getUser() {
     this.dataService.getUser('eac1a9c8-75a4-4d26-a0b1-10a0251db920').subscribe(
       (res) => {
         this.user = res;
-        console.log(this.user);
+        this.getTeams();
       },
       (err) => console.log(err)
     );
@@ -40,6 +44,47 @@ export class ProfileComponent implements OnInit {
       }
     )
   }
+
+  toggleCreateTeamState() {
+    this.createTeamState = !this.createTeamState;
+  }
+
+  saveTeam() {
+    this.dataService.createTeam( this.user['$key'], this.teamName ).then(
+      (res) => {
+        let userTeams = this.user['teams'];
+        let teamKey = res.key;
+
+        if( userTeams == undefined ) {
+          userTeams = [teamKey];
+        }else {
+          userTeams.push(teamKey);
+        }
+
+        this.dataService.saveUser( this.user['$key'], {
+          teams: userTeams
+        }).then(
+          () => {
+            this.toggleCreateTeamState();
+            this.router.navigate(['/team/' + teamKey])
+          }
+        );
+      }
+    )
+  }
+
+  getTeams() {
+    this.teams = new Array();
+    let teamArr = this.user['teams'];
+    teamArr.forEach( (item) => {
+      this.dataService.getTeam( item ).subscribe(
+        (res) => {
+          this.teams.push(res);
+        }
+      )
+    });
+  }
+
 
   ngOnInit() {
     this.getUser();

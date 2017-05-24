@@ -1,0 +1,31 @@
+.content {
+  width: 800px;
+  margin: 2em auto;
+}
+
+table {
+  border: 1px solid #ddd;
+  width: 100%;
+
+  tr {
+    border-bottom: 1px solid #ddd;
+
+    &:nth-child(even) {
+      background: #eee;
+    }
+  }
+
+  td {
+    padding: .5em 1em;
+    border-right: 1px solid #ddd;
+
+    &.small {
+      width: 80px;
+      text-align: center;
+    }
+  }
+}
+
+.button {
+  margin-top: 1em;
+}
