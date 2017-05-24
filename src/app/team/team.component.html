@@ -1,25 +1,34 @@
 <main id="team">
 
-  <div class="content">
-  <h2>Team Name</h2>
+  <div class="content" *ngIf="team">
+  <h2>{{ team.name }}</h2>
 
   <div class="members">
     <h3>Members</h3>
-    <table>
-      <tr>
-        <td>Josh Mobley</td>
-        <td>jmob1986@gmail.com</td>
-        <td class="small"><a routerLink="#">Edit</a></td>
-        <td class="small"><a routerLink="#">Remove</a></td>
-      </tr>
-      <tr>
-        <td>Marie Schacht</td>
-        <td>marie.schacht@gmail.com</td>
-        <td class="small"><a routerLink="#">Edit</a></td>
-        <td class="small"><a routerLink="#">Remove</a></td>
-      </tr>
+    <table *ngIf="members">
+      <ng-container *ngFor="let user of members">
+        <tr *ngIf="!isAdmin(user.$key)">
+          <td>{{ user.name }}</td>
+          <td>{{ user.email }}</td>
+          <!--<td class="small"><a routerLink="#">Edit</a></td>-->
+          <td class="small"><a (click)="removeMember(user.$key)">Remove</a></td>
+        </tr>
+        <tr *ngIf="isAdmin(user.$key)">
+          <td>{{ user.name }}</td>
+          <td>{{ user.email }}</td>
+          <td class="small">Admin</td>
+      </ng-container>
     </table>
-    <button class="button primary" (click)="createTeam()">Add a Member</button>
+    <button *ngIf="!addMemberState" class="button primary" (click)="toggleAddMemberState()">Add a Member</button>
+    <button *ngIf="!addMemberState" class="button" (click)="goBack()">Back to Profile</button>
+    <div *ngIf="addMemberState">
+      <label *ngIf="!inviteUser" for="email">Find user by email</label>
+      <input *ngIf="!inviteUser" type="email" [(ngModel)]="inviteEmail" />
+      <h4 *ngIf="inviteUser">Found 'em!</h4>
+      <button *ngIf="inviteUser" class="button primary" (click)="addMember()">Invite {{ inviteUser.name }}</button>
+      <button *ngIf="!inviteUser" class="button primary" (click)="findUser(inviteEmail)">Find User</button>
+      <button class="button" (click)="toggleAddMemberState()">Nevermind</button>
+    </div>
   </div>
   </div>
 
