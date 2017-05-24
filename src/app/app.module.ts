@@ -8,6 +8,7 @@ import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 import { ComponentsModule } from './components/components.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { LoginModule } from './login/login.module';
+import { ProfileModule } from './profile/profile.module';
 import { ProjectModule } from './project/project.module';
 import { SignupModule } from './signup/signup.module';
 
@@ -36,6 +37,7 @@ const myFirebaseAuthConfig = {
     DashboardModule,
     HttpModule,
     LoginModule,
+    ProfileModule,
     ProjectModule,
     RouterModule.forRoot([]),
     SignupModule

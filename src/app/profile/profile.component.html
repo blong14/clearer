@@ -1,0 +1,26 @@
+<main id="profile">
+
+  <div class="info" *ngIf="user">
+    <h2>Profile</h2>
+    <div class="image">
+      <img class="avitar--large" src="http://placehold.it/300x300" />
+      <a *ngIf="editState" class="button" href="http://gravatar.com" target="_blank">Change Photo</a>
+    </div>
+    <div class="content">
+      <h3 *ngIf="!editState">{{ user.name }}</h3>
+      <input *ngIf="editState" type="text" [(ngModel)]="user.name" />
+      <p *ngIf="!editState">{{ user.bio }}</p>
+      <textarea *ngIf="editState" [(ngModel)]="user.bio"></textarea>
+      <button *ngIf="!editState" class="button" (click)="toggleEdit()">Edit Profile</button>
+      <button *ngIf="editState" class="button primary" (click)="saveProfile()">Save Changes</button>
+      <button *ngIf="editState" class="button" (click)="toggleEdit()">Cancel</button>
+      <h3>Teams</h3>
+      <ul>
+        <li>Project Zebra</li>
+        <li>Hopscotch</li>
+        <li>New Kind</li>
+      </ul>
+    </div>
+  </div>
+
+</main>
