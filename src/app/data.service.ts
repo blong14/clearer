@@ -112,7 +112,7 @@ export class DataService {
           'email': email,
           'provider': 'password'
         }).then( () => {
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/profile', user.uid ]);
         });
       }).catch( (err) => {
         console.log(err.message);

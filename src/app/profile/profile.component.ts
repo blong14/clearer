@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { DataService } from '../data.service';
 
 @Component({
@@ -16,10 +16,11 @@ export class ProfileComponent implements OnInit {
   teamName: string;
   teams: Array<any>;
 
-  constructor( private dataService: DataService, private router: Router ) { }
+  constructor( private dataService: DataService, private router: Router, private activatedRoute: ActivatedRoute ) { }
 
   getUser() {
-    this.dataService.getUser('eac1a9c8-75a4-4d26-a0b1-10a0251db920').subscribe(
+    let userID = this.activatedRoute.snapshot.params['id'];
+    this.dataService.getUser(userID).subscribe(
       (res) => {
         this.user = res;
         this.getTeams();
