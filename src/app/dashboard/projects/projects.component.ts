@@ -1,4 +1,5 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { DataService } from '../../data.service';
 
 @Component({
@@ -12,7 +13,7 @@ export class ProjectsComponent implements OnInit {
   @HostBinding('class.projects') class = true;
   projects: Object;
 
-  constructor( private dataService: DataService ) { }
+  constructor( private dataService: DataService, private activatedRoute: ActivatedRoute ) { }
 
   getProjects() {
     this.dataService.getProjects().subscribe(
@@ -24,7 +25,14 @@ export class ProjectsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getProjects();
+    let teamID = this.activatedRoute.snapshot.params['id'];
+
+    if( teamID ) {
+      console.log('get team projects');
+    }else {
+      this.getProjects();
+    }
+
   }
 
 }

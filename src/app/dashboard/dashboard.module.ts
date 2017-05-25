@@ -14,6 +14,7 @@ import { ProjectsComponent } from './projects/projects.component';
     CommonModule,
     ComponentsModule,
     RouterModule.forChild([
+      { path: 'dashboard/team/:id', component: DashboardComponent, canActivate: [ AuthGuardService ] },
       { path: 'dashboard', component: DashboardComponent, canActivate: [ AuthGuardService ] },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
     ])
