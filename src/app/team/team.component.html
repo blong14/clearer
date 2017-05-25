@@ -29,7 +29,19 @@
       <button *ngIf="!inviteUser" class="button primary" (click)="findUser(inviteEmail)">Find User</button>
       <button class="button" (click)="toggleAddMemberState()">Nevermind</button>
     </div>
+    <button *ngIf="!addMemberState" class="button danger u-float-right" (click)="toggleDeleteTeamState()">Delete this Team</button>
   </div>
+  </div>
+
+  <div class="modal" *ngIf="deleteTeamState">
+    <div class="modal__content">
+      <div class="modal__header">
+        <h2>Delete this Team</h2>
+      </div>
+      <p>Are you sure you want to delete this team?</p>
+      <button class="button danger" (click)="deleteTeam(team.$key)">Delete It</button>
+      <button class="button" (click)="toggleDeleteTeamState()">Cancel</button>
+    </div>
   </div>
 
 </main>

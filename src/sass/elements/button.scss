@@ -7,17 +7,27 @@
   transition: all .5s;
 
   &:hover{
-    background: #ddd;
+    background: #f3f3f3;
   }
 
   &.primary{
     background: #7755a5;
     color: #fff;
-    border-color: #7755a5
+    border-color: #7755a5;
+
+    &:hover {
+      background: #8C6DB7;
+    }
   }
 
-  &.basic {
-    background: none;
+  &.danger {
+    background: #D74E21;
+    color: white;
+    border-color: #D74E21;
+
+    &:hover {
+      background: #E35C2F;
+    }
   }
 
   &.disabled{

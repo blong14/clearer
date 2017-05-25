@@ -57,10 +57,11 @@ export class ProfileComponent implements OnInit {
         let teamKey = res.key;
 
         if( userTeams == undefined ) {
-          userTeams = new Array;
-          userTeams[0] = teamKey;
+          userTeams = [];
+          console.log(teamKey);
+          userTeams = { [teamKey]: teamKey };
         }else {
-          userTeams.push(teamKey);
+          userTeams[teamKey] = teamKey;
         }
 
         this.dataService.saveUser( this.user['$key'], {
