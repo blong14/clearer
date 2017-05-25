@@ -109,6 +109,10 @@ export class DataService {
       return this.af.database.object('/teams/' + teamID);
     }
 
+    getTeams( userID: string ) {
+      return this.af.database.list('/users/' + userID + '/teams');
+    }
+
     getUser( id: string = undefined ) : FirebaseObjectObservable<any[]>{
       if( id != undefined ) { return this.af.database.object('/users/' + id ); }
       return this.af.database.object('/users');

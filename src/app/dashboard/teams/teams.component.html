@@ -1,9 +1,9 @@
 <h3>Teams</h3>
 
-<div class="team-selector">
-  <a routerLink="/dashboard" class="is-active">My Projects</a>
-  <a routerLink="/dashboard/team/1">Team 1</a>
-  <a routerLink="/dashboard/team/2">Team 2</a>
-  <button class="button" routerLink="/profile/123">Manage Teams</button>
+<div class="team-selector" *ngIf="teams">
+  <a routerLink="/dashboard" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact:
+true}">My Projects</a>
+  <a *ngFor="let team of teams" [routerLink]="['/dashboard', 'team', team.$key]" routerLinkActive="is-active">{{ team.name }}</a>
+  <button class="button" [routerLink]="['/profile/', user.uid]">Manage Teams</button>
 </div>
 
