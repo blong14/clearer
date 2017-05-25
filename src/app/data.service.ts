@@ -64,6 +64,26 @@ export class DataService {
       });
     }
 
+    deleteTeam( teamID: string ) {
+      return this.af.database.object('/teams/' + teamID).subscribe(
+        (res) => {
+          let members = Object.keys(res.members).map(key => res.members[key]);
+          console.log(members);
+
+          this.af.database.list('/teams/' + teamID).remove().then(
+            () => {
+              members.forEach( (member) => {
+                this.af.database.list('/users/' + member + '/teams/' + teamID).remove().then(
+                  () => this.router.navigate(['/dashboard'])
+                )
+              })
+            }
+          )
+
+        }
+      )
+    }
+
     addMemberToTeam( userID: string, teamID: string ) {
       console.log( userID, teamID);
       return this.af.database.object('/users/' + userID + '/teams/' + teamID ).set(teamID).then(
@@ -112,7 +132,7 @@ export class DataService {
           'email': email,
           'provider': 'password'
         }).then( () => {
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/profile', user.uid ]);
         });
       }).catch( (err) => {
         console.log(err.message);

@@ -17,6 +17,7 @@ export class TeamComponent implements OnInit {
   addMemberState: boolean = false;
   inviteEmail: string;
   inviteUser: Object;
+  deleteTeamState: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -76,6 +77,14 @@ export class TeamComponent implements OnInit {
     this.inviteUser = undefined;
     this.inviteEmail = undefined;
     this.addMemberState = !this.addMemberState;
+  }
+
+  toggleDeleteTeamState() {
+    this.deleteTeamState = !this.deleteTeamState;
+  }
+
+  deleteTeam( teamID ) {
+    this.dataService.deleteTeam( teamID );
   }
 
   isAdmin( userID ) {
