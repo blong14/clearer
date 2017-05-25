@@ -1,7 +1,19 @@
 <h3>Projects</h3>
-<div class="cards" *ngIf="projects">
-  <app-card *ngFor="let item of projects" [routerLink]="['/project/' + item.id]">
-    <div class="header">{{ item.name }}</div>
-    <div class="content">{{ item.description }}</div>
+<div class="cards">
+
+  <ng-container *ngIf="projects">
+    <app-card *ngFor="let item of projects" [routerLink]="['/project/' + item.id]">
+      <div class="header">{{ item.name }}</div>
+      <div class="content">{{ item.description }}</div>
+    </app-card>
+  </ng-container>
+
+  <app-card [class.transparent]="true" [routerLink]="['/project/create']">
+    <div class="header">Create New Project</div>
+    <div class="content">
+      <i class="placeholder-text"></i>
+      <i class="plus icon"></i>
+    </div>
   </app-card>
+
 </div>
