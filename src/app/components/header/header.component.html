@@ -1,5 +1,5 @@
 <header id="app-header">
-  <a routerLink="/" class="logo">Zebra</a>
+  <a routerLink="/" class="logo">Clearer</a>
   <div class="header-buttons">
     <a *ngIf="!user" routerLink="/login" class="header-button">Login</a>
     <a *ngIf="user" [routerLink]="['profile', user.uid]" class="header-button">Profile</a>

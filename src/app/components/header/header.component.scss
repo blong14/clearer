@@ -13,15 +13,19 @@ header{
 
     .logo{
         color: #fff;
-        text-transform: uppercase;
-        font-family: "Share";
-        font-style: italic;
+        text-transform: lowercase;
+        font-weight: 200;
         font-size: 2em;
         letter-spacing: 2px;
         transition: color .5s;
         line-height: 1.2em;
         display: inline-block;
         padding: .25em 0;
+        text-decoration: none;
+
+        &:hover {
+          color: #feb83d;
+        }
     }
 
     .header-buttons{
@@ -33,9 +37,10 @@ header{
     .header-button{
       background: #444;
       color: #ccc;
-      padding: 1em 1.5em;
+      padding: 1.25em 1.5em;
       display: inline-block;
       cursor: pointer;
+      text-decoration: none;
       transition: all .3s;
 
       &:hover{

@@ -18,40 +18,11 @@ export class DataService {
       private router: Router
     ) { }
 
-    getProjects(): FirebaseListObservable<any>{
-      return this.af.database.list('/projects');
-    }
-
-    getFeed() {
-      return this.af.database.list('/feed');
-    }
-
-    saveFeed( dataToSave ) {
-      return this.af.database.list('/feed').push( dataToSave );
-    }
-
-    getProject( id: string, path?: string ): FirebaseObjectObservable<any>{
-      let dbPath: string;
-
-      if( path ){
-        dbPath = '/projects/' + id + '/' + path;
-      }else{
-        dbPath = '/projects/' + id;
-      }
-
-      return this.af.database.object( dbPath );
-    }
-
-    deleteProject( id: string ){
-        return this.af.database.object('/projects/' + id).remove();
-    }
-
-    saveProject( id: string, dataToSave: any, path?: string): firebase.Promise<void> {
-         let updates = {};
-         let success: boolean;
-         if(path){ updates[ path ] = dataToSave; }
-         else{ updates = dataToSave; }
-         return this.af.database.object('/projects/' + id ).update( updates );
+    addMemberToTeam( userID: string, teamID: string ) {
+      return this.af.database.object('/users/' + userID + '/teams/' + teamID ).set(teamID).then(
+        (res) => {
+          this.af.database.object('/teams/' + teamID + '/members/' + userID ).set(userID).then();
+      });
     }
 
     createTeam( userID: string, teamName: string ) {
@@ -62,68 +33,6 @@ export class DataService {
           userID
         ]
       });
-    }
-
-    deleteTeam( teamID: string ) {
-      return this.af.database.object('/teams/' + teamID).subscribe(
-        (res) => {
-          let members = Object.keys(res.members).map(key => res.members[key]);
-          console.log(members);
-
-          this.af.database.list('/teams/' + teamID).remove().then(
-            () => {
-              members.forEach( (member) => {
-                this.af.database.list('/users/' + member + '/teams/' + teamID).remove().then(
-                  () => this.router.navigate(['/dashboard'])
-                )
-              })
-            }
-          )
-
-        }
-      )
-    }
-
-    addMemberToTeam( userID: string, teamID: string ) {
-      console.log( userID, teamID);
-      return this.af.database.object('/users/' + userID + '/teams/' + teamID ).set(teamID).then(
-        (res) => {
-          console.log(res);
-          this.af.database.object('/teams/' + teamID + '/members/' + userID ).set(userID).then(
-            (res) => {
-              console.log(res);
-            });
-        }
-      );
-
-    }
-
-    removeMemberFromTeam( userID: string, teamID: string ) {
-      return this.af.database.list('/users/' + userID + '/teams/' + teamID).remove().then(
-        () => {
-          this.af.database.list('/teams/' + teamID + '/members/' + userID).remove();
-      });
-    }
-
-    getTeam( teamID: string ) {
-      return this.af.database.object('/teams/' + teamID);
-    }
-
-    getTeams( userID: string ) {
-      return this.af.database.list('/users/' + userID + '/teams');
-    }
-
-    getUser( id: string = undefined ) : FirebaseObjectObservable<any[]>{
-      if( id != undefined ) { return this.af.database.object('/users/' + id ); }
-      return this.af.database.object('/users');
-    }
-
-    getUsers() {
-      return this.af.database.list('/users');
-    }
-
-    saveUser( id: string, user: Object ): firebase.Promise<void> {
-      return this.af.database.object('/users/' + id ).update(user);
     }
 
     createUser( name, email, password ) {
@@ -142,6 +51,78 @@ export class DataService {
         console.log(err.message);
       });
 
+    }
+
+    deleteProject( id: string ) {
+        return this.af.database.object('/projects/' + id).remove();
+    }
+
+    deleteTeam( teamID: string ) {
+      return this.af.database.object('/teams/' + teamID).subscribe(
+        (res) => {
+          let members = Object.keys(res.members).map(key => res.members[key]);
+
+          this.af.database.list('/teams/' + teamID).remove().then(
+            () => {
+              members.forEach( (member) => {
+                this.af.database.list('/users/' + member + '/teams/' + teamID).remove().then(
+                  () => this.router.navigate(['/dashboard'])
+                );
+              });
+          });
+      });
+    }
+
+    getProject( id: string, path?: string ): FirebaseObjectObservable<any> {
+      let dbPath: string;
+
+      if ( path ){
+        dbPath = '/projects/' + id + '/' + path;
+      } else {
+        dbPath = '/projects/' + id;
+      }
+
+      return this.af.database.object( dbPath );
+    }
+
+    getProjects(): FirebaseListObservable<any> {
+      return this.af.database.list('/projects');
+    }
+
+    getTeam( teamID: string ) {
+      return this.af.database.object('/teams/' + teamID);
+    }
+
+    getTeams( userID: string ) {
+      return this.af.database.list('/users/' + userID + '/teams');
+    }
+
+    getUser( id: string = undefined ): FirebaseObjectObservable<any[]> {
+      if( id != undefined ) { return this.af.database.object('/users/' + id ); }
+      return this.af.database.object('/users');
+    }
+
+    getUsers() {
+      return this.af.database.list('/users');
+    }
+
+    removeMemberFromTeam( userID: string, teamID: string ) {
+      return this.af.database.list('/users/' + userID + '/teams/' + teamID).remove().then(
+        () => {
+          this.af.database.list('/teams/' + teamID + '/members/' + userID).remove();
+      });
+    }
+
+    saveProject( id: string, dataToSave: any, path?: string ): firebase.Promise<void> {
+         let updates = {};
+         let success: boolean;
+         if(path){ updates[ path ] = dataToSave; }
+         else{ updates = dataToSave; }
+         return this.af.database.object('/projects/' + id ).update( updates );
+    }
+
+    saveUser( id: string, user: Object ): firebase.Promise<void> {
+      return this.af.database.object('/users/' + id ).update(user);
     }
 
 }
