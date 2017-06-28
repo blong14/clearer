@@ -7,12 +7,11 @@ import { Component, HostBinding, OnInit } from '@angular/core';
 })
 export class CardComponent implements OnInit {
 
+  @HostBinding('class.card') cardClass = true;
+  @HostBinding('class.link') linkClass = true;
+
   constructor() { }
 
-  @HostBinding('class.card') card = true;
-  @HostBinding('class.link') link = true;
-
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
 }

@@ -11,17 +11,17 @@ export class AuthService {
 
   authState: FirebaseAuthState;
 
-  constructor( private af: AngularFire, public http : Http, private route: Router ) { }
+  constructor( private af: AngularFire, public http: Http, private route: Router ) { }
 
-  login(em: string, pw: string){
+  login( em: string, pw: string ) {
     return this.af.auth.login({ email: em, password: pw });
   }
 
-  getUser(){
+  getUser() {
     return this.af.auth;
   }
 
-  logout(){
+  logout() {
     return this.af.auth.logout();
   }
 
