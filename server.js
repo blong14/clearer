@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 
-const forceSSL = function() {
+/*const forceSSL = function() {
   return function (req, res, next) {
     if (req.headers['x-forwarded-proto'] !== 'https') {
       return res.redirect(
@@ -15,6 +15,7 @@ const forceSSL = function() {
 // to use the forceSSL
 // middleware
 app.use(forceSSL());
+*/
 
 app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname + '/dist/index.html'));
