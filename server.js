@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const path = require('path');
 
 /*const forceSSL = function() {
   return function (req, res, next) {
@@ -17,9 +18,9 @@ const app = express();
 app.use(forceSSL());
 */
 
-app.get('/*', function(req, res) {
+/*app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname + '/dist/index.html'));
-});
+});*/
 
 // Run the app by serving the static files
 // in the dist directory
