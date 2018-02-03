@@ -1,2 +1,2 @@
-# Zebra [![Build Status](https://travis-ci.org/joshmobley/zebra.png?branch=master)](https://travis-ci.org/joshmobley/zebra)
+# Clearer [![Build Status](https://travis-ci.org/joshmobley/clearer.svg?branch=master)](https://travis-ci.org/joshmobley/clearer)
 
